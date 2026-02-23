@@ -34,7 +34,7 @@
             "Mathieu Fercocq",
             "Kenann Tobiansky"
         ],
-        "repo": "WookiesRpeople2/todo-api-node.git",
+        "repo": "WookiesRpeople2/todo-api-node",
         "team": "sql_injection"
     },
     {
@@ -85,7 +85,7 @@
         "team": "West Coast Team"
     },
     {
-        "deploy_url": "https://ci-cd-425f.onrender.com,",
+        "deploy_url": "https://ci-cd-425f.onrender.com",
         "members": [
             "Mehdi BELKATEB",
             "Lesly AIKPE"
