@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-23T11:26:56.408Z",
+  "generated_at": "2026-02-23T11:41:13.842Z",
   "total_possible": 130,
   "teams": [
     {
@@ -9,75 +9,75 @@
       ],
       "repo": "akasam/todo-api-python-test",
       "deploy_url": "",
-      "total": 0,
+      "total": 60,
       "maxTotal": 130,
       "results": {
         "pipeline_exists": {
-          "pass": false,
-          "detail": "0 workflow(s) found",
+          "pass": true,
+          "detail": "1 workflow(s) found",
           "points": 5,
           "label": "Pipeline exists",
           "category": "fundamentals"
         },
         "pipeline_green": {
           "pass": false,
-          "detail": "No runs found",
+          "detail": "Last run: failure (#2)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
         },
         "lint_pass": {
-          "pass": false,
-          "detail": "No real linter execution found in workflows",
+          "pass": true,
+          "detail": "Real linter in .github/workflows/ci.yml (command: ruff)",
           "points": 5,
           "label": "Lint step in pipeline",
           "category": "fundamentals"
         },
         "no_secrets_in_code": {
-          "pass": false,
-          "detail": "Secret found in main.py",
+          "pass": true,
+          "detail": "No hardcoded secrets detected",
           "points": 5,
           "label": "No hardcoded secrets",
           "category": "fundamentals"
         },
         "tests_exist": {
-          "pass": false,
-          "detail": "No test files found",
+          "pass": true,
+          "detail": "2 real test file(s), run in CI (command: pytest)",
           "points": 10,
           "label": "Tests exist in pipeline",
           "category": "fundamentals"
         },
         "tests_pass": {
           "pass": false,
-          "detail": "No runs",
+          "detail": "Pipeline not green",
           "points": 5,
           "label": "Tests pass",
           "category": "fundamentals"
         },
         "coverage_70": {
           "pass": false,
-          "detail": "No coverage step found in CI",
+          "detail": "Coverage in CI, pipeline red ❌",
           "points": 10,
           "label": "Coverage ≥ 70%",
           "category": "fundamentals"
         },
         "dockerfile_exists": {
-          "pass": false,
-          "detail": "No Dockerfile at root",
+          "pass": true,
+          "detail": "Valid Dockerfile found",
           "points": 5,
           "label": "Dockerfile exists",
           "category": "fundamentals"
         },
         "docker_builds": {
-          "pass": false,
-          "detail": "No docker build step in CI",
+          "pass": true,
+          "detail": "Docker build in .github/workflows/ci.yml (action: docker/build-push-action)",
           "points": 5,
           "label": "Docker build in CI",
           "category": "fundamentals"
         },
         "security_scan": {
-          "pass": false,
-          "detail": "No real security scan found in workflows",
+          "pass": true,
+          "detail": "Security scan: command: gitleaks/gitleaks-action in .github/workflows/ci.yml",
           "points": 10,
           "label": "Security scan in CI",
           "category": "intermediate"
@@ -111,8 +111,8 @@
           "category": "advanced"
         },
         "auto_deploy": {
-          "pass": false,
-          "detail": "No auto-deploy workflow found",
+          "pass": true,
+          "detail": "Deploy on push to main: command: deploy in .github/workflows/ci.yml",
           "points": 10,
           "label": "Auto-deploy on push to main",
           "category": "advanced"
@@ -132,8 +132,8 @@
           "category": "advanced"
         },
         "dependabot": {
-          "pass": false,
-          "detail": "No valid dependency update config",
+          "pass": true,
+          "detail": "dependabot.yml with valid config",
           "points": 5,
           "label": "Dependabot/Renovate configured",
           "category": "advanced"
