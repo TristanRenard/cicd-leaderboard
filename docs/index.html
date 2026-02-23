@@ -17,6 +17,7 @@
     .podium-rank { font-size: 2rem; }
     .podium-name { font-size: 1.3rem; font-weight: bold; margin: 0.5rem 0; }
     .podium-score { font-size: 1.8rem; font-weight: bold; color: #58a6ff; }
+    .podium-bonus { font-size: 0.9rem; color: #f0883e; }
     .table-container { max-width: 1200px; margin: 0 auto; }
     table { width: 100%; border-collapse: collapse; background: #161b22; border-radius: 8px; overflow: hidden; }
     th { background: #21262d; padding: 12px 16px; text-align: left; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; color: #8b949e; }
@@ -26,18 +27,21 @@
     .team-name { font-weight: 600; }
     .team-members { color: #8b949e; font-size: 0.85rem; }
     .score { font-weight: bold; font-size: 1.1rem; color: #58a6ff; }
+    .score-bonus { color: #f0883e; font-size: 0.85rem; font-weight: normal; }
     .bar { background: #21262d; border-radius: 4px; height: 8px; width: 100%; min-width: 100px; }
     .bar-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #238636, #2ea043); transition: width 0.5s; }
     .checks { display: flex; flex-wrap: wrap; gap: 4px; }
     .check { font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; white-space: nowrap; }
     .check.pass { background: #0d2818; color: #3fb950; }
     .check.fail { background: #2d1214; color: #f85149; }
-    .category-header { color: #8b949e; font-size: 0.7rem; text-transform: uppercase; margin-top: 4px; font-weight: 600; }
+    .check.bonus-pass { background: #2a1f00; color: #f0883e; }
+    .check.bonus-fail { background: #1c1c1c; color: #484f58; }
     .details-btn { background: #21262d; border: 1px solid #30363d; color: #c9d1d9; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; }
     .details-btn:hover { background: #30363d; }
     .detail-row { display: none; }
     .detail-row.open { display: table-row; }
     .detail-cell { padding: 16px; background: #0d1117; }
+    .detail-section { margin-bottom: 8px; font-weight: 600; color: #8b949e; font-size: 0.8rem; text-transform: uppercase; }
     .repo-link { color: #58a6ff; text-decoration: none; }
     .repo-link:hover { text-decoration: underline; }
     .deploy-link { color: #3fb950; text-decoration: none; font-size: 0.85rem; }
@@ -48,6 +52,7 @@
     .legend-dot.fund { background: #58a6ff; }
     .legend-dot.inter { background: #d29922; }
     .legend-dot.adv { background: #a371f7; }
+    .legend-dot.bonus { background: #f0883e; }
     @media (max-width: 768px) {
       body { padding: 1rem; }
       h1 { font-size: 1.8rem; }
@@ -82,6 +87,7 @@
     <div class="legend-item"><div class="legend-dot fund"></div> Fondamentaux (60 pts)</div>
     <div class="legend-item"><div class="legend-dot inter"></div> Intermédiaire (40 pts)</div>
     <div class="legend-item"><div class="legend-dot adv"></div> Avancé (30 pts)</div>
+    <div class="legend-item"><div class="legend-dot bonus"></div> Bonus (25 pts)</div>
   </div>
 
   <div class="updated" id="updated"></div>
@@ -89,23 +95,25 @@
   <script>
     const MEDALS = ['🥇', '🥈', '🥉'];
     const PODIUM_CLASSES = ['gold', 'silver', 'bronze'];
-    const CAT_COLORS = { fundamentals: 'fund', intermediate: 'inter', advanced: 'adv' };
 
     async function load() {
       const res = await fetch('scores.json');
       const data = await res.json();
+      const bonusPossible = data.bonus_possible || 0;
 
       document.getElementById('subtitle').textContent =
-        `${data.teams.length} équipes · ${data.total_possible} points possibles`;
+        `${data.teams.length} équipes · ${data.total_possible} points${bonusPossible ? ` + ${bonusPossible} bonus` : ''}`;
 
       // Podium
       const podium = document.getElementById('podium');
       data.teams.slice(0, 3).forEach((t, i) => {
+        const bonusStr = t.bonus > 0 ? `<div class="podium-bonus">+${t.bonus} bonus</div>` : '';
         podium.innerHTML += `
           <div class="podium-card ${PODIUM_CLASSES[i]}">
             <div class="podium-rank">${MEDALS[i]}</div>
             <div class="podium-name">${t.team}</div>
             <div class="podium-score">${t.total} pts</div>
+            ${bonusStr}
             <div class="team-members">${t.members.join(', ')}</div>
           </div>`;
       });
@@ -114,13 +122,27 @@
       const tbody = document.getElementById('tbody');
       data.teams.forEach((t) => {
         const pct = Math.round((t.total / data.total_possible) * 100);
+
+        // Core checks
         const checks = Object.entries(t.results)
           .map(([k, v]) => `<span class="check ${v.pass ? 'pass' : 'fail'}" title="${v.detail}">${v.pass ? '✅' : '❌'} ${v.label}</span>`)
           .join('');
 
-        const detailRows = Object.entries(t.results)
+        // Bonus checks
+        const bonusChecks = t.bonusResults ? Object.entries(t.bonusResults)
+          .map(([k, v]) => `<span class="check ${v.pass ? 'bonus-pass' : 'bonus-fail'}" title="${v.detail}">${v.pass ? '⭐' : '☆'} ${v.label}</span>`)
+          .join('') : '';
+
+        // Detail rows
+        const coreDetails = Object.entries(t.results)
           .map(([k, v]) => `<div><span class="check ${v.pass ? 'pass' : 'fail'}">${v.pass ? '✅' : '❌'} ${v.label} (${v.pass ? v.points : 0}/${v.points})</span> — ${v.detail}</div>`)
           .join('');
+
+        const bonusDetails = t.bonusResults ? Object.entries(t.bonusResults)
+          .map(([k, v]) => `<div><span class="check ${v.pass ? 'bonus-pass' : 'bonus-fail'}">${v.pass ? '⭐' : '☆'} ${v.label} (${v.pass ? v.points : 0}/${v.points})</span> — ${v.detail}</div>`)
+          .join('') : '';
+
+        const bonusScore = t.bonus > 0 ? `<span class="score-bonus"> +${t.bonus}</span>` : '';
 
         tbody.innerHTML += `
           <tr>
@@ -130,13 +152,17 @@
               <div class="team-members">${t.members.join(', ')}</div>
               ${t.deploy_url ? `<a class="deploy-link" href="${t.deploy_url}" target="_blank">🌐 ${t.deploy_url}</a>` : ''}
             </td>
-            <td class="score">${t.total}<span style="color:#8b949e;font-weight:normal">/${data.total_possible}</span></td>
+            <td class="score">${t.total}<span style="color:#8b949e;font-weight:normal">/${data.total_possible}</span>${bonusScore}</td>
             <td><div class="bar"><div class="bar-fill" style="width:${pct}%"></div></div></td>
-            <td class="checks">${checks}</td>
+            <td class="checks">${checks}${bonusChecks ? '<br>' + bonusChecks : ''}</td>
             <td><button class="details-btn" onclick="toggleDetail(this)">Détails</button></td>
           </tr>
           <tr class="detail-row">
-            <td colspan="6" class="detail-cell">${detailRows}</td>
+            <td colspan="6" class="detail-cell">
+              <div class="detail-section">Core</div>
+              ${coreDetails}
+              ${bonusDetails ? `<div class="detail-section" style="margin-top:12px">⭐ Bonus</div>${bonusDetails}` : ''}
+            </td>
           </tr>`;
       });
 
