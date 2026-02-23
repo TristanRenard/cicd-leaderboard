@@ -70,6 +70,46 @@ function stepIsReal(content, keywords) {
   return { found: false };
 }
 
+/**
+ * Count comment lines vs code lines in source files.
+ * Supports Python (#) and JS/TS (//, /* */)
+ */
+function countComments(content, lang) {
+  const lines = content.split("\n");
+  let comments = 0;
+  let code = 0;
+  let inBlock = false;
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) continue; // skip blank lines
+
+    if (lang === "python") {
+      if (trimmed.startsWith("#")) { comments++; }
+      else if (trimmed.startsWith('"""') || trimmed.startsWith("'''")) {
+        // Toggle block comment
+        const delim = trimmed.slice(0, 3);
+        if (inBlock) { comments++; inBlock = false; }
+        else if (trimmed.indexOf(delim, 3) !== -1) { comments++; } // single-line docstring
+        else { comments++; inBlock = true; }
+      } else if (inBlock) { comments++; }
+      else { code++; }
+    } else {
+      // JS/TS
+      if (inBlock) {
+        comments++;
+        if (trimmed.includes("*/")) inBlock = false;
+      } else if (trimmed.startsWith("//")) { comments++; }
+      else if (trimmed.startsWith("/*")) {
+        comments++;
+        if (!trimmed.includes("*/")) inBlock = false;
+        inBlock = !trimmed.includes("*/");
+      } else { code++; }
+    }
+  }
+  return { comments, code, total: comments + code };
+}
+
 /** Get all workflow file contents for a repo */
 async function getWorkflows(owner, repo) {
   const tree = await gh(`/repos/${owner}/${repo}/git/trees/main?recursive=1`);
@@ -292,6 +332,75 @@ const CHECKS = {
         }
       }
       return { pass: false, detail: "No docker build step in CI" };
+    },
+  },
+
+  swagger_docs: {
+    points: 5,
+    category: "fundamentals",
+    label: "API documentation (Swagger)",
+    run: async (_owner, _repo, team) => {
+      if (!team.deploy_url) return { pass: false, detail: "No deploy_url — cannot check Swagger" };
+      // Try common Swagger/OpenAPI endpoints
+      const endpoints = ["/docs", "/api-docs", "/swagger", "/api/docs"];
+      for (const ep of endpoints) {
+        try {
+          const url = team.deploy_url.replace(/\/+$/, "") + ep;
+          const controller = new AbortController();
+          const timeout = setTimeout(() => controller.abort(), 15000);
+          const res = await fetch(url, { signal: controller.signal });
+          clearTimeout(timeout);
+          if (res.ok) {
+            const body = await res.text();
+            if (body.includes("swagger") || body.includes("openapi") || body.includes("Swagger") || body.includes("ReDoc") || body.includes("FastAPI")) {
+              return { pass: true, detail: `Swagger found at ${ep}` };
+            }
+          }
+        } catch { /* continue */ }
+      }
+      return { pass: false, detail: "No Swagger/OpenAPI docs found" };
+    },
+  },
+
+  comment_ratio: {
+    points: 5,
+    category: "fundamentals",
+    label: "Code commented (≥ 5%)",
+    run: async (owner, repo, _team, ctx) => {
+      if (!ctx.tree?.tree) return { pass: false, detail: "Cannot read repo" };
+
+      const sourceFiles = ctx.tree.tree.filter((f) => {
+        const p = f.path.toLowerCase();
+        return (
+          (p.endsWith(".py") || p.endsWith(".js") || p.endsWith(".ts")) &&
+          !p.includes("node_modules") &&
+          !p.includes("test") &&
+          !p.includes("__pycache__") &&
+          !p.startsWith(".")
+        );
+      });
+
+      if (sourceFiles.length === 0) return { pass: false, detail: "No source files found" };
+
+      let totalComments = 0;
+      let totalCode = 0;
+
+      for (const f of sourceFiles.slice(0, 20)) {
+        const content = await ghRaw(owner, repo, f.path);
+        if (!content) continue;
+        const lang = f.path.endsWith(".py") ? "python" : "js";
+        const { comments, code } = countComments(content, lang);
+        totalComments += comments;
+        totalCode += code;
+      }
+
+      const total = totalComments + totalCode;
+      if (total === 0) return { pass: false, detail: "No code found" };
+      const ratio = Math.round((totalComments / total) * 100);
+      return {
+        pass: ratio >= 5,
+        detail: `${totalComments} comment lines / ${total} total (${ratio}%)`,
+      };
     },
   },
 
