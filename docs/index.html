@@ -165,8 +165,8 @@
           : '';
         const reviewDetails = review
           ? `<div class="detail-section" style="margin-top:12px">📝 Code Review (${review.total}/20)</div>
-             <div><span class="check ${review.code_quality?.score >= 6 ? 'pass' : 'fail'}">Code: ${review.code_quality?.score || 0}/10</span> — ${review.code_quality?.details || review.code_quality?.notes || ''}</div>
-             <div><span class="check ${review.documentation?.score >= 6 ? 'pass' : 'fail'}">Docs: ${review.documentation?.score || 0}/10</span> — ${review.documentation?.details || review.documentation?.notes || ''}</div>
+             <div><span class="check ${review.code_quality?.score >= 6 ? 'pass' : 'fail'}">Code: ${review.code_quality?.score || 0}/10</span> — ${typeof review.code_quality?.details === 'string' ? review.code_quality.details : review.code_quality?.notes || JSON.stringify(review.code_quality?.details || '')}</div>
+             <div><span class="check ${review.documentation?.score >= 6 ? 'pass' : 'fail'}">Docs: ${review.documentation?.score || 0}/10</span> — ${typeof review.documentation?.details === 'string' ? review.documentation.details : review.documentation?.notes || JSON.stringify(review.documentation?.details || '')}</div>
              ${review.summary ? `<div style="color:#8b949e;margin-top:4px;font-style:italic">${review.summary}</div>` : ''}`
           : '';
 
