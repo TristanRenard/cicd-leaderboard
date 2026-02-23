@@ -1,8 +1,8 @@
 [
   {
-    "team": "Exemple",
-    "members": ["etudiant1", "etudiant2"],
-    "repo": "akaclasses/todo-api-python",
+    "team": "Test",
+    "members": ["akasam"],
+    "repo": "akasam/todo-api-python-test",
     "deploy_url": ""
   }
 ]
