@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-23T14:50:24.473Z",
+  "generated_at": "2026-02-23T15:00:09.401Z",
   "total_possible": 130,
   "teams": [
     {
@@ -9,7 +9,7 @@
       ],
       "repo": "akasam/todo-api-python-test",
       "deploy_url": "https://todo-api-python-test.onrender.com",
-      "total": 115,
+      "total": 105,
       "maxTotal": 130,
       "results": {
         "pipeline_exists": {
@@ -20,8 +20,8 @@
           "category": "fundamentals"
         },
         "pipeline_green": {
-          "pass": true,
-          "detail": "Last run: success (#4)",
+          "pass": false,
+          "detail": "Last run: in_progress (#6)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
@@ -48,15 +48,15 @@
           "category": "fundamentals"
         },
         "tests_pass": {
-          "pass": true,
-          "detail": "Job \"test\": success",
+          "pass": false,
+          "detail": "Pipeline not green",
           "points": 5,
           "label": "Tests pass",
           "category": "fundamentals"
         },
         "coverage_70": {
-          "pass": true,
-          "detail": "Coverage in CI, pipeline green ✅",
+          "pass": false,
+          "detail": "Coverage in CI, pipeline red ❌",
           "points": 10,
           "label": "Coverage ≥ 70%",
           "category": "fundamentals"
@@ -90,8 +90,8 @@
           "category": "intermediate"
         },
         "quality_gate": {
-          "pass": false,
-          "detail": "No quality gate configured",
+          "pass": true,
+          "detail": "Quality gate: command: sonarcloud-github-action",
           "points": 10,
           "label": "Quality gate (SonarCloud etc.)",
           "category": "intermediate"
