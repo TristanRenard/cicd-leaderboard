@@ -505,6 +505,161 @@ const CHECKS = {
 };
 
 // ---------------------------------------------------------------------------
+// Coverage badge helper
+// ---------------------------------------------------------------------------
+
+/** Trusted coverage badge providers — only these are accepted */
+const TRUSTED_BADGE_PROVIDERS = [
+  { pattern: /codecov\.io\/gh\/[^/]+\/[^/]+/, name: "Codecov" },
+  { pattern: /coveralls\.io\/repos\/github\/[^/]+\/[^/]+/, name: "Coveralls" },
+  { pattern: /sonarcloud\.io\/api\/project_badges\/measure.*metric=coverage/, name: "SonarCloud" },
+  { pattern: /codeclimate\.com\/github\/[^/]+\/[^/]+\/badges/, name: "CodeClimate" },
+  { pattern: /app\.codacy\.com\/project\/badge\/Coverage/, name: "Codacy" },
+];
+
+/**
+ * Parse coverage % from a README badge.
+ * Returns { coverage: number, provider: string } or null.
+ * Anti-cheat: only accepts badges from trusted dynamic providers.
+ */
+async function parseCoverageBadge(owner, repo) {
+  const readme = await ghRaw(owner, repo, "README.md");
+  if (!readme) return null;
+
+  // Find all image URLs in the README
+  const imgRegex = /!\[[^\]]*\]\(([^)]+)\)/g;
+  const htmlImgRegex = /<img[^>]+src="([^"]+)"/g;
+  const urls = [];
+  let m;
+  while ((m = imgRegex.exec(readme))) urls.push(m[1]);
+  while ((m = htmlImgRegex.exec(readme))) urls.push(m[1]);
+
+  for (const url of urls) {
+    // Check if it's from a trusted provider
+    const provider = TRUSTED_BADGE_PROVIDERS.find((p) => p.pattern.test(url));
+    if (!provider) continue;
+
+    // Fetch the badge SVG and parse the percentage
+    try {
+      const res = await fetch(url, { headers: { Accept: "image/svg+xml" } });
+      if (!res.ok) continue;
+      const svg = await res.text();
+
+      // Extract percentage from SVG text content (e.g., "92%", "85.3%")
+      const pctMatch = svg.match(/(\d{1,3}(?:\.\d+)?)\s*%/);
+      if (pctMatch) {
+        return { coverage: parseFloat(pctMatch[1]), provider: provider.name, url };
+      }
+    } catch {
+      continue;
+    }
+  }
+
+  return null;
+}
+
+// ---------------------------------------------------------------------------
+// BONUS checks
+// ---------------------------------------------------------------------------
+
+const BONUS_CHECKS = {
+  coverage_80: {
+    points: 5,
+    category: "bonus",
+    label: "Coverage ≥ 80%",
+    run: async (owner, repo, _team, ctx) => {
+      const badge = ctx.coverageBadge;
+      if (!badge) return { pass: false, detail: "No trusted coverage badge in README" };
+      return {
+        pass: badge.coverage >= 80,
+        detail: `${badge.coverage}% via ${badge.provider}`,
+      };
+    },
+  },
+
+  coverage_90: {
+    points: 5,
+    category: "bonus",
+    label: "Coverage ≥ 90%",
+    run: async (owner, repo, _team, ctx) => {
+      const badge = ctx.coverageBadge;
+      if (!badge) return { pass: false, detail: "No trusted coverage badge in README" };
+      return {
+        pass: badge.coverage >= 90,
+        detail: `${badge.coverage}% via ${badge.provider}`,
+      };
+    },
+  },
+
+  coverage_95: {
+    points: 5,
+    category: "bonus",
+    label: "Coverage ≥ 95%",
+    run: async (owner, repo, _team, ctx) => {
+      const badge = ctx.coverageBadge;
+      if (!badge) return { pass: false, detail: "No trusted coverage badge in README" };
+      return {
+        pass: badge.coverage >= 95,
+        detail: `${badge.coverage}% via ${badge.provider}`,
+      };
+    },
+  },
+
+  conventional_commits: {
+    points: 5,
+    category: "bonus",
+    label: "Conventional commits",
+    run: async (owner, repo) => {
+      const commits = await gh(`/repos/${owner}/${repo}/commits?per_page=20`);
+      if (!commits || !Array.isArray(commits) || commits.length === 0) {
+        return { pass: false, detail: "No commits found" };
+      }
+      // Check that at least 80% of commits follow conventional format
+      const conventionalRegex = /^(feat|fix|docs|style|refactor|test|chore|ci|build|perf|revert)(\(.+\))?!?:\s/;
+      let conventional = 0;
+      for (const c of commits) {
+        if (conventionalRegex.test(c.commit.message)) conventional++;
+      }
+      const pct = Math.round((conventional / commits.length) * 100);
+      return {
+        pass: pct >= 80,
+        detail: `${conventional}/${commits.length} conventional (${pct}%)`,
+      };
+    },
+  },
+
+  readme_badges: {
+    points: 5,
+    category: "bonus",
+    label: "README with badges",
+    run: async (owner, repo) => {
+      const readme = await ghRaw(owner, repo, "README.md");
+      if (!readme) return { pass: false, detail: "No README.md" };
+
+      // Must have at least 2 badges (images that look like badges)
+      const badgePatterns = [
+        /!\[.*?\]\(https?:\/\/.*?badge.*?\)/gi,
+        /!\[.*?\]\(https?:\/\/.*?shields\.io.*?\)/gi,
+        /!\[.*?\]\(https?:\/\/.*?github\.com\/.*?actions\/workflows.*?\)/gi,
+        /!\[.*?\]\(https?:\/\/.*?codecov\.io.*?\)/gi,
+        /!\[.*?\]\(https?:\/\/.*?sonarcloud\.io.*?\)/gi,
+      ];
+
+      const allBadges = new Set();
+      for (const p of badgePatterns) {
+        let m;
+        while ((m = p.exec(readme))) allBadges.add(m[0]);
+      }
+
+      return {
+        pass: allBadges.size >= 2,
+        detail: `${allBadges.size} badge(s) found`,
+      };
+    },
+  },
+};
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -514,12 +669,14 @@ async function scoreTeam(team) {
 
   // Pre-fetch workflows (shared across checks)
   const { tree, workflows } = await getWorkflows(owner, repo);
-  const ctx = { tree, workflows };
+  const coverageBadge = await parseCoverageBadge(owner, repo);
+  const ctx = { tree, workflows, coverageBadge };
 
   const results = {};
   let total = 0;
   let maxTotal = 0;
 
+  console.log(`  --- Core checks ---`);
   for (const [key, check] of Object.entries(CHECKS)) {
     try {
       const result = await check.run(owner, repo, team, ctx);
@@ -535,7 +692,32 @@ async function scoreTeam(team) {
     }
   }
 
-  return { team: team.team, members: team.members, repo: team.repo, deploy_url: team.deploy_url, total, maxTotal, results };
+  // Bonus checks
+  let bonus = 0;
+  let maxBonus = 0;
+  const bonusResults = {};
+
+  console.log(`  --- Bonus ---`);
+  for (const [key, check] of Object.entries(BONUS_CHECKS)) {
+    try {
+      const result = await check.run(owner, repo, team, ctx);
+      bonusResults[key] = { ...result, points: check.points, label: check.label, category: check.category };
+      if (result.pass) bonus += check.points;
+      maxBonus += check.points;
+      const icon = result.pass ? "⭐" : "☆";
+      console.log(`  ${icon} ${check.label} (${result.pass ? check.points : 0}/${check.points}) — ${result.detail}`);
+    } catch (e) {
+      bonusResults[key] = { pass: false, points: check.points, label: check.label, category: check.category, detail: `Error: ${e.message}` };
+      maxBonus += check.points;
+      console.log(`  ⚠️  ${check.label} — Error: ${e.message}`);
+    }
+  }
+
+  return {
+    team: team.team, members: team.members, repo: team.repo, deploy_url: team.deploy_url,
+    total, maxTotal, bonus, maxBonus, grandTotal: total + bonus,
+    results, bonusResults,
+  };
 }
 
 async function main() {
@@ -546,12 +728,13 @@ async function main() {
     scores.push(await scoreTeam(team));
   }
 
-  scores.sort((a, b) => b.total - a.total);
+  scores.sort((a, b) => b.grandTotal - a.grandTotal);
   scores.forEach((s, i) => (s.rank = i + 1));
 
   const output = {
     generated_at: new Date().toISOString(),
     total_possible: Object.values(CHECKS).reduce((s, c) => s + c.points, 0),
+    bonus_possible: Object.values(BONUS_CHECKS).reduce((s, c) => s + c.points, 0),
     teams: scores,
   };
 
@@ -560,7 +743,8 @@ async function main() {
   console.log(`\n📊 Scores written to docs/scores.json`);
   console.log(`\n🏆 Leaderboard:`);
   for (const s of scores) {
-    console.log(`  #${s.rank} ${s.team} — ${s.total}/${s.maxTotal} pts`);
+    const bonusStr = s.bonus > 0 ? ` (+${s.bonus} bonus)` : "";
+    console.log(`  #${s.rank} ${s.team} — ${s.total}/${s.maxTotal} pts${bonusStr}`);
   }
 }
 
