@@ -1,14 +1,13 @@
 {
-  "generated_at": "2026-02-23T11:13:14.023Z",
+  "generated_at": "2026-02-23T11:26:56.408Z",
   "total_possible": 130,
   "teams": [
     {
-      "team": "Exemple",
+      "team": "Test",
       "members": [
-        "etudiant1",
-        "etudiant2"
+        "akasam"
       ],
-      "repo": "akaclasses/todo-api-python",
+      "repo": "akasam/todo-api-python-test",
       "deploy_url": "",
       "total": 0,
       "maxTotal": 130,
@@ -29,7 +28,7 @@
         },
         "lint_pass": {
           "pass": false,
-          "detail": "No lint step found in workflows",
+          "detail": "No real linter execution found in workflows",
           "points": 5,
           "label": "Lint step in pipeline",
           "category": "fundamentals"
@@ -78,14 +77,14 @@
         },
         "security_scan": {
           "pass": false,
-          "detail": "No security scan found in workflows",
+          "detail": "No real security scan found in workflows",
           "points": 10,
           "label": "Security scan in CI",
           "category": "intermediate"
         },
         "ghcr_published": {
           "pass": false,
-          "detail": "No container packages found",
+          "detail": "No container packages found on GHCR",
           "points": 10,
           "label": "Image on GHCR",
           "category": "intermediate"
@@ -120,7 +119,7 @@
         },
         "multi_env": {
           "pass": false,
-          "detail": "Single environment or none",
+          "detail": "No multiple environments (need both staging + production)",
           "points": 10,
           "label": "Multiple environments",
           "category": "advanced"
@@ -134,7 +133,7 @@
         },
         "dependabot": {
           "pass": false,
-          "detail": "No dependency update config",
+          "detail": "No valid dependency update config",
           "points": 5,
           "label": "Dependabot/Renovate configured",
           "category": "advanced"
