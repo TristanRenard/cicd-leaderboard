@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-23T15:00:09.401Z",
+  "generated_at": "2026-02-23T15:20:18.663Z",
   "total_possible": 130,
   "teams": [
     {
@@ -9,7 +9,7 @@
       ],
       "repo": "akasam/todo-api-python-test",
       "deploy_url": "https://todo-api-python-test.onrender.com",
-      "total": 105,
+      "total": 125,
       "maxTotal": 130,
       "results": {
         "pipeline_exists": {
@@ -20,8 +20,8 @@
           "category": "fundamentals"
         },
         "pipeline_green": {
-          "pass": false,
-          "detail": "Last run: in_progress (#6)",
+          "pass": true,
+          "detail": "Last run: success (#8)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
@@ -48,15 +48,15 @@
           "category": "fundamentals"
         },
         "tests_pass": {
-          "pass": false,
-          "detail": "Pipeline not green",
+          "pass": true,
+          "detail": "Job \"test\": success",
           "points": 5,
           "label": "Tests pass",
           "category": "fundamentals"
         },
         "coverage_70": {
-          "pass": false,
-          "detail": "Coverage in CI, pipeline red ❌",
+          "pass": true,
+          "detail": "Coverage in CI, pipeline green ✅",
           "points": 10,
           "label": "Coverage ≥ 70%",
           "category": "fundamentals"
@@ -126,7 +126,7 @@
         },
         "pipeline_fast": {
           "pass": true,
-          "detail": "Average: 1.3 min (last 1 runs)",
+          "detail": "Average: 1.4 min (last 2 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
