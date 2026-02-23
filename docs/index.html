@@ -95,14 +95,16 @@
   <script>
     function formatReviewDetails(section) {
       if (!section) return '';
+      // If details is a plain string
       if (typeof section.details === 'string') return section.details;
+      // If details is an object with sub-scores
+      if (section.details && typeof section.details === 'object') {
+        return Object.entries(section.details)
+          .map(([k, v]) => `<div style="margin-left:8px;font-size:0.85rem"><b>${k.replace(/_/g, ' ')}</b>: ${v}</div>`)
+          .join('');
+      }
       if (section.notes && typeof section.notes === 'string') return section.notes;
-      // Build readable string from sub-scores
-      const skip = ['score', 'details', 'notes'];
-      const parts = Object.entries(section)
-        .filter(([k, v]) => !skip.includes(k) && typeof v === 'string')
-        .map(([k, v]) => `<b>${k.replace(/_/g, ' ')}</b>: ${v}`);
-      return parts.join(' · ') || '';
+      return '';
     }
 
     const MEDALS = ['🥇', '🥈', '🥉'];
