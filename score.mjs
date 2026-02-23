@@ -72,7 +72,7 @@ function stepIsReal(content, keywords) {
 
 /**
  * Count comment lines vs code lines in source files.
- * Supports Python (#) and JS/TS (//, /* */)
+ * Supports Python (#) and JS/TS (single-line and block comments)
  */
 function countComments(content, lang) {
   const lines = content.split("\n");
