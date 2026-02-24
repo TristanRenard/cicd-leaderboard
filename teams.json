@@ -1,61 +1,5 @@
 [
     {
-        "deploy_url": "https://todoapp.fabienlaurence.com/",
-        "members": [
-            "Fabien LAURENCE",
-            "Douri Mohamad Monif",
-            "Evoeke Rafiringa"
-        ],
-        "repo": "FabLrc/todo-api-node",
-        "team": "Le Jardin"
-    },
-    {
-        "deploy_url": "",
-        "members": [
-            "lucas-bourdon",
-            "adam-younsi"
-        ],
-        "repo": "ayoun07/todo-api-node",
-        "team": "Exemple"
-    },
-    {
-        "deploy_url": "",
-        "members": [
-            "Visoth YOUK SIM",
-            "Amélie REYNAUD",
-            "Oussama DGHOUGHI"
-        ],
-        "repo": "",
-        "team": "NOBLE Team"
-    },
-    {
-        "deploy_url": "https://www.sqlinjection.wookiesrpeople2.dev/ ",
-        "members": [
-            "Mathieu Fercocq",
-            "Kenann Tobiansky"
-        ],
-        "repo": "WookiesRpeople2/todo-api-node",
-        "team": "sql_injection"
-    },
-    {
-        "deploy_url": "",
-        "members": [
-            "SIMSEK Lutfi",
-            "BALOUP Clément"
-        ],
-        "repo": "paspigui/todo-api-node",
-        "team": "La team"
-    },
-    {
-        "deploy_url": "https://todo-api.ralex.app",
-        "members": [
-            "Alexandre Raynaud",
-            "Jules Vallet"
-        ],
-        "repo": "LuaPanic/todo-api-node",
-        "team": "TeamRedBox"
-    },
-    {
         "deploy_url": "",
         "members": [
             "Allan THIERY-DEMANGEON",
@@ -64,51 +8,5 @@
         ],
         "repo": "lootopia-les-3-dev/todo-api-node",
         "team": "HAT"
-    },
-    {
-        "deploy_url": "",
-        "members": [
-            "Hugo Zins",
-            "Antoine Ciric"
-        ],
-        "repo": "un-mec-paumer/todo-api-node.git",
-        "team": "hello world"
-    },
-    {
-        "deploy_url": "",
-        "members": [
-            "Baptiste DANDE",
-            "Keryan CHAMPION",
-            "Nathan HUMEAU"
-        ],
-        "repo": "keryanchpn/todo-api-node",
-        "team": "West Coast Team"
-    },
-    {
-        "deploy_url": "https://ci-cd-425f.onrender.com",
-        "members": [
-            "Mehdi BELKATEB",
-            "Lesly AIKPE"
-        ],
-        "repo": "Reemark/CI-CD",
-        "team": "Team-locker"
-    },
-    {
-        "deploy_url": "",
-        "members": [
-            "Julian CHRISTMANN",
-            "Bilal MOHAMMAD"
-        ],
-        "repo": "Christmann-Julian/todo-api-node",
-        "team": "Team BJ"
-    },
-    {
-        "deploy_url": "https://todo-api-node-production.up.railway.app/",
-        "members": [
-            "Elise Chaldjian",
-            "Jeremy Sananikone"
-        ],
-        "repo": "Anothays/todo-api-node",
-        "team": "?"
     }
 ]
