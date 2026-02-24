@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T16:24:47.289Z",
+  "generated_at": "2026-02-24T16:27:31.679Z",
   "total_possible": 140,
   "bonus_possible": 40,
   "teams": [
@@ -198,7 +198,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":386.837572948}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":551.224413618}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -413,7 +413,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":318.495855784}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":480.968332255}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -630,7 +630,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":382.378334483}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":545.311199393}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
