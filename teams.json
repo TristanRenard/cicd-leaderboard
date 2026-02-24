@@ -1,7 +1,7 @@
 [
     {
         "deploy_url": "https://todo-api.httpd.zip",
-        "members": [],
+        "members": ["test test"],
         "repo": "LuaPanic/todo-api-node",
         "team": "TeamRedBox",
         "branch":"main"
