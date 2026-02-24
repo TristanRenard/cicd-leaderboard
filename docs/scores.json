@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T20:33:25.032Z",
+  "generated_at": "2026-02-24T21:27:31.557Z",
   "total_possible": 140,
   "bonus_possible": 40,
   "teams": [
@@ -28,7 +28,7 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#135)",
+          "detail": "Last run: success (#137)",
           "points": 5,
           "label": "Pipeline green on branch",
           "category": "fundamentals"
@@ -147,7 +147,7 @@
         },
         "pipeline_fast": {
           "pass": true,
-          "detail": "Average: 1.7 min (last 3 runs)",
+          "detail": "Average: 1.3 min (last 3 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
@@ -198,7 +198,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":3322.326475047}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":118.719666965}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -245,7 +245,7 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#11)",
+          "detail": "Last run: success (#12)",
           "points": 5,
           "label": "Pipeline green on branch",
           "category": "fundamentals"
@@ -415,7 +415,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":3317.792954959}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":114.218599699}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -630,7 +630,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":381.954435077}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":3628.28679666}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
