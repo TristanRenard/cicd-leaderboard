@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T15:05:46.678Z",
+  "generated_at": "2026-02-24T15:09:37.360Z",
   "total_possible": 140,
   "bonus_possible": 25,
   "teams": [
@@ -13,11 +13,11 @@
       "repo": "lootopia-les-3-dev/todo-api-node",
       "branch": "main",
       "deploy_url": "https://todo.lootopia.io",
-      "total": 130,
+      "total": 135,
       "maxTotal": 140,
       "bonus": 25,
       "maxBonus": 25,
-      "grandTotal": 155,
+      "grandTotal": 160,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -83,8 +83,8 @@
           "category": "fundamentals"
         },
         "swagger_docs": {
-          "pass": false,
-          "detail": "No Swagger/OpenAPI docs found",
+          "pass": true,
+          "detail": "Swagger found at /docs",
           "points": 5,
           "label": "API documentation (Swagger)",
           "category": "fundamentals"
@@ -209,11 +209,11 @@
       "repo": "lootopia-les-3-dev/todo-api-node",
       "branch": "develop",
       "deploy_url": "https://todo.lootopia.io",
-      "total": 115,
+      "total": 135,
       "maxTotal": 140,
       "bonus": 25,
       "maxBonus": 25,
-      "grandTotal": 140,
+      "grandTotal": 160,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -223,8 +223,8 @@
           "category": "fundamentals"
         },
         "pipeline_green": {
-          "pass": false,
-          "detail": "Last run: in_progress (#78)",
+          "pass": true,
+          "detail": "Last run: success (#78)",
           "points": 5,
           "label": "Pipeline green on branch",
           "category": "fundamentals"
@@ -251,15 +251,15 @@
           "category": "fundamentals"
         },
         "tests_pass": {
-          "pass": false,
-          "detail": "Pipeline not green",
+          "pass": true,
+          "detail": "Job \"test\": success",
           "points": 5,
           "label": "Tests pass",
           "category": "fundamentals"
         },
         "coverage_70": {
-          "pass": false,
-          "detail": "Coverage in CI, pipeline red ❌",
+          "pass": true,
+          "detail": "Coverage in CI, pipeline green ✅",
           "points": 10,
           "label": "Coverage ≥ 70%",
           "category": "fundamentals"
@@ -403,11 +403,11 @@
       "repo": "LuaPanic/todo-api-node",
       "branch": "main",
       "deploy_url": "https://todo-api.httpd.zip",
-      "total": 100,
+      "total": 110,
       "maxTotal": 140,
       "bonus": 5,
       "maxBonus": 25,
-      "grandTotal": 105,
+      "grandTotal": 115,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -508,8 +508,8 @@
           "category": "intermediate"
         },
         "deployed": {
-          "pass": false,
-          "detail": "https://todo-api.httpd.zip → This operation was aborted",
+          "pass": true,
+          "detail": "https://todo-api.httpd.zip → HTTP 200 ✅ (Todo API verified)",
           "points": 10,
           "label": "App deployed (HTTP 200)",
           "category": "intermediate"
