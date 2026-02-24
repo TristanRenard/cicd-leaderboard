@@ -463,18 +463,28 @@ const CHECKS = {
     },
   },
 
+  // PATCHED: checks both classic protection and Repository Rulesets (new GitHub system)
   branch_protection: {
     points: 5,
     category: "advanced",
-    label: "Branch protection",
-    run: async (owner, repo, team) => {
-      const prot = await gh(`/repos/${owner}/${repo}/branches/${team.branch}/protection`)
-      if (!prot || prot.message) return { pass: false, detail: `No branch protection on ${team.branch}` }
-      const prRequired = prot.required_pull_request_reviews
-      return {
-        pass: !!prRequired,
-        detail: prRequired ? "PR required before merge ✅" : "Protection exists but PR not required",
+    label: "Branch protection on main",
+    run: async (owner, repo) => {
+      // Try classic branch protection first
+      const prot = await gh(`/repos/${owner}/${repo}/branches/main/protection`)
+      if (prot && !prot.message && prot.required_pull_request_reviews) {
+        return { pass: true, detail: "Classic branch protection — PR required ✅" }
       }
+      // Try Repository Rulesets API (new GitHub system)
+      const rules = await gh(`/repos/${owner}/${repo}/rules/branches/main`)
+      if (rules && Array.isArray(rules) && rules.length > 0) {
+        const hasPR = rules.some((r) => r.type === "pull_request")
+        if (hasPR) {
+          return { pass: true, detail: "Repository ruleset — PR required ✅" }
+        }
+        const ruleTypes = rules.map((r) => r.type).join(", ")
+        return { pass: true, detail: `Repository ruleset active (${ruleTypes})` }
+      }
+      return { pass: false, detail: "No branch protection (checked classic + rulesets)" }
     },
   },
 
@@ -695,6 +705,99 @@ const BONUS_CHECKS = {
         pass: allBadges.size >= 2,
         detail: `${allBadges.size} badge(s) found`,
       }
+    },
+  },
+
+  // NEW: health endpoint returning JSON with status field
+  health_endpoint: {
+    points: 5,
+    category: "bonus",
+    label: "Health endpoint",
+    run: async (_owner, _repo, team) => {
+      if (!team.deploy_url) return { pass: false, detail: "No deploy URL" }
+      const base = team.deploy_url.replace(/\/+$/, "")
+      for (const path of ["/health", "/healthz", "/api/health"]) {
+        try {
+          const res = await fetch(`${base}${path}`, { signal: AbortSignal.timeout(10000) })
+          if (!res.ok) continue
+          const text = await res.text()
+          try {
+            const json = JSON.parse(text)
+            if (json.status) {
+              return { pass: true, detail: `${path} → ${JSON.stringify(json).slice(0, 100)}` }
+            }
+          } catch { /* not JSON, skip */ }
+        } catch { continue }
+      }
+      return { pass: false, detail: "No /health, /healthz, or /api/health returning JSON with status" }
+    },
+  },
+
+  // NEW: performance tests via k6, artillery, autocannon, etc.
+  perf_tests: {
+    points: 5,
+    category: "bonus",
+    label: "Performance tests in CI",
+    run: async (_owner, _repo, _team, ctx) => {
+      if (!ctx.workflows || ctx.workflows.length === 0) return { pass: false, detail: "No workflows" }
+      const perfTools = ["k6", "artillery", "autocannon", "loadtest", "vegeta", "wrk", "ab ", "hey ", "bombardier", "locust"]
+      for (const wf of ctx.workflows) {
+        const lower = wf.content.toLowerCase()
+        if (lower.includes("grafana/k6-action") || lower.includes("artilleryio/action")) {
+          return { pass: true, detail: `Found perf action in ${wf.path}` }
+        }
+        for (const tool of perfTools) {
+          if (lower.includes(tool)) {
+            const lines = wf.content.split("\n")
+            for (const line of lines) {
+              const trimmed = line.trim().toLowerCase()
+              if ((trimmed.startsWith("run:") || trimmed.startsWith("- run:")) && trimmed.includes(tool.trim())) {
+                return { pass: true, detail: `Found ${tool.trim()} in ${wf.path}` }
+              }
+            }
+          }
+        }
+      }
+      return { pass: false, detail: "No k6/artillery/autocannon/loadtest found in workflows" }
+    },
+  },
+
+  // NEW: automated changelog via release-please, semantic-release, etc.
+  auto_changelog: {
+    points: 5,
+    category: "bonus",
+    label: "Automated changelog",
+    run: async (owner, repo, _team, ctx) => {
+      const changelogTools = ["release-please", "semantic-release", "conventional-changelog", "auto-changelog", "standard-version"]
+
+      if (ctx.workflows) {
+        for (const wf of ctx.workflows) {
+          const lower = wf.content.toLowerCase()
+          const found = changelogTools.find((t) => lower.includes(t))
+          if (found) return { pass: true, detail: `Found ${found} in ${wf.path}` }
+        }
+      }
+
+      const pkg = await ghRaw(owner, repo, "package.json", "main")
+      if (pkg) {
+        try {
+          const json = JSON.parse(pkg)
+          const scripts = JSON.stringify(json.scripts || {}).toLowerCase()
+          const deps = JSON.stringify({ ...json.dependencies, ...json.devDependencies }).toLowerCase()
+          const found = changelogTools.find((t) => scripts.includes(t) || deps.includes(t))
+          if (found) return { pass: true, detail: `Found ${found} in package.json` }
+        } catch { /* invalid package.json */ }
+      }
+
+      const changelog = await ghRaw(owner, repo, "CHANGELOG.md", "main")
+      if (changelog && changelog.length > 200) {
+        const versionHeaders = (changelog.match(/^##?\s+\[?\d+\.\d+/gm) || []).length
+        if (versionHeaders >= 2) {
+          return { pass: true, detail: `CHANGELOG.md has ${versionHeaders} version entries` }
+        }
+      }
+
+      return { pass: false, detail: "No release-please/semantic-release/conventional-changelog found" }
     },
   },
 }
