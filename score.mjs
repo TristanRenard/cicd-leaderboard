@@ -652,7 +652,14 @@ const BONUS_CHECKS = {
       const conventionalRegex = /^(feat|fix|docs|style|refactor|test|chore|ci|build|perf|revert)(\(.+\))?!?:\s/
       let conventional = 0
       for (const c of commits) {
-        if (conventionalRegex.test(c.commit.message)) conventional++
+        const msg = c.commit.message
+        if (conventionalRegex.test(msg)) {
+          conventional++
+        } else {
+          const lines = msg.split("\n").filter((l) => l.trim())
+          const bodyConventional = lines.filter((l) => conventionalRegex.test(l.replace(/^\*\s*/, ""))).length
+          if (bodyConventional >= 2) conventional++
+        }
       }
       const pct = Math.round((conventional / commits.length) * 100)
       return {
@@ -697,7 +704,8 @@ const BONUS_CHECKS = {
 // ---------------------------------------------------------------------------
 
 const scoreTeam = async (team) => {
-  const [owner, repo] = team.repo.split("/")
+  const cleanRepo = team.repo.replace(/\.git$/, "")
+  const [owner, repo] = cleanRepo.split("/")
   const branch = team.branch ?? "main"
   const teamWithBranch = { ...team, branch }
 
