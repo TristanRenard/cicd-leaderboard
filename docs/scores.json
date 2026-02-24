@@ -1,8 +1,225 @@
 {
-  "generated_at": "2026-02-24T15:10:30.090Z",
+  "generated_at": "2026-02-24T15:13:32.650Z",
   "total_possible": 140,
-  "bonus_possible": 25,
+  "bonus_possible": 40,
   "teams": [
+    {
+      "team": "HAT-develop",
+      "members": [
+        "Allan THIERY-DEMANGEON",
+        "Hugo WEHRLE",
+        "Tristan RENARD"
+      ],
+      "repo": "lootopia-les-3-dev/todo-api-node",
+      "branch": "develop",
+      "deploy_url": "https://todo.lootopia.io",
+      "total": 140,
+      "maxTotal": 140,
+      "bonus": 30,
+      "maxBonus": 40,
+      "grandTotal": 170,
+      "results": {
+        "pipeline_exists": {
+          "pass": true,
+          "detail": "1 workflow(s) found",
+          "points": 5,
+          "label": "Pipeline exists",
+          "category": "fundamentals"
+        },
+        "pipeline_green": {
+          "pass": true,
+          "detail": "Last run: success (#78)",
+          "points": 5,
+          "label": "Pipeline green on branch",
+          "category": "fundamentals"
+        },
+        "lint_pass": {
+          "pass": true,
+          "detail": "Real linter in .github/workflows/ci.yml (command: eslint)",
+          "points": 5,
+          "label": "Lint step in pipeline",
+          "category": "fundamentals"
+        },
+        "no_secrets_in_code": {
+          "pass": true,
+          "detail": "No hardcoded secrets detected",
+          "points": 5,
+          "label": "No hardcoded secrets",
+          "category": "fundamentals"
+        },
+        "tests_exist": {
+          "pass": true,
+          "detail": "4 real test file(s), run in CI (command: jest)",
+          "points": 10,
+          "label": "Tests exist in pipeline",
+          "category": "fundamentals"
+        },
+        "tests_pass": {
+          "pass": true,
+          "detail": "Job \"test\": success",
+          "points": 5,
+          "label": "Tests pass",
+          "category": "fundamentals"
+        },
+        "coverage_70": {
+          "pass": true,
+          "detail": "Coverage in CI, pipeline green ✅",
+          "points": 10,
+          "label": "Coverage ≥ 70%",
+          "category": "fundamentals"
+        },
+        "dockerfile_exists": {
+          "pass": true,
+          "detail": "Valid Dockerfile found",
+          "points": 5,
+          "label": "Dockerfile exists",
+          "category": "fundamentals"
+        },
+        "docker_builds": {
+          "pass": true,
+          "detail": "Docker build in .github/workflows/ci.yml (action: docker/build-push-action)",
+          "points": 5,
+          "label": "Docker build in CI",
+          "category": "fundamentals"
+        },
+        "swagger_docs": {
+          "pass": true,
+          "detail": "Swagger found at /docs",
+          "points": 5,
+          "label": "API documentation (Swagger)",
+          "category": "fundamentals"
+        },
+        "comment_ratio": {
+          "pass": true,
+          "detail": "592 comment lines / 1149 total (52%)",
+          "points": 5,
+          "label": "Code commented (≥ 5%)",
+          "category": "fundamentals"
+        },
+        "security_scan": {
+          "pass": true,
+          "detail": "Security scan: action: aquasecurity/trivy-action in .github/workflows/ci.yml",
+          "points": 10,
+          "label": "Security scan in CI",
+          "category": "intermediate"
+        },
+        "ghcr_published": {
+          "pass": true,
+          "detail": "Package \"todo-api-node\" found in org",
+          "points": 10,
+          "label": "Image on GHCR",
+          "category": "intermediate"
+        },
+        "quality_gate": {
+          "pass": true,
+          "detail": "Quality gate: action: sonarcloud-github-action",
+          "points": 10,
+          "label": "Quality gate (SonarCloud etc.)",
+          "category": "intermediate"
+        },
+        "deployed": {
+          "pass": true,
+          "detail": "https://todo.lootopia.io → HTTP 200 ✅ (Todo API verified)",
+          "points": 10,
+          "label": "App deployed (HTTP 200)",
+          "category": "intermediate"
+        },
+        "branch_protection": {
+          "pass": true,
+          "detail": "Classic branch protection — PR required ✅",
+          "points": 5,
+          "label": "Branch protection on main",
+          "category": "advanced"
+        },
+        "auto_deploy": {
+          "pass": true,
+          "detail": "Deploy on push to develop: command: deploy in .github/workflows/ci.yml",
+          "points": 10,
+          "label": "Auto-deploy on push to branch",
+          "category": "advanced"
+        },
+        "multi_env": {
+          "pass": true,
+          "detail": "Staging + production environments in .github/workflows/ci.yml",
+          "points": 10,
+          "label": "Multiple environments",
+          "category": "advanced"
+        },
+        "pipeline_fast": {
+          "pass": true,
+          "detail": "Average: 1.4 min (last 3 runs)",
+          "points": 5,
+          "label": "Pipeline < 3 minutes",
+          "category": "advanced"
+        },
+        "dependabot": {
+          "pass": true,
+          "detail": "dependabot config with valid setup",
+          "points": 5,
+          "label": "Dependabot/Renovate configured",
+          "category": "advanced"
+        }
+      },
+      "bonusResults": {
+        "coverage_80": {
+          "pass": true,
+          "detail": "100% via SonarCloud",
+          "points": 5,
+          "label": "Coverage ≥ 80%",
+          "category": "bonus"
+        },
+        "coverage_90": {
+          "pass": true,
+          "detail": "100% via SonarCloud",
+          "points": 5,
+          "label": "Coverage ≥ 90%",
+          "category": "bonus"
+        },
+        "coverage_95": {
+          "pass": true,
+          "detail": "100% via SonarCloud",
+          "points": 5,
+          "label": "Coverage ≥ 95%",
+          "category": "bonus"
+        },
+        "conventional_commits": {
+          "pass": true,
+          "detail": "16/20 conventional (80%)",
+          "points": 5,
+          "label": "Conventional commits",
+          "category": "bonus"
+        },
+        "readme_badges": {
+          "pass": true,
+          "detail": "3 badge(s) found",
+          "points": 5,
+          "label": "README with badges",
+          "category": "bonus"
+        },
+        "health_endpoint": {
+          "pass": true,
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":4767.098240683}",
+          "points": 5,
+          "label": "Health endpoint",
+          "category": "bonus"
+        },
+        "perf_tests": {
+          "pass": false,
+          "detail": "No k6/artillery/autocannon/loadtest found in workflows",
+          "points": 5,
+          "label": "Performance tests in CI",
+          "category": "bonus"
+        },
+        "auto_changelog": {
+          "pass": false,
+          "detail": "No release-please/semantic-release/conventional-changelog found",
+          "points": 5,
+          "label": "Automated changelog",
+          "category": "bonus"
+        }
+      },
+      "rank": 1
+    },
     {
       "team": "HAT-main",
       "members": [
@@ -15,9 +232,9 @@
       "deploy_url": "https://todo.lootopia.io",
       "total": 135,
       "maxTotal": 140,
-      "bonus": 25,
-      "maxBonus": 25,
-      "grandTotal": 160,
+      "bonus": 30,
+      "maxBonus": 40,
+      "grandTotal": 165,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -126,9 +343,9 @@
         },
         "branch_protection": {
           "pass": true,
-          "detail": "PR required before merge ✅",
+          "detail": "Classic branch protection — PR required ✅",
           "points": 5,
-          "label": "Branch protection",
+          "label": "Branch protection on main",
           "category": "advanced"
         },
         "auto_deploy": {
@@ -195,201 +412,26 @@
           "points": 5,
           "label": "README with badges",
           "category": "bonus"
-        }
-      },
-      "rank": 1
-    },
-    {
-      "team": "HAT-develop",
-      "members": [
-        "Allan THIERY-DEMANGEON",
-        "Hugo WEHRLE",
-        "Tristan RENARD"
-      ],
-      "repo": "lootopia-les-3-dev/todo-api-node",
-      "branch": "develop",
-      "deploy_url": "https://todo.lootopia.io",
-      "total": 135,
-      "maxTotal": 140,
-      "bonus": 25,
-      "maxBonus": 25,
-      "grandTotal": 160,
-      "results": {
-        "pipeline_exists": {
+        },
+        "health_endpoint": {
           "pass": true,
-          "detail": "1 workflow(s) found",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":4761.313137398}",
           "points": 5,
-          "label": "Pipeline exists",
-          "category": "fundamentals"
+          "label": "Health endpoint",
+          "category": "bonus"
         },
-        "pipeline_green": {
-          "pass": true,
-          "detail": "Last run: success (#78)",
-          "points": 5,
-          "label": "Pipeline green on branch",
-          "category": "fundamentals"
-        },
-        "lint_pass": {
-          "pass": true,
-          "detail": "Real linter in .github/workflows/ci.yml (command: eslint)",
-          "points": 5,
-          "label": "Lint step in pipeline",
-          "category": "fundamentals"
-        },
-        "no_secrets_in_code": {
-          "pass": true,
-          "detail": "No hardcoded secrets detected",
-          "points": 5,
-          "label": "No hardcoded secrets",
-          "category": "fundamentals"
-        },
-        "tests_exist": {
-          "pass": true,
-          "detail": "4 real test file(s), run in CI (command: jest)",
-          "points": 10,
-          "label": "Tests exist in pipeline",
-          "category": "fundamentals"
-        },
-        "tests_pass": {
-          "pass": true,
-          "detail": "Job \"test\": success",
-          "points": 5,
-          "label": "Tests pass",
-          "category": "fundamentals"
-        },
-        "coverage_70": {
-          "pass": true,
-          "detail": "Coverage in CI, pipeline green ✅",
-          "points": 10,
-          "label": "Coverage ≥ 70%",
-          "category": "fundamentals"
-        },
-        "dockerfile_exists": {
-          "pass": true,
-          "detail": "Valid Dockerfile found",
-          "points": 5,
-          "label": "Dockerfile exists",
-          "category": "fundamentals"
-        },
-        "docker_builds": {
-          "pass": true,
-          "detail": "Docker build in .github/workflows/ci.yml (action: docker/build-push-action)",
-          "points": 5,
-          "label": "Docker build in CI",
-          "category": "fundamentals"
-        },
-        "swagger_docs": {
-          "pass": true,
-          "detail": "Swagger found at /docs",
-          "points": 5,
-          "label": "API documentation (Swagger)",
-          "category": "fundamentals"
-        },
-        "comment_ratio": {
-          "pass": true,
-          "detail": "592 comment lines / 1149 total (52%)",
-          "points": 5,
-          "label": "Code commented (≥ 5%)",
-          "category": "fundamentals"
-        },
-        "security_scan": {
-          "pass": true,
-          "detail": "Security scan: action: aquasecurity/trivy-action in .github/workflows/ci.yml",
-          "points": 10,
-          "label": "Security scan in CI",
-          "category": "intermediate"
-        },
-        "ghcr_published": {
-          "pass": true,
-          "detail": "Package \"todo-api-node\" found in org",
-          "points": 10,
-          "label": "Image on GHCR",
-          "category": "intermediate"
-        },
-        "quality_gate": {
-          "pass": true,
-          "detail": "Quality gate: action: sonarcloud-github-action",
-          "points": 10,
-          "label": "Quality gate (SonarCloud etc.)",
-          "category": "intermediate"
-        },
-        "deployed": {
-          "pass": true,
-          "detail": "https://todo.lootopia.io → HTTP 200 ✅ (Todo API verified)",
-          "points": 10,
-          "label": "App deployed (HTTP 200)",
-          "category": "intermediate"
-        },
-        "branch_protection": {
+        "perf_tests": {
           "pass": false,
-          "detail": "No branch protection on develop",
+          "detail": "No k6/artillery/autocannon/loadtest found in workflows",
           "points": 5,
-          "label": "Branch protection",
-          "category": "advanced"
-        },
-        "auto_deploy": {
-          "pass": true,
-          "detail": "Deploy on push to develop: command: deploy in .github/workflows/ci.yml",
-          "points": 10,
-          "label": "Auto-deploy on push to branch",
-          "category": "advanced"
-        },
-        "multi_env": {
-          "pass": true,
-          "detail": "Staging + production environments in .github/workflows/ci.yml",
-          "points": 10,
-          "label": "Multiple environments",
-          "category": "advanced"
-        },
-        "pipeline_fast": {
-          "pass": true,
-          "detail": "Average: 1.4 min (last 3 runs)",
-          "points": 5,
-          "label": "Pipeline < 3 minutes",
-          "category": "advanced"
-        },
-        "dependabot": {
-          "pass": true,
-          "detail": "dependabot config with valid setup",
-          "points": 5,
-          "label": "Dependabot/Renovate configured",
-          "category": "advanced"
-        }
-      },
-      "bonusResults": {
-        "coverage_80": {
-          "pass": true,
-          "detail": "100% via SonarCloud",
-          "points": 5,
-          "label": "Coverage ≥ 80%",
+          "label": "Performance tests in CI",
           "category": "bonus"
         },
-        "coverage_90": {
-          "pass": true,
-          "detail": "100% via SonarCloud",
+        "auto_changelog": {
+          "pass": false,
+          "detail": "No release-please/semantic-release/conventional-changelog found",
           "points": 5,
-          "label": "Coverage ≥ 90%",
-          "category": "bonus"
-        },
-        "coverage_95": {
-          "pass": true,
-          "detail": "100% via SonarCloud",
-          "points": 5,
-          "label": "Coverage ≥ 95%",
-          "category": "bonus"
-        },
-        "conventional_commits": {
-          "pass": true,
-          "detail": "16/20 conventional (80%)",
-          "points": 5,
-          "label": "Conventional commits",
-          "category": "bonus"
-        },
-        "readme_badges": {
-          "pass": true,
-          "detail": "3 badge(s) found",
-          "points": 5,
-          "label": "README with badges",
+          "label": "Automated changelog",
           "category": "bonus"
         }
       },
@@ -406,7 +448,7 @@
       "total": 110,
       "maxTotal": 140,
       "bonus": 5,
-      "maxBonus": 25,
+      "maxBonus": 40,
       "grandTotal": 115,
       "results": {
         "pipeline_exists": {
@@ -516,9 +558,9 @@
         },
         "branch_protection": {
           "pass": false,
-          "detail": "No branch protection on main",
+          "detail": "No branch protection (checked classic + rulesets)",
           "points": 5,
-          "label": "Branch protection",
+          "label": "Branch protection on main",
           "category": "advanced"
         },
         "auto_deploy": {
@@ -584,6 +626,27 @@
           "detail": "5 badge(s) found",
           "points": 5,
           "label": "README with badges",
+          "category": "bonus"
+        },
+        "health_endpoint": {
+          "pass": false,
+          "detail": "No /health, /healthz, or /api/health returning JSON with status",
+          "points": 5,
+          "label": "Health endpoint",
+          "category": "bonus"
+        },
+        "perf_tests": {
+          "pass": false,
+          "detail": "No k6/artillery/autocannon/loadtest found in workflows",
+          "points": 5,
+          "label": "Performance tests in CI",
+          "category": "bonus"
+        },
+        "auto_changelog": {
+          "pass": false,
+          "detail": "No release-please/semantic-release/conventional-changelog found",
+          "points": 5,
+          "label": "Automated changelog",
           "category": "bonus"
         }
       },
