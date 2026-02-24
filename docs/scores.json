@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T08:46:17.478Z",
+  "generated_at": "2026-02-24T08:57:28.855Z",
   "total_possible": 140,
   "bonus_possible": 25,
   "teams": [
@@ -27,7 +27,7 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#6)",
+          "detail": "Last run: success (#11)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
@@ -90,7 +90,7 @@
         },
         "comment_ratio": {
           "pass": false,
-          "detail": "11 comment lines / 341 total (3%)",
+          "detail": "14 comment lines / 540 total (3%)",
           "points": 5,
           "label": "Code commented (≥ 5%)",
           "category": "fundamentals"
@@ -146,7 +146,7 @@
         },
         "pipeline_fast": {
           "pass": true,
-          "detail": "Average: 0.7 min (last 1 runs)",
+          "detail": "Average: 0.7 min (last 2 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
@@ -183,7 +183,7 @@
         },
         "conventional_commits": {
           "pass": false,
-          "detail": "0/2 conventional (0%)",
+          "detail": "0/3 conventional (0%)",
           "points": 5,
           "label": "Conventional commits",
           "category": "bonus"
