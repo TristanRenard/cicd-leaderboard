@@ -1,6 +1,6 @@
 [
     {
-        "deploy_url": "",
+        "deploy_url": "https://todo.lootopia.io",
         "members": [
             "Allan THIERY-DEMANGEON",
             "Hugo WEHRLE",
@@ -11,7 +11,7 @@
         "branch":"main"
     },
     {
-        "deploy_url": "",
+        "deploy_url": "https://todo.lootopia.io",
         "members": [
             "Allan THIERY-DEMANGEON",
             "Hugo WEHRLE",
