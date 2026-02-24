@@ -1,225 +1,8 @@
 {
-  "generated_at": "2026-02-24T21:46:56.551Z",
+  "generated_at": "2026-02-24T21:52:57.745Z",
   "total_possible": 140,
   "bonus_possible": 40,
   "teams": [
-    {
-      "team": "HAT-develop",
-      "members": [
-        "Allan THIERY-DEMANGEON",
-        "Hugo WEHRLE",
-        "Tristan RENARD"
-      ],
-      "repo": "lootopia-les-3-dev/todo-api-node",
-      "branch": "develop",
-      "deploy_url": "https://todo.lootopia.io",
-      "total": 135,
-      "maxTotal": 140,
-      "bonus": 40,
-      "maxBonus": 40,
-      "grandTotal": 175,
-      "results": {
-        "pipeline_exists": {
-          "pass": true,
-          "detail": "2 workflow(s) found",
-          "points": 5,
-          "label": "Pipeline exists",
-          "category": "fundamentals"
-        },
-        "pipeline_green": {
-          "pass": true,
-          "detail": "Last run: success (#134 — CI)",
-          "points": 5,
-          "label": "Pipeline green on main",
-          "category": "fundamentals"
-        },
-        "lint_pass": {
-          "pass": true,
-          "detail": "Step \"Run actions/checkout@v6\" in \"SonarCloud Quality Gate\" green ✅",
-          "points": 5,
-          "label": "Lint step in pipeline",
-          "category": "fundamentals"
-        },
-        "no_secrets_in_code": {
-          "pass": true,
-          "detail": "No hardcoded secrets detected",
-          "points": 5,
-          "label": "No hardcoded secrets",
-          "category": "fundamentals"
-        },
-        "tests_exist": {
-          "pass": true,
-          "detail": "4 real test file(s), run in CI — Job \"test (error-handler-prod)\" green ✅",
-          "points": 10,
-          "label": "Tests exist in pipeline",
-          "category": "fundamentals"
-        },
-        "tests_pass": {
-          "pass": true,
-          "detail": "Job \"test (error-handler-prod)\" green ✅",
-          "points": 5,
-          "label": "Tests pass",
-          "category": "fundamentals"
-        },
-        "coverage_70": {
-          "pass": true,
-          "detail": "100% via SonarCloud badge ✅",
-          "points": 10,
-          "label": "Coverage ≥ 70%",
-          "category": "fundamentals"
-        },
-        "dockerfile_exists": {
-          "pass": true,
-          "detail": "Valid Dockerfile found",
-          "points": 5,
-          "label": "Dockerfile exists",
-          "category": "fundamentals"
-        },
-        "docker_builds": {
-          "pass": true,
-          "detail": "Job \"docker-build\" green ✅",
-          "points": 5,
-          "label": "Docker build in CI",
-          "category": "fundamentals"
-        },
-        "swagger_docs": {
-          "pass": true,
-          "detail": "Swagger found at /docs",
-          "points": 5,
-          "label": "API documentation (Swagger)",
-          "category": "fundamentals"
-        },
-        "comment_ratio": {
-          "pass": true,
-          "detail": "592 comment lines / 1149 total (52%)",
-          "points": 5,
-          "label": "Code commented (≥ 5%)",
-          "category": "fundamentals"
-        },
-        "security_scan": {
-          "pass": true,
-          "detail": "Step \"Install sonar-scanner\" in \"SonarCloud Quality Gate\" green ✅",
-          "points": 10,
-          "label": "Security scan in CI",
-          "category": "intermediate"
-        },
-        "ghcr_published": {
-          "pass": true,
-          "detail": "Package \"todo-api-node\" found in org",
-          "points": 10,
-          "label": "Image on GHCR",
-          "category": "intermediate"
-        },
-        "quality_gate": {
-          "pass": true,
-          "detail": "Job \"SonarCloud Quality Gate\" green ✅",
-          "points": 10,
-          "label": "Quality gate (SonarCloud etc.)",
-          "category": "intermediate"
-        },
-        "deployed": {
-          "pass": true,
-          "detail": "https://todo.lootopia.io → HTTP 200 ✅ (Todo API verified)",
-          "points": 10,
-          "label": "App deployed (HTTP 200)",
-          "category": "intermediate"
-        },
-        "branch_protection": {
-          "pass": false,
-          "detail": "No branch protection on \"develop\" (checked classic + rulesets)",
-          "points": 5,
-          "label": "Branch protection on main",
-          "category": "advanced"
-        },
-        "auto_deploy": {
-          "pass": true,
-          "detail": "Job \"deploy-staging\" green ✅",
-          "points": 10,
-          "label": "Auto-deploy on push to main",
-          "category": "advanced"
-        },
-        "multi_env": {
-          "pass": true,
-          "detail": "GitHub environments: production, staging ✅",
-          "points": 10,
-          "label": "Multiple environments",
-          "category": "advanced"
-        },
-        "pipeline_fast": {
-          "pass": true,
-          "detail": "Average: 1.9 min (last 10 runs)",
-          "points": 5,
-          "label": "Pipeline < 3 minutes",
-          "category": "advanced"
-        },
-        "dependabot": {
-          "pass": true,
-          "detail": "dependabot config with valid setup",
-          "points": 5,
-          "label": "Dependabot/Renovate configured",
-          "category": "advanced"
-        }
-      },
-      "bonusResults": {
-        "coverage_80": {
-          "pass": true,
-          "detail": "100% via SonarCloud",
-          "points": 5,
-          "label": "Coverage ≥ 80%",
-          "category": "bonus"
-        },
-        "coverage_90": {
-          "pass": true,
-          "detail": "100% via SonarCloud",
-          "points": 5,
-          "label": "Coverage ≥ 90%",
-          "category": "bonus"
-        },
-        "coverage_95": {
-          "pass": true,
-          "detail": "100% via SonarCloud",
-          "points": 5,
-          "label": "Coverage ≥ 95%",
-          "category": "bonus"
-        },
-        "conventional_commits": {
-          "pass": true,
-          "detail": "20/20 conventional (100%)",
-          "points": 5,
-          "label": "Conventional commits",
-          "category": "bonus"
-        },
-        "readme_badges": {
-          "pass": true,
-          "detail": "3 badge(s) found",
-          "points": 5,
-          "label": "README with badges",
-          "category": "bonus"
-        },
-        "health_endpoint": {
-          "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":916.684286881}",
-          "points": 5,
-          "label": "Health endpoint",
-          "category": "bonus"
-        },
-        "perf_tests": {
-          "pass": true,
-          "detail": "Step \"Upload coverage shard\" in \"test (error-handler-prod)\" green ✅",
-          "points": 5,
-          "label": "Performance tests in CI",
-          "category": "bonus"
-        },
-        "auto_changelog": {
-          "pass": true,
-          "detail": "Found release-please in .github/workflows/release.yml",
-          "points": 5,
-          "label": "Automated changelog",
-          "category": "bonus"
-        }
-      },
-      "rank": 1
-    },
     {
       "team": "TeamRedBox",
       "members": [
@@ -413,7 +196,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":4790.402563011}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":5158.398012185}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -433,7 +216,7 @@
           "category": "bonus"
         }
       },
-      "rank": 2
+      "rank": 1
     },
     {
       "team": "HAT-main",
@@ -630,7 +413,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":910.68824669}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":1277.882937465}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -650,7 +433,7 @@
           "category": "bonus"
         }
       },
-      "rank": 3
+      "rank": 2
     }
   ]
 }
