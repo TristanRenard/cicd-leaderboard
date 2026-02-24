@@ -448,13 +448,20 @@ const CHECKS = {
         "bandit -r", "bandit ",
         "pip-audit", "safety check",
         "npm audit", "snyk test", "snyk ",
-        "github/codeql-action", "semgrep",
-        "sonarsource/sonarcloud-github-action", "sonarcloud",
+        "github/codeql-action", "codeql-action/analyze", "semgrep",
+        "sonarsource/sonarcloud-github-action", "sonarsource/sonarqube-scan-action", "sonarcloud",
       ];
       for (const wf of ctx.workflows) {
         const result = stepIsReal(wf.content, realTools);
         if (result.found) {
           return { pass: true, detail: `Security scan: ${result.how} in ${wf.path}` };
+        }
+        // Also check for audit commands inside docker run or other indirect invocations
+        const lower = wf.content.toLowerCase();
+        for (const audit of ["npm audit", "yarn audit", "pnpm audit"]) {
+          if (lower.includes(audit)) {
+            return { pass: true, detail: `Security audit (${audit}) in ${wf.path}` };
+          }
         }
       }
       return { pass: false, detail: "No real security scan found in workflows" };
@@ -576,7 +583,9 @@ const CHECKS = {
     run: async (owner, repo, _team, ctx) => {
       const deployKeywords = [
         "render.com", "api.render.com", "fly deploy", "flyctl deploy",
-        "railway", "deploy", "ssh", "rsync",
+        "railway", "ssh", "rsync",
+        "vercel", "netlify", "docker compose",
+        "deploy_hook", "deploy-hook", "DEPLOY_HOOK",
       ];
       for (const wf of ctx.workflows) {
         const lower = wf.content.toLowerCase();
@@ -600,13 +609,25 @@ const CHECKS = {
     category: "advanced",
     label: "Multiple environments",
     run: async (owner, repo, _team, ctx) => {
+      // Check across ALL workflows (staging might be in one file, prod in another)
+      let hasStaging = false;
+      let hasProd = false;
+      let stagingFile = "";
+      let prodFile = "";
       for (const wf of ctx.workflows) {
         const lower = wf.content.toLowerCase();
-        const hasStaging = lower.includes("environment: staging") || /environment:\s*\n\s*name:\s*staging/.test(lower);
-        const hasProd = lower.includes("environment: production") || lower.includes("environment: prod") || /environment:\s*\n\s*name:\s*production/.test(lower) || /environment:\s*\n\s*name:\s*prod/.test(lower);
-        if (hasStaging && hasProd) {
-          return { pass: true, detail: `Staging + production environments in ${wf.path}` };
+        if (!hasStaging && (lower.includes("environment: staging") || /environment:\s*\n\s*name:\s*staging/.test(lower) || lower.includes("deploy-staging") || lower.includes("deploy_staging"))) {
+          hasStaging = true;
+          stagingFile = wf.path;
         }
+        if (!hasProd && (lower.includes("environment: production") || lower.includes("environment: prod") || /environment:\s*\n\s*name:\s*production/.test(lower) || /environment:\s*\n\s*name:\s*prod/.test(lower) || lower.includes("deploy-prod"))) {
+          hasProd = true;
+          prodFile = wf.path;
+        }
+      }
+      if (hasStaging && hasProd) {
+        const files = stagingFile === prodFile ? stagingFile : `${stagingFile} + ${prodFile}`;
+        return { pass: true, detail: `Staging + production environments in ${files}` };
       }
       return { pass: false, detail: "No multiple environments (need both staging + production)" };
     },
@@ -639,15 +660,23 @@ const CHECKS = {
     points: 5,
     category: "advanced",
     label: "Dependabot/Renovate configured",
-    run: async (owner, repo) => {
+    run: async (owner, repo, _team, ctx) => {
       // Anti-cheat: file must have actual config, not be empty
       const depbot = await ghRaw(owner, repo, ".github/dependabot.yml") || await ghRaw(owner, repo, ".github/dependabot.yaml");
       if (depbot && depbot.includes("package-ecosystem")) {
         return { pass: true, detail: "dependabot config with valid setup" };
       }
-      const renovate = await ghRaw(owner, repo, "renovate.json") || await ghRaw(owner, repo, ".github/renovate.json");
-      if (renovate && renovate.includes("extends")) {
+      const renovate = await ghRaw(owner, repo, "renovate.json") || await ghRaw(owner, repo, ".github/renovate.json") || await ghRaw(owner, repo, ".github/renovate.json5");
+      if (renovate && (renovate.includes("extends") || renovate.includes("packageRules"))) {
         return { pass: true, detail: "renovate.json with valid config" };
+      }
+      // Check for Renovate GitHub Action in workflows
+      if (ctx.workflows) {
+        for (const wf of ctx.workflows) {
+          if (wf.content.includes("renovatebot/github-action") || wf.content.includes("renovate/renovate")) {
+            return { pass: true, detail: `Renovate via GitHub Action in ${wf.path}` };
+          }
+        }
       }
       return { pass: false, detail: "No valid dependency update config" };
     },
