@@ -775,6 +775,103 @@ const BONUS_CHECKS = {
       };
     },
   },
+
+  health_endpoint: {
+    points: 5,
+    category: "bonus",
+    label: "Health endpoint",
+    run: async (_owner, _repo, team) => {
+      if (!team.deploy_url) return { pass: false, detail: "No deploy URL" };
+      const base = team.deploy_url.replace(/\/+$/, "");
+      for (const path of ["/health", "/healthz", "/api/health"]) {
+        try {
+          const res = await fetch(`${base}${path}`, { signal: AbortSignal.timeout(10000) });
+          if (!res.ok) continue;
+          const text = await res.text();
+          // Must return JSON with a status field
+          try {
+            const json = JSON.parse(text);
+            if (json.status) {
+              return { pass: true, detail: `${path} → ${JSON.stringify(json).slice(0, 100)}` };
+            }
+          } catch { /* not JSON, skip */ }
+        } catch { continue; }
+      }
+      return { pass: false, detail: "No /health, /healthz, or /api/health returning JSON with status" };
+    },
+  },
+
+  perf_tests: {
+    points: 5,
+    category: "bonus",
+    label: "Performance tests in CI",
+    run: async (_owner, _repo, _team, ctx) => {
+      if (!ctx.workflows || ctx.workflows.length === 0) return { pass: false, detail: "No workflows" };
+      const perfTools = ["k6", "artillery", "autocannon", "loadtest", "vegeta", "wrk", "ab ", "hey ", "bombardier", "locust"];
+      for (const wf of ctx.workflows) {
+        const lower = wf.content.toLowerCase();
+        for (const tool of perfTools) {
+          if (lower.includes(tool)) {
+            // Verify it's in a run: step, not just a comment
+            const lines = wf.content.split("\n");
+            for (const line of lines) {
+              const trimmed = line.trim().toLowerCase();
+              if ((trimmed.startsWith("run:") || trimmed.startsWith("- run:")) && trimmed.includes(tool.trim())) {
+                return { pass: true, detail: `Found ${tool.trim()} in ${wf.name}` };
+              }
+            }
+            // Also check "uses:" for k6/artillery actions
+            if (lower.includes("grafana/k6-action") || lower.includes("artilleryio/action")) {
+              return { pass: true, detail: `Found perf action in ${wf.name}` };
+            }
+          }
+        }
+      }
+      return { pass: false, detail: "No k6/artillery/autocannon/loadtest found in workflows" };
+    },
+  },
+
+  auto_changelog: {
+    points: 5,
+    category: "bonus",
+    label: "Automated changelog",
+    run: async (owner, repo, _team, ctx) => {
+      // Check for release-please, semantic-release, or conventional-changelog in workflows or package.json
+      if (ctx.workflows) {
+        for (const wf of ctx.workflows) {
+          const lower = wf.content.toLowerCase();
+          if (lower.includes("release-please") || lower.includes("semantic-release") || lower.includes("conventional-changelog") || lower.includes("auto-changelog") || lower.includes("standard-version")) {
+            const tool = ["release-please", "semantic-release", "conventional-changelog", "auto-changelog", "standard-version"].find(t => lower.includes(t));
+            return { pass: true, detail: `Found ${tool} in ${wf.name}` };
+          }
+        }
+      }
+      // Check package.json for release scripts
+      const pkg = await ghRaw(owner, repo, "package.json");
+      if (pkg) {
+        try {
+          const json = JSON.parse(pkg);
+          const scripts = JSON.stringify(json.scripts || {}).toLowerCase();
+          const deps = JSON.stringify({ ...json.dependencies, ...json.devDependencies }).toLowerCase();
+          for (const tool of ["semantic-release", "release-please", "conventional-changelog", "auto-changelog", "standard-version"]) {
+            if (scripts.includes(tool) || deps.includes(tool)) {
+              return { pass: true, detail: `Found ${tool} in package.json` };
+            }
+          }
+        } catch { /* invalid package.json */ }
+      }
+      // Check for CHANGELOG.md that looks auto-generated
+      const changelog = await ghRaw(owner, repo, "CHANGELOG.md");
+      if (changelog && changelog.length > 200) {
+        // Auto-generated changelogs typically have version headers with dates
+        const versionHeaders = (changelog.match(/^##?\s+\[?\d+\.\d+/gm) || []).length;
+        if (versionHeaders >= 2) {
+          return { pass: true, detail: `CHANGELOG.md has ${versionHeaders} version entries` };
+        }
+      }
+      return { pass: false, detail: "No release-please/semantic-release/conventional-changelog found" };
+    },
+  },
 };
 
 // ---------------------------------------------------------------------------
