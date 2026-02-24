@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T13:25:09.732Z",
+  "generated_at": "2026-02-24T13:47:08.756Z",
   "total_possible": 140,
   "bonus_possible": 25,
   "teams": [
@@ -209,11 +209,11 @@
       "repo": "lootopia-les-3-dev/todo-api-node",
       "branch": "develop",
       "deploy_url": "https://todo.lootopia.io",
-      "total": 130,
+      "total": 115,
       "maxTotal": 140,
       "bonus": 25,
       "maxBonus": 25,
-      "grandTotal": 155,
+      "grandTotal": 140,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -223,8 +223,8 @@
           "category": "fundamentals"
         },
         "pipeline_green": {
-          "pass": true,
-          "detail": "Last run: success (#67)",
+          "pass": false,
+          "detail": "Last run: in_progress (#72)",
           "points": 5,
           "label": "Pipeline green on branch",
           "category": "fundamentals"
@@ -251,15 +251,15 @@
           "category": "fundamentals"
         },
         "tests_pass": {
-          "pass": true,
-          "detail": "Job \"test\": success",
+          "pass": false,
+          "detail": "Pipeline not green",
           "points": 5,
           "label": "Tests pass",
           "category": "fundamentals"
         },
         "coverage_70": {
-          "pass": true,
-          "detail": "Coverage in CI, pipeline green ✅",
+          "pass": false,
+          "detail": "Coverage in CI, pipeline red ❌",
           "points": 10,
           "label": "Coverage ≥ 70%",
           "category": "fundamentals"
@@ -286,8 +286,8 @@
           "category": "fundamentals"
         },
         "comment_ratio": {
-          "pass": false,
-          "detail": "14 comment lines / 540 total (3%)",
+          "pass": true,
+          "detail": "592 comment lines / 1149 total (52%)",
           "points": 5,
           "label": "Code commented (≥ 5%)",
           "category": "fundamentals"
@@ -343,7 +343,7 @@
         },
         "pipeline_fast": {
           "pass": true,
-          "detail": "Average: 1.3 min (last 3 runs)",
+          "detail": "Average: 2.3 min (last 3 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
