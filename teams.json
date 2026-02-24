@@ -48,7 +48,7 @@
         "team": "La team"
     },
     {
-        "deploy_url": "https://todo-api.ralex.app",
+        "deploy_url": "https://todo-api.httpd.zip",
         "members": [
             "Alexandre Raynaud",
             "Jules Vallet"
