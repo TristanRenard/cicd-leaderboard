@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T15:29:02.961Z",
+  "generated_at": "2026-02-24T15:35:01.261Z",
   "total_possible": 140,
   "bonus_possible": 40,
   "teams": [
@@ -13,11 +13,11 @@
       "repo": "lootopia-les-3-dev/todo-api-node",
       "branch": "develop",
       "deploy_url": "https://todo.lootopia.io",
-      "total": 140,
+      "total": 135,
       "maxTotal": 140,
       "bonus": 35,
       "maxBonus": 40,
-      "grandTotal": 175,
+      "grandTotal": 170,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -83,8 +83,8 @@
           "category": "fundamentals"
         },
         "swagger_docs": {
-          "pass": true,
-          "detail": "Swagger found at /docs",
+          "pass": false,
+          "detail": "No Swagger/OpenAPI docs found",
           "points": 5,
           "label": "API documentation (Swagger)",
           "category": "fundamentals"
@@ -198,7 +198,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":692.122474092}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":1050.439288036}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -230,11 +230,11 @@
       "repo": "lootopia-les-3-dev/todo-api-node",
       "branch": "main",
       "deploy_url": "https://todo.lootopia.io",
-      "total": 135,
+      "total": 120,
       "maxTotal": 140,
-      "bonus": 30,
+      "bonus": 25,
       "maxBonus": 40,
-      "grandTotal": 165,
+      "grandTotal": 145,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -300,8 +300,8 @@
           "category": "fundamentals"
         },
         "swagger_docs": {
-          "pass": true,
-          "detail": "Swagger found at /docs",
+          "pass": false,
+          "detail": "No Swagger/OpenAPI docs found",
           "points": 5,
           "label": "API documentation (Swagger)",
           "category": "fundamentals"
@@ -335,8 +335,8 @@
           "category": "intermediate"
         },
         "deployed": {
-          "pass": true,
-          "detail": "https://todo.lootopia.io → HTTP 200 ✅ (Todo API verified)",
+          "pass": false,
+          "detail": "https://todo.lootopia.io → This operation was aborted",
           "points": 10,
           "label": "App deployed (HTTP 200)",
           "category": "intermediate"
@@ -414,8 +414,8 @@
           "category": "bonus"
         },
         "health_endpoint": {
-          "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":683.536820142}",
+          "pass": false,
+          "detail": "No /health, /healthz, or /api/health returning JSON with status",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -445,11 +445,11 @@
       "repo": "LuaPanic/todo-api-node",
       "branch": "main",
       "deploy_url": "https://todo-api.httpd.zip",
-      "total": 120,
+      "total": 105,
       "maxTotal": 140,
       "bonus": 10,
       "maxBonus": 40,
-      "grandTotal": 130,
+      "grandTotal": 115,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -515,8 +515,8 @@
           "category": "fundamentals"
         },
         "swagger_docs": {
-          "pass": true,
-          "detail": "Swagger found at /api-docs",
+          "pass": false,
+          "detail": "No Swagger/OpenAPI docs found",
           "points": 5,
           "label": "API documentation (Swagger)",
           "category": "fundamentals"
@@ -550,8 +550,8 @@
           "category": "intermediate"
         },
         "deployed": {
-          "pass": true,
-          "detail": "https://todo-api.httpd.zip → HTTP 200 ✅ (Todo API verified)",
+          "pass": false,
+          "detail": "https://todo-api.httpd.zip → HTTP 502",
           "points": 10,
           "label": "App deployed (HTTP 200)",
           "category": "intermediate"
