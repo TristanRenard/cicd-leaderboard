@@ -1,41 +1,41 @@
 {
-  "generated_at": "2026-02-24T13:30:00+01:00",
+  "generated_at": "2026-02-24T18:30:00+01:00",
   "teams": [
     {
       "team": "Le Jardin",
       "repo": "FabLrc/todo-api-node",
       "code_quality": {
-        "score": 4,
-        "details": "Naming is acceptable (1.5/2). Structure is decent with routes/database separation (1.5/2). Error handling present with proper HTTP codes (1/2). Dead code: unusedHelper, anotherDeadFunction, formatTodo, formatTodos never called (0/2). Critical: eval() in search endpoint + /debug exposes secrets and full env + hardcoded DB_PASSWORD='admin123' in database.js (0/2)."
+        "score": 6,
+        "details": "Good separation of concerns with routes/database modules. Swagger annotations are thorough. However, two dead functions remain in app.js (unusedHelper, anotherDeadFunction). console.log statements left in production code. DB_PASSWORD variable declared but never used. Uses parameterized queries (good)."
       },
       "documentation": {
-        "score": 5,
-        "details": "README lists endpoints and data structure but is minimal (1.5/3). No code comments beyond Swagger annotations (1/3). Swagger is active with full OpenAPI annotations on all routes (2/2). Basic setup instructions with npm install/start (0.5/2)."
+        "score": 6.5,
+        "details": "README lists endpoints and data structure but remains basic. Swagger UI is active at /api-docs with detailed OpenAPI annotations in routes. .env.example present. Missing Docker instructions and badge integration."
       },
-      "total": 9,
-      "summary": "Has Swagger and .env.example which is good, but the sabotaged code (eval, /debug, hardcoded password, dead functions) is still mostly present. Needs serious cleanup.",
+      "total": 12.5,
+      "summary": "Solid foundation with good Swagger docs and clean route structure, but dead code in app.js drags the score down.",
       "tips": [
-        "CRITICAL: eval() in search endpoint is a remote code execution vulnerability — replace with proper filtering",
-        "Remove or protect the /debug endpoint — it exposes environment variables and secrets",
-        "Move secrets to environment variables (.env) — never commit credentials like DB_PASSWORD='admin123'"
+        "Remove the unusedHelper() and anotherDeadFunction() from app.js — they're dead code that hurts readability",
+        "Replace console.log with a proper logger (e.g. pino or winston) or remove debug logs from production",
+        "Add CI/CD badges and Docker setup instructions to your README"
       ]
     },
     {
       "team": "Exemple",
       "repo": "ayoun07/todo-api-node",
       "code_quality": {
-        "score": 5,
-        "details": "Naming is good (1.5/2). Structure improved with helpers.js extraction (1.5/2). Error handling: try/catch on POST, proper HTTP codes (1.5/2). Dead code: duplicate GET /:id route, commented-out toObj function (0.5/2). /debug still exposes secrets (even with a warning comment), todo.db committed to repo (0/2)."
+        "score": 5.5,
+        "details": "Clean route structure with Swagger integration. Major issue: /debug endpoint openly exposes SECRET_KEY and API_KEY with no environment guard. The code comment even says 'À supprimer avant de donner l'URL à quelqu'un' — but it's still there. app.listen not wrapped for test isolation."
       },
       "documentation": {
-        "score": 4,
-        "details": "README is basically the default — just 'a todo api' with npm commands (0.5/3). No meaningful code comments (0.5/3). Swagger is active with full OpenAPI annotations (2/2). Setup instructions are minimal (1/2)."
+        "score": 4.5,
+        "details": "README is minimal — just 'a todo api' with npm commands and SonarCloud badges. No endpoint documentation, no env var list, no Docker instructions. Swagger UI is active which helps."
       },
-      "total": 9,
-      "summary": "Good progress: eval() removed, helpers extracted, try/catch added. But /debug still exposes secrets, there's a duplicate route definition, and todo.db is committed.",
+      "total": 10,
+      "summary": "The /debug endpoint is a critical security issue. Swagger is a plus, but the README needs real content.",
       "tips": [
         "Remove or protect the /debug endpoint — it exposes environment variables and secrets",
-        "Remove the duplicate GET /:id route definition in routes/todo.js",
+        "Update your README with real setup instructions, API docs, and badges",
         "Add a .env.example file so others know which env vars are needed"
       ]
     },
@@ -43,73 +43,75 @@
       "team": "NOBLE Team",
       "repo": "AReyn343/todo-api-node",
       "code_quality": {
-        "score": 0,
-        "details": "Repository not found (404). Either private, deleted, or wrong URL."
+        "score": 7.5,
+        "details": "Clean, minimal code. Uses helmet for security headers (great). Global error handler present. eval() was removed from search (good fix with comment). However, .env file is committed to the repo — this is a security issue. No Swagger."
       },
       "documentation": {
-        "score": 0,
-        "details": "Repository not accessible."
+        "score": 2,
+        "details": "README is the default template: 'a todo api' with npm install/start. No endpoint docs, no env vars, no Docker, no badges. No Swagger/OpenAPI integration. No code comments."
       },
-      "total": 0,
-      "summary": "Repository returned 404. Cannot review.",
+      "total": 9.5,
+      "summary": "Code quality is above average with helmet and a global error handler, but documentation is severely lacking. The committed .env file is a concern.",
       "tips": [
-        "Make sure your repository is public and the URL in teams.json is correct (currently has full URL instead of owner/repo format)"
+        "Move secrets to environment variables (.env) — never commit credentials. Add .env to .gitignore and add a .env.example instead",
+        "Add Swagger/OpenAPI docs — Express can use swagger-jsdoc + swagger-ui-express",
+        "Update your README with real setup instructions, API docs, and badges"
       ]
     },
     {
       "team": "sql_injection",
       "repo": "WookiesRpeople2/todo-api-node",
       "code_quality": {
-        "score": 6,
-        "details": "Naming is clean (1.5/2). Good structure with esbuild build system, eslint, jest, knip for dead code detection (2/2). No try/catch on routes but proper HTTP codes (1/2). Dead code: formatTodo/formatTodos still present but unused (1/2). /debug endpoint still exposes secrets, but no eval and no hardcoded password (0.5/2)."
+        "score": 7.5,
+        "details": "Good structure with /debug guarded by NODE_ENV (only loads in non-production). SwaggerApi.json for docs. Clean routing. formatTodo/formatTodos use verbose var patterns but are functional. Search uses parameterized queries (good). CodeQL and Dependabot configured."
       },
       "documentation": {
-        "score": 2,
-        "details": "README is the default minimal version (0.5/3). No code comments at all (0/3). No Swagger/API docs (0/2). Only npm install/start instructions (1.5/2)."
+        "score": 8,
+        "details": "Excellent README with full API documentation including request/response examples for every endpoint. Badges for coverage, license, and Node version. Environment variables documented. Swagger available via JSON spec."
       },
-      "total": 8,
-      "summary": "Solid tooling setup (eslint, knip, esbuild, jest) and eval removed. But /debug still there, dead code remains, and documentation is untouched.",
+      "total": 15.5,
+      "summary": "Strong documentation game — one of the best READMEs. Code is clean with good security practices. The /debug endpoint is conditionally loaded which is a smart approach.",
       "tips": [
-        "Remove or protect the /debug endpoint — it exposes environment variables and secrets",
-        "Update your README with real setup instructions, API docs, and badges",
-        "Add Swagger/OpenAPI docs — Express can use swagger-jsdoc + swagger-ui-express"
+        "Refactor formatTodo/formatTodos to use modern JS (map, spread) instead of var and for loops",
+        "Name your PRs with conventional commit format (feat: xxx, fix: xxx) — squash merges use the PR title as the commit message",
+        "Add a .env.example file so others know which env vars are needed"
       ]
     },
     {
       "team": "La team",
       "repo": "paspigui/todo-api-node",
       "code_quality": {
-        "score": 2,
-        "details": "Naming is acceptable (1/2). Flat structure, no separation improvements (0.5/2). No error handling beyond basic 422/404 (0.5/2). Dead code: formatTodo, formatTodos never used (0/2). Critical: eval() in search, /debug exposes full env, hardcoded secrets (SECRET_KEY and API_KEY in source), hardcoded DB_PASSWORD (0/2)."
+        "score": 7.5,
+        "details": "Very clean, minimal code. No dead code, no debug endpoints, no secrets exposed. Good separation with routes/database. Prettier configured. However, no error handling middleware, no health endpoint, no input validation beyond title check."
       },
       "documentation": {
-        "score": 1,
-        "details": "README is the default template (0/3). No code comments (0/3). No API docs/Swagger (0/2). Only npm install/start (1/2)."
+        "score": 2,
+        "details": "README is the default template with zero customization. No Swagger, no API docs, no env vars documented, no badges, no Docker instructions."
       },
-      "total": 3,
-      "summary": "Essentially the sabotaged original with eslint added. All critical issues remain: eval(), hardcoded secrets in source code, /debug endpoint, dead code, default README.",
+      "total": 9.5,
+      "summary": "The cleanest minimal codebase — no bloat, no security issues. But documentation is almost nonexistent. Quality without visibility.",
       "tips": [
-        "CRITICAL: eval() in search endpoint is a remote code execution vulnerability — replace with proper filtering",
-        "Move secrets to environment variables (.env) — never commit credentials in source code",
-        "Remove or protect the /debug endpoint — it exposes environment variables and secrets"
+        "Add Swagger/OpenAPI docs — Express can use swagger-jsdoc + swagger-ui-express",
+        "Update your README with real setup instructions, API docs, and badges",
+        "Add a .env.example file so others know which env vars are needed"
       ]
     },
     {
       "team": "TeamRedBox",
       "repo": "LuaPanic/todo-api-node",
       "code_quality": {
-        "score": 9,
-        "details": "Clean ESM naming conventions throughout (2/2). Excellent structure: separate swagger.js, routes, database modules, esbuild config (2/2). Debug endpoint guarded behind NODE_ENV=development, proper test separation (1.5/2). No dead code — all functions used, clean helpers (2/2). No eval, no hardcoded secrets, .env.example, proper dotenv usage (1.5/2)."
+        "score": 9.5,
+        "details": "Excellent. ES modules throughout. /debug only in development mode. Health endpoint. Clean code with meaningful comments. Scalar API reference for docs. Proper test isolation (NODE_ENV check). .env.example present. SonarCloud + Trivy + Dependabot. No dead code."
       },
       "documentation": {
-        "score": 5,
-        "details": "README is still the default minimal version (0.5/3). Good code comments explaining each module and function (2/3). Comprehensive static Swagger spec with all endpoints documented (2/2). Basic setup instructions only (0.5/2)."
+        "score": 9.5,
+        "details": "Outstanding README: table of contents, prerequisites, getting started, env vars table, Docker instructions, API reference table, CI/CD section. Multiple CI/CD badges. Scalar API docs active. Code has clear inline comments explaining intent."
       },
-      "total": 14,
-      "summary": "Excellent code quality: ESM modules, clean architecture, no vulnerabilities, comprehensive Swagger, debug properly guarded, dependabot, vitest. Only weakness is the unchanged README.",
+      "total": 19,
+      "summary": "Top-tier project. Clean ES module code, proper security guards, comprehensive documentation, and a full CI/CD pipeline. Sets the standard.",
       "tips": [
-        "Update your README with real setup instructions, API docs, and badges",
-        "Add a .env.example file so others know which env vars are needed (already done ✓ — good!)",
+        "Consider adding input validation (e.g. zod) for request bodies beyond the title check",
+        "Add rate limiting to protect against abuse",
         "Name your PRs with conventional commit format (feat: xxx, fix: xxx) — squash merges use the PR title as the commit message"
       ]
     },
@@ -118,36 +120,36 @@
       "repo": "lootopia-les-3-dev/todo-api-node",
       "code_quality": {
         "score": 10,
-        "details": "Excellent naming with clear, consistent conventions (2/2). Outstanding structure: helmet, morgan, rate limiting, CORS, zod validation, global error handler (dev vs prod), dependabot, sonarcloud (2/2). Comprehensive error handling with try/catch on every route, next(err) pattern, global error middleware (2/2). Zero dead code — every function is used (2/2). No eval, no debug endpoint, no hardcoded secrets, env vars via dotenv, .env.example (2/2)."
+        "details": "The most complete codebase. Helmet for security headers, morgan for logging, express-rate-limit for abuse protection, CORS handling, .env.example with all vars, global error handler with production-safe messages, 404 handler, health endpoint. No dead code, no exposed secrets. Release-please for versioning."
       },
       "documentation": {
-        "score": 4,
-        "details": "README is the default minimal version (0.5/3). Inline comments are minimal but code is self-documenting (1.5/3). Swagger is active at /docs (2/2). Only basic npm instructions (0/2)."
+        "score": 9.5,
+        "details": "Comprehensive README with badges (CI, SonarCloud, Docker), stack description, prerequisites, local setup with step-by-step, env vars table, Docker instructions, available commands, API endpoints table, Swagger at /docs. Well-organized and bilingual."
       },
-      "total": 14,
-      "summary": "Best code quality in the class. Production-ready with security middleware (helmet, rate limiting), input validation (zod), proper error handling, and zero vulnerabilities. Just needs a real README.",
+      "total": 19.5,
+      "summary": "The gold standard. Production-ready code with helmet, rate limiting, CORS, morgan, and a global error handler. Documentation is thorough and actionable.",
       "tips": [
-        "Update your README with real setup instructions, API docs, and badges",
-        "Add Docker instructions to README since you have a Dockerfile",
-        "Name your PRs with conventional commit format (feat: xxx, fix: xxx) — squash merges use the PR title as the commit message"
+        "Consider adding request body validation with zod for stricter input control",
+        "Name your PRs with conventional commit format (feat: xxx, fix: xxx) — squash merges use the PR title as the commit message",
+        "Add a CONTRIBUTING.md to guide new contributors"
       ]
     },
     {
       "team": "hello world",
       "repo": "un-mec-paumer/todo-api-node",
       "code_quality": {
-        "score": 4,
-        "details": "Naming uses const/let properly (1.5/2). Basic structure, docker-compose added (1/2). No try/catch but proper HTTP codes (0.5/2). Dead code: unusedHelper, anotherDeadFunction, formatTodo, formatTodos all unused (0/2). eval() in search + /debug exposes full env, though DB_PASSWORD moved to env (1/2)."
+        "score": 5.5,
+        "details": "Swagger integration via docs/swagger.js. .env.example present. Health endpoint. SonarCloud configured. However, the /debug endpoint exposes process.env (ALL environment variables) with zero protection — this is a critical security vulnerability. Hardcoded fallback secrets ('dev_secret', 'dev_api_key')."
       },
       "documentation": {
-        "score": 1,
-        "details": "README is the default template (0/3). No code comments (0/3). No API docs/Swagger (0/2). Only npm install/start (1/2)."
+        "score": 4,
+        "details": "README is the default template with no customization. Swagger UI is active at /api-docs which partially compensates. No endpoint docs in README, no env vars, no Docker, no badges."
       },
-      "total": 5,
-      "summary": "Some improvements: DB_PASSWORD moved to env, eslint added, docker-compose, sonarcloud integration. But eval() and /debug still present, dead code untouched, no documentation effort.",
+      "total": 9.5,
+      "summary": "The unprotected /debug endpoint exposing process.env is a critical issue. Swagger helps but the README needs work.",
       "tips": [
-        "CRITICAL: eval() in search endpoint is a remote code execution vulnerability — replace with proper filtering",
-        "Remove or protect the /debug endpoint — it exposes environment variables and secrets",
+        "CRITICAL: Remove or protect the /debug endpoint — it exposes ALL environment variables including secrets",
+        "Move secrets to environment variables (.env) — never hardcode fallback credentials in source code",
         "Update your README with real setup instructions, API docs, and badges"
       ]
     },
@@ -155,56 +157,56 @@
       "team": "West Coast Team",
       "repo": "keryanchpn/todo-api-node",
       "code_quality": {
-        "score": 5,
-        "details": "Naming is acceptable (1.5/2). Good structure with health endpoint, sonarcloud, Vercel deployment (1.5/2). No try/catch on routes (0.5/2). Dead code: unusedHelper, anotherDeadFunction, formatTodo, formatTodos all unused (0/2). eval() still in search endpoint — the comment even acknowledges 'potential security risk' (1.5/2 — no debug, no hardcoded secrets)."
+        "score": 8,
+        "details": "Clean code with Swagger via JSON spec. Health endpoint. Good test isolation. No dead code, no debug endpoints, no exposed secrets. k6 load testing configured (nice bonus). SonarCloud + Snyk + Dependabot. Proper .dockerignore."
       },
       "documentation": {
-        "score": 7,
-        "details": "Excellent README: describes features, stack, install, tests, CI pipeline, Swagger link (3/3). Good JSDoc comments on every route (2/3). No active Swagger endpoint despite mentioning it (0/2). Complete setup instructions including coverage and lint commands (2/2)."
+        "score": 8,
+        "details": "Good README with CI/SonarCloud badges, feature list, stack description, installation guide, test commands, API docs link, and CI/CD pipeline description. Swagger UI active. Missing env vars table and Docker instructions."
       },
-      "total": 12,
-      "summary": "Best documentation in the class! Great README and JSDoc comments. But eval() is still present (even noted as risky in comments) and dead code functions remain. No /debug endpoint which is good.",
+      "total": 16,
+      "summary": "Well-rounded project with good code quality and documentation. The k6 load testing is a nice touch. One of the more complete submissions.",
       "tips": [
-        "CRITICAL: eval() in search endpoint is a remote code execution vulnerability — replace with proper filtering",
-        "Add Swagger/OpenAPI docs — you mention /api-docs in README but it's not implemented",
-        "Remove the dead functions (unusedHelper, anotherDeadFunction, formatTodo, formatTodos)"
+        "Add an env vars table to the README (PORT, DB_PATH, etc.)",
+        "Consider adding input validation (e.g. zod) for request bodies",
+        "Name your PRs with conventional commit format (feat: xxx, fix: xxx) — squash merges use the PR title as the commit message"
       ]
     },
     {
       "team": "Team-locker",
       "repo": "Reemark/CI-CD",
       "code_quality": {
-        "score": 9,
-        "details": "Clean naming throughout (2/2). Excellent structure: Swagger, health endpoint, resetDb for testing, dependabot, comprehensive CI (gitleaks, trivy, sonarcloud) (2/2). Proper HTTP codes and consistent patterns (1.5/2). No dead code — all helpers are used, clean codebase (2/2). No eval, no debug endpoint, no hardcoded secrets (1.5/2)."
+        "score": 10,
+        "details": "Standout: Zod validation for request bodies (createTodoSchema, updateTodoSchema) with proper error messages. Swagger with jsdoc annotations. Health endpoint. No dead code, no debug endpoint, no exposed secrets. .env.example, .trivyignore, PR template, CHANGELOG, Dependabot. Clean helper functions."
       },
       "documentation": {
-        "score": 7,
-        "details": "README covers lint, tests, CI pipeline, deployment setup, sonarcloud config (2/3). Swagger annotations with full JSDoc on all routes (2/3). Swagger UI active at /api-docs (2/2). Setup with multiple commands documented (1/2)."
+        "score": 8.5,
+        "details": "Good README with multiple CI/CD badges, run/lint/test instructions, CI pipeline description, deployment docs with required secrets, and SonarCloud setup guide. Swagger UI active at /api-docs with full annotations. Missing env vars table."
       },
-      "total": 16,
-      "summary": "Excellent overall. Clean code, no vulnerabilities, great CI pipeline (gitleaks, trivy, sonarcloud, deploy), Swagger active, comprehensive README. Top-tier submission.",
+      "total": 18.5,
+      "summary": "The only team using Zod for input validation — excellent attention to robustness. Full CI pipeline with Gitleaks, Trivy, SonarCloud. Very professional.",
       "tips": [
-        "Add a .env.example file so others know which env vars are needed",
-        "Name your PRs with conventional commit format (feat: xxx, fix: xxx) — squash merges use the PR title as the commit message",
-        "Consider adding input validation (e.g., zod) for request bodies"
+        "Add an environment variables table to the README",
+        "Consider adding helmet for security headers and rate limiting",
+        "Name your PRs with conventional commit format (feat: xxx, fix: xxx) — squash merges use the PR title as the commit message"
       ]
     },
     {
       "team": "Team BJ",
       "repo": "Christmann-Julian/todo-api-node",
       "code_quality": {
-        "score": 7,
-        "details": "Good naming with const/let (1.5/2). Nice structure: utils.js extracted, docker-compose for dev+prod, eslint+prettier (2/2). Debug endpoint properly guarded (dev-only with 404 in other envs) (1.5/2). No dead code in main files, though formatTodo/formatTodos are verbose (1.5/2). No eval, no hardcoded secrets, dotenv properly used (0.5/2 — search is safe but no .env.example)."
+        "score": 7.5,
+        "details": "Good JSDoc comments throughout app.js. /debug endpoint properly guarded (returns 404 in non-development). Swagger via YAML spec. Vercel-aware entry point (api/index.js). Prettier configured. No dead code. However, no health endpoint, no helmet, no global error handler."
       },
       "documentation": {
-        "score": 1,
-        "details": "README is the default template (0/3). No code comments (0/3). No API docs/Swagger (0/2). Only npm install/start (1/2)."
+        "score": 5.5,
+        "details": "README is the default template with no customization. However, app.js has thorough JSDoc comments and Swagger YAML provides complete API documentation. The code-level docs partially compensate for the bare README."
       },
-      "total": 8,
-      "summary": "Good code cleanup: eval removed, debug guarded, utils extracted, docker-compose for both envs. But zero documentation effort — default README, no Swagger, no comments.",
+      "total": 13,
+      "summary": "Good code-level documentation with JSDoc and Swagger YAML, but the README lets it down. The /debug guard is well implemented.",
       "tips": [
         "Update your README with real setup instructions, API docs, and badges",
-        "Add Swagger/OpenAPI docs — Express can use swagger-jsdoc + swagger-ui-express",
+        "Add a health endpoint for deployment monitoring",
         "Add a .env.example file so others know which env vars are needed"
       ]
     },
@@ -212,19 +214,19 @@
       "team": "?",
       "repo": "Anothays/todo-api-node",
       "code_quality": {
-        "score": 4,
-        "details": "Naming is acceptable (1/2). Good separation: main.js entry point, app.js for Express, helpers/utils.js (1.5/2). Debug guarded in production (1/2). Dead code: unusedHelper and anotherDeadFunction exported from utils.js, formatTodo/formatTodos exported but unused (0/2). eval() still in search endpoint (0.5/2 — debug is guarded, dotenv used, but eval is critical)."
+        "score": 7,
+        "details": "ES modules. Swagger jsdoc with inline annotations for all endpoints including /debug and /health. /debug guarded by production check (good). helpers/utils.js extracts shared logic but uses verbose var/for patterns (formatTodo, formatTodos). renovate.yml for dependency updates. .env.exemple (typo in filename)."
       },
       "documentation": {
-        "score": 1,
-        "details": "README is the default template (0/3). No code comments (0/3). No API docs/Swagger (0/2). Only npm install/start (1/2)."
+        "score": 8,
+        "details": "Good README with technology table, step-by-step local deploy instructions, env vars documentation, scripts table, project structure description. Badges present. Swagger UI active at /api-docs. Well-structured and bilingual."
       },
-      "total": 5,
-      "summary": "Good separation of concerns (main.js/app.js split), debug guarded in production, renovate for deps. But eval() remains, dead functions are exported, and documentation is untouched.",
+      "total": 15,
+      "summary": "Solid project with good documentation and Swagger integration. The verbose utility functions could use modernization. Nice project structure documentation.",
       "tips": [
-        "CRITICAL: eval() in search endpoint is a remote code execution vulnerability — replace with proper filtering",
-        "Remove dead functions from helpers/utils.js (unusedHelper, anotherDeadFunction, formatTodo, formatTodos)",
-        "Update your README with real setup instructions, API docs, and badges"
+        "Refactor formatTodo/formatTodos in helpers/utils.js to use modern JS (spread, map) instead of var and for loops",
+        "Fix the typo: .env.exemple → .env.example",
+        "Consider adding helmet for security headers and rate limiting"
       ]
     }
   ]
