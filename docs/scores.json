@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T13:54:44.338Z",
+  "generated_at": "2026-02-24T14:32:41.457Z",
   "total_possible": 140,
   "bonus_possible": 25,
   "teams": [
@@ -13,11 +13,11 @@
       "repo": "lootopia-les-3-dev/todo-api-node",
       "branch": "main",
       "deploy_url": "https://todo.lootopia.io",
-      "total": 140,
+      "total": 135,
       "maxTotal": 140,
       "bonus": 25,
       "maxBonus": 25,
-      "grandTotal": 165,
+      "grandTotal": 160,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -146,8 +146,8 @@
           "category": "advanced"
         },
         "pipeline_fast": {
-          "pass": true,
-          "detail": "Average: 1.9 min (last 3 runs)",
+          "pass": false,
+          "detail": "Average: 12.4 min (last 3 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
@@ -224,7 +224,7 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#74)",
+          "detail": "Last run: success (#76)",
           "points": 5,
           "label": "Pipeline green on branch",
           "category": "fundamentals"
@@ -343,7 +343,7 @@
         },
         "pipeline_fast": {
           "pass": true,
-          "detail": "Average: 1.7 min (last 3 runs)",
+          "detail": "Average: 1.4 min (last 3 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
