@@ -67,7 +67,7 @@
         "team": "HAT"
     },
     {
-        "deploy_url": "",
+        "deploy_url": "https://todo-api-node-bnce.onrender.com/",
         "members": [
             "Hugo Zins",
             "Antoine Ciric",
