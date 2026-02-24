@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T11:39:20.340Z",
+  "generated_at": "2026-02-24T12:44:17.828Z",
   "total_possible": 140,
   "bonus_possible": 25,
   "teams": [
@@ -184,7 +184,7 @@
         },
         "conventional_commits": {
           "pass": false,
-          "detail": "2/12 conventional (17%)",
+          "detail": "6/12 conventional (50%)",
           "points": 5,
           "label": "Conventional commits",
           "category": "bonus"
@@ -209,11 +209,11 @@
       "repo": "lootopia-les-3-dev/todo-api-node",
       "branch": "develop",
       "deploy_url": "https://todo.lootopia.io",
-      "total": 110,
+      "total": 130,
       "maxTotal": 140,
       "bonus": 0,
       "maxBonus": 25,
-      "grandTotal": 110,
+      "grandTotal": 130,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -223,8 +223,8 @@
           "category": "fundamentals"
         },
         "pipeline_green": {
-          "pass": false,
-          "detail": "Last run: in_progress (#46)",
+          "pass": true,
+          "detail": "Last run: success (#46)",
           "points": 5,
           "label": "Pipeline green on branch",
           "category": "fundamentals"
@@ -251,15 +251,15 @@
           "category": "fundamentals"
         },
         "tests_pass": {
-          "pass": false,
-          "detail": "Pipeline not green",
+          "pass": true,
+          "detail": "Job \"test\": success",
           "points": 5,
           "label": "Tests pass",
           "category": "fundamentals"
         },
         "coverage_70": {
-          "pass": false,
-          "detail": "Coverage in CI, pipeline red ❌",
+          "pass": true,
+          "detail": "Coverage in CI, pipeline green ✅",
           "points": 10,
           "label": "Coverage ≥ 70%",
           "category": "fundamentals"
@@ -343,7 +343,7 @@
         },
         "pipeline_fast": {
           "pass": true,
-          "detail": "Average: 1.7 min (last 3 runs)",
+          "detail": "Average: 2.4 min (last 3 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
