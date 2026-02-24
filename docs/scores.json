@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T19:47:26.669Z",
+  "generated_at": "2026-02-24T19:48:25.258Z",
   "total_possible": 140,
   "bonus_possible": 40,
   "teams": [
@@ -198,7 +198,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":563.962955086}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":622.554444003}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -415,7 +415,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":559.463632981}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":619.795899415}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -445,9 +445,9 @@
       "repo": "LuaPanic/todo-api-node",
       "branch": "main",
       "deploy_url": "https://todo-api.httpd.zip",
-      "total": 120,
+      "total": 115,
       "maxTotal": 140,
-      "bonus": 20,
+      "bonus": 25,
       "maxBonus": 40,
       "grandTotal": 140,
       "results": {
@@ -515,8 +515,8 @@
           "category": "fundamentals"
         },
         "swagger_docs": {
-          "pass": true,
-          "detail": "Swagger found at /api-docs",
+          "pass": false,
+          "detail": "No Swagger/OpenAPI docs found",
           "points": 5,
           "label": "API documentation (Swagger)",
           "category": "fundamentals"
@@ -629,8 +629,8 @@
           "category": "bonus"
         },
         "health_endpoint": {
-          "pass": false,
-          "detail": "No /health, /healthz, or /api/health returning JSON with status",
+          "pass": true,
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":2172.834507258}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
