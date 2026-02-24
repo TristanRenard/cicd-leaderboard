@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T21:27:31.557Z",
+  "generated_at": "2026-02-24T21:33:11.891Z",
   "total_possible": 140,
   "bonus_possible": 40,
   "teams": [
@@ -198,7 +198,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":118.719666965}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":92.007235252}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -245,7 +245,7 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#12)",
+          "detail": "Last run: success (#13)",
           "points": 5,
           "label": "Pipeline green on branch",
           "category": "fundamentals"
@@ -364,7 +364,7 @@
         },
         "pipeline_fast": {
           "pass": true,
-          "detail": "Average: 0.8 min (last 3 runs)",
+          "detail": "Average: 0.9 min (last 3 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
@@ -415,7 +415,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":114.218599699}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":85.814932227}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -630,7 +630,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":3628.28679666}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":3964.172808832}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
