@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T15:19:28.151Z",
+  "generated_at": "2026-02-24T15:29:02.961Z",
   "total_possible": 140,
   "bonus_possible": 40,
   "teams": [
@@ -15,20 +15,20 @@
       "deploy_url": "https://todo.lootopia.io",
       "total": 140,
       "maxTotal": 140,
-      "bonus": 30,
+      "bonus": 35,
       "maxBonus": 40,
-      "grandTotal": 170,
+      "grandTotal": 175,
       "results": {
         "pipeline_exists": {
           "pass": true,
-          "detail": "1 workflow(s) found",
+          "detail": "2 workflow(s) found",
           "points": 5,
           "label": "Pipeline exists",
           "category": "fundamentals"
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#79)",
+          "detail": "Last run: success (#85)",
           "points": 5,
           "label": "Pipeline green on branch",
           "category": "fundamentals"
@@ -184,7 +184,7 @@
         },
         "conventional_commits": {
           "pass": true,
-          "detail": "16/20 conventional (80%)",
+          "detail": "17/20 conventional (85%)",
           "points": 5,
           "label": "Conventional commits",
           "category": "bonus"
@@ -198,7 +198,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":117.303602354}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":692.122474092}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -211,8 +211,8 @@
           "category": "bonus"
         },
         "auto_changelog": {
-          "pass": false,
-          "detail": "No release-please/semantic-release/conventional-changelog found",
+          "pass": true,
+          "detail": "Found release-please in .github/workflows/release.yml",
           "points": 5,
           "label": "Automated changelog",
           "category": "bonus"
@@ -415,7 +415,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":110.055539977}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":683.536820142}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -445,22 +445,22 @@
       "repo": "LuaPanic/todo-api-node",
       "branch": "main",
       "deploy_url": "https://todo-api.httpd.zip",
-      "total": 110,
+      "total": 120,
       "maxTotal": 140,
-      "bonus": 5,
+      "bonus": 10,
       "maxBonus": 40,
-      "grandTotal": 115,
+      "grandTotal": 130,
       "results": {
         "pipeline_exists": {
           "pass": true,
-          "detail": "3 workflow(s) found",
+          "detail": "4 workflow(s) found",
           "points": 5,
           "label": "Pipeline exists",
           "category": "fundamentals"
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#15)",
+          "detail": "Last run: success (#3)",
           "points": 5,
           "label": "Pipeline green on branch",
           "category": "fundamentals"
@@ -487,8 +487,8 @@
           "category": "fundamentals"
         },
         "tests_pass": {
-          "pass": true,
-          "detail": "Job \"build, publish & deploy\": success",
+          "pass": false,
+          "detail": "No test job found",
           "points": 5,
           "label": "Tests pass",
           "category": "fundamentals"
@@ -543,8 +543,8 @@
           "category": "intermediate"
         },
         "quality_gate": {
-          "pass": false,
-          "detail": "No quality gate configured",
+          "pass": true,
+          "detail": "Quality gate: action: sonarcloud-github-action",
           "points": 10,
           "label": "Quality gate (SonarCloud etc.)",
           "category": "intermediate"
@@ -578,8 +578,8 @@
           "category": "advanced"
         },
         "pipeline_fast": {
-          "pass": false,
-          "detail": "Average: 3.7 min (last 3 runs)",
+          "pass": true,
+          "detail": "Average: 2.5 min (last 3 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
@@ -615,8 +615,8 @@
           "category": "bonus"
         },
         "conventional_commits": {
-          "pass": false,
-          "detail": "15/20 conventional (75%)",
+          "pass": true,
+          "detail": "16/20 conventional (80%)",
           "points": 5,
           "label": "Conventional commits",
           "category": "bonus"
