@@ -7,6 +7,18 @@
             "Tristan RENARD"
         ],
         "repo": "lootopia-les-3-dev/todo-api-node",
-        "team": "HAT"
+        "team": "HAT-main",
+        "branch":"main"
+    },
+    {
+        "deploy_url": "",
+        "members": [
+            "Allan THIERY-DEMANGEON",
+            "Hugo WEHRLE",
+            "Tristan RENARD"
+        ],
+        "repo": "lootopia-les-3-dev/todo-api-node",
+        "team": "HAT-develop",
+        "branch":"develop"
     }
 ]
