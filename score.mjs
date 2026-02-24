@@ -320,20 +320,28 @@ const CHECKS = {
     category: "fundamentals",
     label: "Coverage ≥ 70%",
     run: async (owner, repo, _team, ctx) => {
-      // Check for real coverage commands in workflows
+      // Best case: trusted badge in README with real percentage
+      if (ctx.coverageBadge) {
+        const { coverage, provider } = ctx.coverageBadge;
+        return {
+          pass: coverage >= 70,
+          detail: `${coverage}% via ${provider} badge${coverage >= 70 ? " ✅" : " (< 70%)"}`,
+        };
+      }
+
+      // Fallback: check for coverage step in CI + pipeline green
       const covCommands = ["--cov", "pytest-cov", "--coverage", "coverage run", "c8", "nyc"];
       let hasCoverage = false;
       for (const wf of ctx.workflows) {
         const result = stepIsReal(wf.content, covCommands);
         if (result.found) { hasCoverage = true; break; }
-        // Also match coverage via npm scripts or broader patterns
         const lower = wf.content.toLowerCase();
         if (lower.includes("--coverage") || lower.includes("test:coverage") || lower.includes("jest --coverage") || lower.includes("vitest run --coverage") || lower.includes("codecov")) {
           hasCoverage = true; break;
         }
       }
 
-      if (!hasCoverage) return { pass: false, detail: "No coverage step found in CI" };
+      if (!hasCoverage) return { pass: false, detail: "No coverage step in CI (add a trusted badge for exact %) " };
 
       const last = await getLastCIRun(owner, repo);
       if (!last) return { pass: false, detail: "No CI runs" };
@@ -341,7 +349,7 @@ const CHECKS = {
 
       return {
         pass: hasCoverage && isGreen,
-        detail: `Coverage in CI, pipeline ${isGreen ? "green ✅" : `red ❌ (${last.name} #${last.run_number})`}`,
+        detail: `Coverage in CI, pipeline ${isGreen ? "green ✅ (add a Codecov/SonarCloud badge for exact %)" : `red ❌ (${last.name} #${last.run_number})`}`,
       };
     },
   },
