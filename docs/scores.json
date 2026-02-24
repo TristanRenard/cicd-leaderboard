@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T16:17:52.642Z",
+  "generated_at": "2026-02-24T16:20:06.577Z",
   "total_possible": 140,
   "bonus_possible": 40,
   "teams": [
@@ -198,7 +198,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":3621.826276844}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":106.123512344}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -230,22 +230,22 @@
       "repo": "lootopia-les-3-dev/todo-api-node",
       "branch": "main",
       "deploy_url": "https://todo.lootopia.io",
-      "total": 135,
+      "total": 115,
       "maxTotal": 140,
-      "bonus": 30,
+      "bonus": 35,
       "maxBonus": 40,
-      "grandTotal": 165,
+      "grandTotal": 150,
       "results": {
         "pipeline_exists": {
           "pass": true,
-          "detail": "1 workflow(s) found",
+          "detail": "2 workflow(s) found",
           "points": 5,
           "label": "Pipeline exists",
           "category": "fundamentals"
         },
         "pipeline_green": {
-          "pass": true,
-          "detail": "Last run: success (#80)",
+          "pass": false,
+          "detail": "Last run: failure (#1)",
           "points": 5,
           "label": "Pipeline green on branch",
           "category": "fundamentals"
@@ -272,15 +272,15 @@
           "category": "fundamentals"
         },
         "tests_pass": {
-          "pass": true,
-          "detail": "Job \"test\": success",
+          "pass": false,
+          "detail": "Pipeline not green",
           "points": 5,
           "label": "Tests pass",
           "category": "fundamentals"
         },
         "coverage_70": {
-          "pass": true,
-          "detail": "Coverage in CI, pipeline green ✅",
+          "pass": false,
+          "detail": "Coverage in CI, pipeline red ❌",
           "points": 10,
           "label": "Coverage ≥ 70%",
           "category": "fundamentals"
@@ -401,7 +401,7 @@
         },
         "conventional_commits": {
           "pass": true,
-          "detail": "19/19 conventional (100%)",
+          "detail": "20/20 conventional (100%)",
           "points": 5,
           "label": "Conventional commits",
           "category": "bonus"
@@ -415,7 +415,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":3616.959595641}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":102.567489148}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -428,8 +428,8 @@
           "category": "bonus"
         },
         "auto_changelog": {
-          "pass": false,
-          "detail": "No release-please/semantic-release/conventional-changelog found",
+          "pass": true,
+          "detail": "Found release-please in .github/workflows/release.yml",
           "points": 5,
           "label": "Automated changelog",
           "category": "bonus"
@@ -460,7 +460,7 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#10)",
+          "detail": "Last run: success (#13)",
           "points": 5,
           "label": "Pipeline green on branch",
           "category": "fundamentals"
@@ -481,7 +481,7 @@
         },
         "tests_exist": {
           "pass": true,
-          "detail": "1 real test file(s), run in CI (command: vitest)",
+          "detail": "2 real test file(s), run in CI (command: vitest)",
           "points": 10,
           "label": "Tests exist in pipeline",
           "category": "fundamentals"
@@ -579,7 +579,7 @@
         },
         "pipeline_fast": {
           "pass": true,
-          "detail": "Average: 1.3 min (last 3 runs)",
+          "detail": "Average: 1.1 min (last 3 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
@@ -616,7 +616,7 @@
         },
         "conventional_commits": {
           "pass": true,
-          "detail": "17/20 conventional (85%)",
+          "detail": "16/20 conventional (80%)",
           "points": 5,
           "label": "Conventional commits",
           "category": "bonus"
@@ -630,7 +630,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":2066.210752786}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":39.709210834}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
