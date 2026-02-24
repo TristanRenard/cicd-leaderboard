@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-24T09:15:42.537Z",
+  "generated_at": "2026-02-24T09:26:28.121Z",
   "total_possible": 140,
   "bonus_possible": 25,
   "teams": [
@@ -13,11 +13,11 @@
       "repo": "lootopia-les-3-dev/todo-api-node",
       "branch": "develop",
       "deploy_url": "",
-      "total": 85,
+      "total": 95,
       "maxTotal": 140,
       "bonus": 0,
       "maxBonus": 25,
-      "grandTotal": 85,
+      "grandTotal": 95,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -28,7 +28,7 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#13)",
+          "detail": "Last run: success (#14)",
           "points": 5,
           "label": "Pipeline green on branch",
           "category": "fundamentals"
@@ -104,8 +104,8 @@
           "category": "intermediate"
         },
         "ghcr_published": {
-          "pass": false,
-          "detail": "No container packages found on GHCR",
+          "pass": true,
+          "detail": "Package \"todo-api-node\" found in org",
           "points": 10,
           "label": "Image on GHCR",
           "category": "intermediate"
@@ -147,7 +147,7 @@
         },
         "pipeline_fast": {
           "pass": true,
-          "detail": "Average: 0.6 min (last 3 runs)",
+          "detail": "Average: 0.7 min (last 3 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
@@ -209,11 +209,11 @@
       "repo": "lootopia-les-3-dev/todo-api-node",
       "branch": "main",
       "deploy_url": "",
-      "total": 50,
+      "total": 80,
       "maxTotal": 140,
       "bonus": 0,
       "maxBonus": 25,
-      "grandTotal": 50,
+      "grandTotal": 80,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -223,15 +223,15 @@
           "category": "fundamentals"
         },
         "pipeline_green": {
-          "pass": true,
-          "detail": "Last run: success (#11)",
+          "pass": false,
+          "detail": "Last run: in_progress (#4)",
           "points": 5,
           "label": "Pipeline green on branch",
           "category": "fundamentals"
         },
         "lint_pass": {
-          "pass": false,
-          "detail": "No real linter execution found in workflows",
+          "pass": true,
+          "detail": "Real linter in .github/workflows/ci.yml (command: eslint)",
           "points": 5,
           "label": "Lint step in pipeline",
           "category": "fundamentals"
@@ -245,21 +245,21 @@
         },
         "tests_exist": {
           "pass": true,
-          "detail": "4 real test file(s), run in CI (command: npm test)",
+          "detail": "4 real test file(s), run in CI (command: jest)",
           "points": 10,
           "label": "Tests exist in pipeline",
           "category": "fundamentals"
         },
         "tests_pass": {
-          "pass": true,
-          "detail": "Job \"lint-and-test\": success",
+          "pass": false,
+          "detail": "Pipeline not green",
           "points": 5,
           "label": "Tests pass",
           "category": "fundamentals"
         },
         "coverage_70": {
           "pass": false,
-          "detail": "No coverage step found in CI",
+          "detail": "Coverage in CI, pipeline red ❌",
           "points": 10,
           "label": "Coverage ≥ 70%",
           "category": "fundamentals"
@@ -273,7 +273,7 @@
         },
         "docker_builds": {
           "pass": true,
-          "detail": "Docker build in .github/workflows/ci.yml (command: docker build)",
+          "detail": "Docker build in .github/workflows/ci.yml (action: docker/build-push-action)",
           "points": 5,
           "label": "Docker build in CI",
           "category": "fundamentals"
@@ -293,15 +293,15 @@
           "category": "fundamentals"
         },
         "security_scan": {
-          "pass": false,
-          "detail": "No real security scan found in workflows",
+          "pass": true,
+          "detail": "Security scan: action: aquasecurity/trivy-action in .github/workflows/ci.yml",
           "points": 10,
           "label": "Security scan in CI",
           "category": "intermediate"
         },
         "ghcr_published": {
-          "pass": false,
-          "detail": "No container packages found on GHCR",
+          "pass": true,
+          "detail": "Package \"todo-api-node\" found in org",
           "points": 10,
           "label": "Image on GHCR",
           "category": "intermediate"
@@ -328,8 +328,8 @@
           "category": "advanced"
         },
         "auto_deploy": {
-          "pass": false,
-          "detail": "No auto-deploy workflow found",
+          "pass": true,
+          "detail": "Deploy on push to main: command: deploy in .github/workflows/ci.yml",
           "points": 10,
           "label": "Auto-deploy on push to branch",
           "category": "advanced"
@@ -343,14 +343,14 @@
         },
         "pipeline_fast": {
           "pass": true,
-          "detail": "Average: 0.7 min (last 2 runs)",
+          "detail": "Average: 0.7 min (last 3 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
         },
         "dependabot": {
-          "pass": false,
-          "detail": "No valid dependency update config",
+          "pass": true,
+          "detail": "dependabot config with valid setup",
           "points": 5,
           "label": "Dependabot/Renovate configured",
           "category": "advanced"
@@ -380,7 +380,7 @@
         },
         "conventional_commits": {
           "pass": false,
-          "detail": "0/3 conventional (0%)",
+          "detail": "1/4 conventional (25%)",
           "points": 5,
           "label": "Conventional commits",
           "category": "bonus"
