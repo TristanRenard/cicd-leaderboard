@@ -726,8 +726,13 @@ const BONUS_CHECKS = {
       // Check that at least 80% of commits follow conventional format
       // Also check squash merge bodies (each line starting with conventional prefix counts)
       const conventionalRegex = /^(feat|fix|docs|style|refactor|test|chore|ci|build|perf|revert)(\(.+\))?!?:\s/;
+      const mergeRegex = /^Merge (pull request|branch|remote-tracking branch)/i;
+      const filtered = commits.filter((c) => !mergeRegex.test(c.commit.message));
+      if (filtered.length === 0) {
+        return { pass: false, detail: "No non-merge commits found" };
+      }
       let conventional = 0;
-      for (const c of commits) {
+      for (const c of filtered) {
         const msg = c.commit.message;
         if (conventionalRegex.test(msg)) {
           conventional++;
@@ -738,10 +743,10 @@ const BONUS_CHECKS = {
           if (bodyConventional >= 2) conventional++; // Squash with ≥2 conventional sub-commits counts
         }
       }
-      const pct = Math.round((conventional / commits.length) * 100);
+      const pct = Math.round((conventional / filtered.length) * 100);
       return {
         pass: pct >= 80,
-        detail: `${conventional}/${commits.length} conventional (${pct}%)`,
+        detail: `${conventional}/${filtered.length} conventional (${pct}%)`,
       };
     },
   },
