@@ -104,7 +104,9 @@ async function getLastCIRun(owner, repo) {
     r.status === "completed" &&
     !r.name.toLowerCase().includes("dependabot") &&
     !r.name.toLowerCase().includes("codeql") &&
-    !r.name.toLowerCase().includes("update #")
+    !r.name.toLowerCase().includes("update #") && 
+    !r.name.toLowerCase().includes("release please") &&
+    !r.name.toLowerCase().includes("release")
   );
 
   let ciRuns = filterCI(pushRuns);
