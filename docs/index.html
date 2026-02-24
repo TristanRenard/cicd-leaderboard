@@ -9,11 +9,19 @@
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0d1117; color: #c9d1d9; min-height: 100vh; padding: 2rem; }
     h1 { text-align: center; font-size: 2.5rem; margin-bottom: 0.5rem; }
     .subtitle { text-align: center; color: #8b949e; margin-bottom: 2rem; font-size: 0.9rem; }
-    .podium { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap; }
-    .podium-card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 1.5rem; text-align: center; min-width: 200px; }
+    .podium { display: flex; justify-content: center; align-items: flex-end; gap: 1rem; margin-bottom: 3rem; }
+    .podium-slot { display: flex; flex-direction: column; align-items: center; }
+    .podium-slot.first { order: 2; }
+    .podium-slot.second { order: 1; }
+    .podium-slot.third { order: 3; }
+    .podium-card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 1.5rem; text-align: center; width: min(260px, 30vw); }
     .podium-card.gold { border-color: #ffd700; box-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
     .podium-card.silver { border-color: #c0c0c0; }
     .podium-card.bronze { border-color: #cd7f32; }
+    .podium-base { width: min(260px, 30vw); border-radius: 8px 8px 0 0; margin-top: 8px; }
+    .podium-base.first { height: 120px; background: linear-gradient(180deg, #ffd700 0%, #b8960f 100%); }
+    .podium-base.second { height: 85px; background: linear-gradient(180deg, #c0c0c0 0%, #808080 100%); }
+    .podium-base.third { height: 55px; background: linear-gradient(180deg, #cd7f32 0%, #8b5a1e 100%); }
     .podium-rank { font-size: 2rem; }
     .podium-name { font-size: 1.3rem; font-weight: bold; margin: 0.5rem 0; }
     .podium-score { font-size: 1.8rem; font-weight: bold; color: #58a6ff; }
@@ -57,6 +65,9 @@
       body { padding: 1rem; }
       h1 { font-size: 1.8rem; }
       .podium { flex-direction: column; align-items: center; }
+      .podium-slot { order: unset !important; }
+      .podium-base { display: none; }
+      .podium-card, .podium-base { width: 100%; }
       .checks { display: none; }
     }
   </style>
@@ -130,17 +141,21 @@
       document.getElementById('subtitle').textContent =
         `${data.teams.length} équipes · ${data.total_possible} points${bonusPossible ? ` + ${bonusPossible} bonus` : ''}`;
 
-      // Podium
+      // Podium (2-1-3 layout like a real podium)
       const podium = document.getElementById('podium');
+      const slotClasses = ['first', 'second', 'third'];
       data.teams.slice(0, 3).forEach((t, i) => {
         const bonusStr = t.bonus > 0 ? `<div class="podium-bonus">+${t.bonus} bonus</div>` : '';
         podium.innerHTML += `
-          <div class="podium-card ${PODIUM_CLASSES[i]}">
-            <div class="podium-rank">${MEDALS[i]}</div>
-            <div class="podium-name">${t.team}</div>
-            <div class="podium-score">${t.total} pts</div>
-            ${bonusStr}
-            <div class="team-members">${t.members.join(', ')}</div>
+          <div class="podium-slot ${slotClasses[i]}">
+            <div class="podium-card ${PODIUM_CLASSES[i]}">
+              <div class="podium-rank">${MEDALS[i]}</div>
+              <div class="podium-name">${t.team}</div>
+              <div class="podium-score">${t.total} pts</div>
+              ${bonusStr}
+              <div class="team-members">${t.members.join(', ')}</div>
+            </div>
+            <div class="podium-base ${slotClasses[i]}"></div>
           </div>`;
       });
 
@@ -181,7 +196,8 @@
           ? `<div class="detail-section" style="margin-top:12px">📝 Code Review (${review.total}/20)</div>
              <div><span class="check ${review.code_quality?.score >= 6 ? 'pass' : 'fail'}">Code: ${review.code_quality?.score || 0}/10</span> — ${formatReviewDetails(review.code_quality)}</div>
              <div><span class="check ${review.documentation?.score >= 6 ? 'pass' : 'fail'}">Docs: ${review.documentation?.score || 0}/10</span> — ${formatReviewDetails(review.documentation)}</div>
-             ${review.summary ? `<div style="color:#8b949e;margin-top:4px;font-style:italic">${review.summary}</div>` : ''}`
+             ${review.summary ? `<div style="color:#8b949e;margin-top:4px;font-style:italic">${review.summary}</div>` : ''}
+             ${review.tips?.length ? `<div style="margin-top:8px"><b style="color:#f0883e">💡 Tips:</b><ul style="margin:4px 0 0 16px;color:#c9d1d9;font-size:0.85rem">${review.tips.map(t => '<li>' + t + '</li>').join('')}</ul></div>` : ''}`
           : '';
 
         tbody.innerHTML += `
