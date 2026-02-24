@@ -1,22 +1,23 @@
 {
-  "generated_at": "2026-02-24T09:11:48.631Z",
+  "generated_at": "2026-02-24T09:15:42.537Z",
   "total_possible": 140,
   "bonus_possible": 25,
   "teams": [
     {
-      "team": "HAT-main",
+      "team": "HAT-develop",
       "members": [
         "Allan THIERY-DEMANGEON",
         "Hugo WEHRLE",
         "Tristan RENARD"
       ],
       "repo": "lootopia-les-3-dev/todo-api-node",
+      "branch": "develop",
       "deploy_url": "",
-      "total": 50,
+      "total": 85,
       "maxTotal": 140,
       "bonus": 0,
       "maxBonus": 25,
-      "grandTotal": 50,
+      "grandTotal": 85,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -27,14 +28,14 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#11)",
+          "detail": "Last run: success (#13)",
           "points": 5,
-          "label": "Pipeline green on main",
+          "label": "Pipeline green on branch",
           "category": "fundamentals"
         },
         "lint_pass": {
-          "pass": false,
-          "detail": "No real linter execution found in workflows",
+          "pass": true,
+          "detail": "Real linter in .github/workflows/ci.yml (command: eslint)",
           "points": 5,
           "label": "Lint step in pipeline",
           "category": "fundamentals"
@@ -48,7 +49,7 @@
         },
         "tests_exist": {
           "pass": true,
-          "detail": "4 real test file(s), run in CI (command: npm test)",
+          "detail": "4 real test file(s), run in CI (command: jest)",
           "points": 10,
           "label": "Tests exist in pipeline",
           "category": "fundamentals"
@@ -61,8 +62,8 @@
           "category": "fundamentals"
         },
         "coverage_70": {
-          "pass": false,
-          "detail": "No coverage step found in CI",
+          "pass": true,
+          "detail": "Coverage in CI, pipeline green ✅",
           "points": 10,
           "label": "Coverage ≥ 70%",
           "category": "fundamentals"
@@ -76,7 +77,7 @@
         },
         "docker_builds": {
           "pass": true,
-          "detail": "Docker build in .github/workflows/ci.yml (command: docker build)",
+          "detail": "Docker build in .github/workflows/ci.yml (action: docker/build-push-action)",
           "points": 5,
           "label": "Docker build in CI",
           "category": "fundamentals"
@@ -96,8 +97,8 @@
           "category": "fundamentals"
         },
         "security_scan": {
-          "pass": false,
-          "detail": "No real security scan found in workflows",
+          "pass": true,
+          "detail": "Security scan: action: aquasecurity/trivy-action in .github/workflows/ci.yml",
           "points": 10,
           "label": "Security scan in CI",
           "category": "intermediate"
@@ -124,17 +125,17 @@
           "category": "intermediate"
         },
         "branch_protection": {
-          "pass": true,
-          "detail": "PR required before merge ✅",
+          "pass": false,
+          "detail": "No branch protection on develop",
           "points": 5,
-          "label": "Branch protection on main",
+          "label": "Branch protection",
           "category": "advanced"
         },
         "auto_deploy": {
-          "pass": false,
-          "detail": "No auto-deploy workflow found",
+          "pass": true,
+          "detail": "Deploy on push to develop: command: deploy in .github/workflows/ci.yml",
           "points": 10,
-          "label": "Auto-deploy on push to main",
+          "label": "Auto-deploy on push to branch",
           "category": "advanced"
         },
         "multi_env": {
@@ -146,14 +147,14 @@
         },
         "pipeline_fast": {
           "pass": true,
-          "detail": "Average: 0.7 min (last 2 runs)",
+          "detail": "Average: 0.6 min (last 3 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
         },
         "dependabot": {
-          "pass": false,
-          "detail": "No valid dependency update config",
+          "pass": true,
+          "detail": "dependabot config with valid setup",
           "points": 5,
           "label": "Dependabot/Renovate configured",
           "category": "advanced"
@@ -183,7 +184,7 @@
         },
         "conventional_commits": {
           "pass": false,
-          "detail": "0/3 conventional (0%)",
+          "detail": "15/20 conventional (75%)",
           "points": 5,
           "label": "Conventional commits",
           "category": "bonus"
@@ -199,13 +200,14 @@
       "rank": 1
     },
     {
-      "team": "HAT-develop",
+      "team": "HAT-main",
       "members": [
         "Allan THIERY-DEMANGEON",
         "Hugo WEHRLE",
         "Tristan RENARD"
       ],
       "repo": "lootopia-les-3-dev/todo-api-node",
+      "branch": "main",
       "deploy_url": "",
       "total": 50,
       "maxTotal": 140,
@@ -224,7 +226,7 @@
           "pass": true,
           "detail": "Last run: success (#11)",
           "points": 5,
-          "label": "Pipeline green on main",
+          "label": "Pipeline green on branch",
           "category": "fundamentals"
         },
         "lint_pass": {
@@ -322,14 +324,14 @@
           "pass": true,
           "detail": "PR required before merge ✅",
           "points": 5,
-          "label": "Branch protection on main",
+          "label": "Branch protection",
           "category": "advanced"
         },
         "auto_deploy": {
           "pass": false,
           "detail": "No auto-deploy workflow found",
           "points": 10,
-          "label": "Auto-deploy on push to main",
+          "label": "Auto-deploy on push to branch",
           "category": "advanced"
         },
         "multi_env": {
