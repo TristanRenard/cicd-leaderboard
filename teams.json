@@ -1,5 +1,12 @@
 [
     {
+        "deploy_url": "https://todo-api.httpd.zip",
+        "members": [],
+        "repo": "LuaPanic/todo-api-node",
+        "team": "TeamRedBox",
+        "branch":"main"
+    },
+    {
         "deploy_url": "https://todo.lootopia.io",
         "members": [
             "Allan THIERY-DEMANGEON",
