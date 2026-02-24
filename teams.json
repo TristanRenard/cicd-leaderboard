@@ -96,7 +96,7 @@
         "team": "Team-locker"
     },
     {
-        "deploy_url": "",
+        "deploy_url": "https://todo-api-node-six.vercel.app/",
         "members": [
             "Julian CHRISTMANN",
             "Bilal MOHAMMAD"
