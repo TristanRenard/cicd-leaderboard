@@ -6,31 +6,28 @@ on:
     - cron: '*/30 8-23 * * 1-5'
   # Manual trigger
   workflow_dispatch:
-
+  
 permissions:
   contents: write
   packages: read
   actions: read
-
+  
 jobs:
   score:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
       - name: Run scoring
         env:
           GITHUB_TOKEN: ${{ secrets.SCORING_TOKEN }}
         run: node score.mjs
-
       - name: Commit and push scores
         run: |
           git config user.name "Leaderboard Bot"
           git config user.email "bot@leaderboard"
           git add docs/scores.json
-          git diff --staged --quiet || (git commit -m "📊 Update scores $(date -u +%Y-%m-%dT%H:%M)" && git push)
+          git diff --staged --quiet || (git commit -m "📊 Update scores $(date -u +%Y-%m-%dT%H:%M)" && git pull --rebase && git push)
