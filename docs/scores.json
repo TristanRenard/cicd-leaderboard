@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-25T20:02:30.470Z",
+  "generated_at": "2026-02-25T20:18:30.732Z",
   "total_possible": 140,
   "expert_possible": 45,
   "bonus_possible": 50,
@@ -12,13 +12,15 @@
         "Tristan RENARD"
       ],
       "repo": "lootopia-les-3-dev/todo-api-node",
-      "total": 115,
+      "prod_url": "https://todo.lootopia.io",
+      "staging_url": "https://pp-todo.lootopia.io",
+      "total": 140,
       "maxTotal": 140,
       "expert": 40,
       "maxExpert": 45,
-      "bonus": 35,
+      "bonus": 40,
       "maxBonus": 50,
-      "grandTotal": 190,
+      "grandTotal": 220,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -84,8 +86,8 @@
           "category": "fundamentals"
         },
         "swagger_docs": {
-          "pass": false,
-          "detail": "No prod_url — cannot check Swagger",
+          "pass": true,
+          "detail": "Swagger found at /docs",
           "points": 5,
           "label": "API documentation (Swagger)",
           "category": "fundamentals"
@@ -119,8 +121,8 @@
           "category": "intermediate"
         },
         "deployed": {
-          "pass": false,
-          "detail": "No prod_url in teams.json",
+          "pass": true,
+          "detail": "https://todo.lootopia.io → HTTP 200 ✅ (Todo API verified)",
           "points": 10,
           "label": "App deployed (HTTP 200)",
           "category": "intermediate"
@@ -140,8 +142,8 @@
           "category": "advanced"
         },
         "multi_env": {
-          "pass": false,
-          "detail": "GitHub environments: production, staging — but no staging_url in teams.json (add it via PR!)",
+          "pass": true,
+          "detail": "Staging https://pp-todo.lootopia.io → HTTP 200 ✅ + Prod live (envs: production, staging)",
           "points": 10,
           "label": "Multiple environments",
           "category": "advanced"
@@ -249,8 +251,8 @@
           "category": "bonus"
         },
         "health_endpoint": {
-          "pass": false,
-          "detail": "No deploy URL",
+          "pass": true,
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":1126.25361742}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
