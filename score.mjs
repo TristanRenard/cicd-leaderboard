@@ -28,6 +28,10 @@ async function gh(path) {
   return res.json();
 }
 
+async function ghFetch(path) {
+  return fetch(`${API}${path}`, { headers });
+}
+
 async function ghRaw(owner, repo, path) {
   const res = await fetch(
     `https://raw.githubusercontent.com/${owner}/${repo}/main/${path}`,
@@ -445,11 +449,11 @@ const CHECKS = {
     category: "fundamentals",
     label: "API documentation (Swagger)",
     run: async (_owner, _repo, team) => {
-      if (!team.deploy_url) return { pass: false, detail: "No deploy_url — cannot check Swagger" };
+      if (!team.prod_url) return { pass: false, detail: "No prod_url — cannot check Swagger" };
       const endpoints = ["/docs", "/api-docs", "/swagger", "/api/docs"];
       for (const ep of endpoints) {
         try {
-          const url = team.deploy_url.replace(/\/+$/, "") + ep;
+          const url = team.prod_url.replace(/\/+$/, "") + ep;
           const controller = new AbortController();
           const timeout = setTimeout(() => controller.abort(), 30000);
           const res = await fetch(url, { signal: controller.signal });
@@ -598,13 +602,13 @@ const CHECKS = {
     category: "intermediate",
     label: "App deployed (HTTP 200)",
     run: async (_owner, _repo, team) => {
-      if (!team.deploy_url) return { pass: false, detail: "No deploy_url in teams.json" };
+      if (!team.prod_url) return { pass: false, detail: "No prod_url in teams.json" };
       try {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 30000);
-        const res = await fetch(team.deploy_url, { signal: controller.signal });
+        const res = await fetch(team.prod_url, { signal: controller.signal });
         clearTimeout(timeout);
-        if (!res.ok) return { pass: false, detail: `${team.deploy_url} → HTTP ${res.status}` };
+        if (!res.ok) return { pass: false, detail: `${team.prod_url} → HTTP ${res.status}` };
 
         const body = await res.text();
         const isOurApp =
@@ -612,20 +616,20 @@ const CHECKS = {
           body.includes("Todo") ||
           body.includes("todo");
         if (isOurApp) {
-          return { pass: true, detail: `${team.deploy_url} → HTTP ${res.status} ✅ (Todo API verified)` };
+          return { pass: true, detail: `${team.prod_url} → HTTP ${res.status} ✅ (Todo API verified)` };
         }
         try {
-          const todosRes = await fetch(team.deploy_url.replace(/\/+$/, "") + "/todos", { signal: AbortSignal.timeout(15000) });
+          const todosRes = await fetch(team.prod_url.replace(/\/+$/, "") + "/todos", { signal: AbortSignal.timeout(15000) });
           if (todosRes.ok) {
             const todosBody = await todosRes.text();
             if (todosBody.startsWith("[") || todosBody.includes("todos")) {
-              return { pass: true, detail: `${team.deploy_url} → /todos endpoint works ✅` };
+              return { pass: true, detail: `${team.prod_url} → /todos endpoint works ✅` };
             }
           }
         } catch { /* ignore */ }
-        return { pass: false, detail: `${team.deploy_url} → HTTP 200 but not our Todo API (wrong app?)` };
+        return { pass: false, detail: `${team.prod_url} → HTTP 200 but not our Todo API (wrong app?)` };
       } catch (e) {
-        return { pass: false, detail: `${team.deploy_url} → ${e.message}` };
+        return { pass: false, detail: `${team.prod_url} → ${e.message}` };
       }
     },
   },
@@ -681,23 +685,54 @@ const CHECKS = {
     points: 10,
     category: "advanced",
     label: "Multiple environments",
-    run: async (owner, repo, _team, ctx) => {
-      // PRIMARY: Check GitHub Environments API
+    run: async (owner, repo, team, ctx) => {
+      // Step 1: Check GitHub Environments API (structural)
+      let hasGHEnvs = false;
+      let envDetail = "";
       if (ctx.environments && Array.isArray(ctx.environments) && ctx.environments.length >= 2) {
         const envNames = ctx.environments.map((e) => e.name.toLowerCase());
         const hasStaging = envNames.some((n) => ["staging", "dev", "development", "preview", "qa", "test"].includes(n));
         const hasProd = envNames.some((n) => ["production", "prod", "live"].includes(n));
         if (hasStaging && hasProd) {
-          const names = ctx.environments.map((e) => e.name).join(", ");
-          return { pass: true, detail: `GitHub environments: ${names} ✅` };
-        }
-        if (ctx.environments.length >= 2) {
-          const names = ctx.environments.map((e) => e.name).join(", ");
-          return { pass: true, detail: `${ctx.environments.length} GitHub environments: ${names} ✅` };
+          hasGHEnvs = true;
+          envDetail = ctx.environments.map((e) => e.name).join(", ");
+        } else if (ctx.environments.length >= 2) {
+          hasGHEnvs = true;
+          envDetail = ctx.environments.map((e) => e.name).join(", ");
         }
       }
 
-      // FALLBACK: check job names for deploy-staging/deploy-production patterns in lastRunJobs
+      // Step 2: Check staging_url is live (if provided)
+      if (team.staging_url && team.prod_url) {
+        // URLs must be different
+        const stagingNorm = team.staging_url.replace(/\/+$/, "").toLowerCase();
+        const prodNorm = team.prod_url.replace(/\/+$/, "").toLowerCase();
+        if (stagingNorm === prodNorm) {
+          return { pass: false, detail: "staging_url and prod_url are identical" };
+        }
+        try {
+          const controller = new AbortController();
+          setTimeout(() => controller.abort(), 15000);
+          const res = await fetch(team.staging_url, { signal: controller.signal });
+          if (res.ok) {
+            const envStr = hasGHEnvs ? ` (envs: ${envDetail})` : "";
+            return { pass: true, detail: `Staging ${team.staging_url} → HTTP ${res.status} ✅ + Prod live${envStr}` };
+          }
+          return { pass: false, detail: `Staging ${team.staging_url} → HTTP ${res.status}` };
+        } catch (e) {
+          return { pass: false, detail: `Staging ${team.staging_url} → ${e.message}` };
+        }
+      }
+
+      // Step 3: No staging_url yet — check GitHub Environments as fallback
+      if (hasGHEnvs) {
+        if (!team.staging_url) {
+          return { pass: false, detail: `GitHub environments: ${envDetail} — but no staging_url in teams.json (add it via PR!)` };
+        }
+        return { pass: true, detail: `GitHub environments: ${envDetail} ✅` };
+      }
+
+      // Step 4: Fallback — check job names
       if (ctx.lastRunJobs) {
         let hasStaging = false;
         let hasProd = false;
@@ -715,11 +750,11 @@ const CHECKS = {
           }
         }
         if (hasStaging && hasProd) {
-          return { pass: true, detail: `Multi-env jobs: "${stagingJob}" + "${prodJob}"` };
+          return { pass: false, detail: `Multi-env jobs: "${stagingJob}" + "${prodJob}" — but no staging_url in teams.json (add it via PR!)` };
         }
       }
 
-      return { pass: false, detail: "No multiple environments (need both staging + production)" };
+      return { pass: false, detail: "No multiple environments (need both staging + production URLs)" };
     },
   },
 
@@ -767,6 +802,205 @@ const CHECKS = {
         }
       }
       return { pass: false, detail: "No valid dependency update config" };
+    },
+  },
+};
+
+// ---------------------------------------------------------------------------
+// EXPERT checks
+// ---------------------------------------------------------------------------
+
+const EXPERT_CHECKS = {
+  ci_notifications: {
+    points: 5,
+    category: "expert",
+    label: "CI notifications (Discord/Slack)",
+    run: async (owner, repo, _team, ctx) => {
+      // Check for notification job/step in last run
+      const result = findGreenStep(ctx, ["notify", "notification", "discord", "slack", "webhook", "alert"]);
+      if (result.found) {
+        return { pass: true, detail: result.detail };
+      }
+      // Also check workflow YAML for webhook URLs or notification actions
+      for (const wf of ctx.workflows) {
+        const lower = wf.content.toLowerCase();
+        if (lower.includes("discord-webhook") || lower.includes("slack-webhook") ||
+            lower.includes("slackapi/") || lower.includes("discord_webhook") ||
+            lower.includes("8398a7/action-slack") || lower.includes("rtcamp/action-slack") ||
+            lower.includes("rjstone/discord-webhook")) {
+          return { pass: true, detail: `Notification action in ${wf.path}` };
+        }
+      }
+      return { pass: false, detail: "No CI notification job/step found" };
+    },
+  },
+  matrix_testing: {
+    points: 5,
+    category: "expert",
+    label: "Matrix testing (multi-version)",
+    run: async (owner, repo, _team, ctx) => {
+      // Check workflow YAML for strategy.matrix
+      for (const wf of ctx.workflows) {
+        const content = wf.content;
+        if (/strategy:\s*\n\s*matrix:/i.test(content)) {
+          // Extract what's in the matrix for detail
+          const matrixMatch = content.match(/matrix:\s*\n((?:\s+.+\n)*)/);
+          let detail = `Matrix strategy in ${wf.path}`;
+          if (matrixMatch) {
+            const keys = [...matrixMatch[1].matchAll(/^\s+(\w[\w-]*):/gm)].map(m => m[1]);
+            if (keys.length) detail += ` (${keys.join(", ")})`;
+          }
+          return { pass: true, detail };
+        }
+      }
+      // Fallback: check if Jobs API shows matrix expansion (job names like "test (18.x)")
+      if (ctx.lastRunJobs?.length) {
+        const matrixJobs = ctx.lastRunJobs.filter(j => /\(.+\)/.test(j.name));
+        if (matrixJobs.length >= 2) {
+          const names = matrixJobs.map(j => j.name).slice(0, 4).join(", ");
+          return { pass: true, detail: `Matrix jobs detected: ${names}` };
+        }
+      }
+      return { pass: false, detail: "No matrix strategy found in workflows" };
+    },
+  },
+  reusable_workflows: {
+    points: 5,
+    category: "expert",
+    label: "Reusable workflows",
+    run: async (owner, repo, _team, ctx) => {
+      for (const wf of ctx.workflows) {
+        const content = wf.content;
+        // Check for workflow_call trigger (this workflow IS reusable)
+        if (/on:\s*\n\s*workflow_call:/m.test(content) || /on:\s*\[.*workflow_call.*\]/m.test(content)) {
+          return { pass: true, detail: `Reusable workflow (workflow_call) in ${wf.path}` };
+        }
+        // Check for calling a reusable workflow (uses: ./.github/workflows/ or uses: org/repo/.github/workflows/)
+        if (/uses:\s*['"]?\.\/\.github\/workflows\//m.test(content) ||
+            /uses:\s*['"]?[\w-]+\/[\w-]+\/\.github\/workflows\//m.test(content)) {
+          return { pass: true, detail: `Calls reusable workflow in ${wf.path}` };
+        }
+      }
+      return { pass: false, detail: "No reusable workflows (workflow_call) found" };
+    },
+  },
+  release_tagging: {
+    points: 5,
+    category: "expert",
+    label: "Release tagging (GitHub Releases)",
+    run: async (owner, repo, _team, ctx) => {
+      // Check GitHub Releases API
+      const res = await ghFetch(`/repos/${owner}/${repo}/releases?per_page=3`);
+      if (res.ok) {
+        const releases = await res.json();
+        if (releases.length > 0) {
+          const latest = releases[0].tag_name;
+          return { pass: true, detail: `${releases.length} release(s), latest: ${latest}` };
+        }
+      }
+      // Fallback: check tags
+      const tagsRes = await ghFetch(`/repos/${owner}/${repo}/tags?per_page=3`);
+      if (tagsRes.ok) {
+        const tags = await tagsRes.json();
+        if (tags.length > 0) {
+          return { pass: true, detail: `${tags.length} tag(s), latest: ${tags[0].name}` };
+        }
+      }
+      return { pass: false, detail: "No releases or tags found" };
+    },
+  },
+  smoke_tests: {
+    points: 5,
+    category: "expert",
+    label: "Smoke tests post-deploy",
+    run: async (owner, repo, _team, ctx) => {
+      // Check for smoke/e2e/integration test steps in workflows
+      const result = findGreenStep(ctx, ["smoke", "e2e", "integration-test", "acceptance", "post-deploy", "health-check"]);
+      if (result.found) {
+        return { pass: true, detail: result.detail };
+      }
+      // Check workflow YAML for curl/wget calls after deploy steps
+      for (const wf of ctx.workflows) {
+        const content = wf.content;
+        if (/smoke[-_]?test/i.test(content) || /post[-_]?deploy[-_]?test/i.test(content) ||
+            /e2e[-_]?test/i.test(content)) {
+          return { pass: true, detail: `Smoke test reference in ${wf.path}` };
+        }
+      }
+      return { pass: false, detail: "No smoke/e2e tests post-deploy found" };
+    },
+  },
+  rollback_strategy: {
+    points: 10,
+    category: "expert",
+    label: "Rollback strategy",
+    run: async (owner, repo, _team, ctx) => {
+      // Check for rollback-related workflow or job
+      const result = findGreenStep(ctx, ["rollback", "revert", "undo-deploy", "previous-version"]);
+      if (result.found) {
+        return { pass: true, detail: result.detail };
+      }
+      // Check workflow YAML for rollback mechanisms
+      for (const wf of ctx.workflows) {
+        const content = wf.content.toLowerCase();
+        if (content.includes("rollback") || content.includes("revert") ||
+            /workflow_dispatch:[\s\S]*?(rollback|revert|previous)/i.test(wf.content)) {
+          return { pass: true, detail: `Rollback mechanism in ${wf.path}` };
+        }
+      }
+      // Check for a dedicated rollback workflow file
+      for (const wf of ctx.workflows) {
+        if (/rollback|revert/i.test(wf.path)) {
+          return { pass: true, detail: `Rollback workflow: ${wf.path}` };
+        }
+      }
+      return { pass: false, detail: "No rollback strategy found" };
+    },
+  },
+  monitoring: {
+    points: 10,
+    category: "expert",
+    label: "External monitoring",
+    run: async (owner, repo, _team, ctx) => {
+      // Check README for monitoring badges/links
+      if (ctx.readme) {
+        const lower = ctx.readme.toLowerCase();
+        const monitors = ["uptimerobot", "pingdom", "betteruptime", "statuspage",
+          "freshping", "hetrixtools", "uptime-kuma", "statuscake", "checkly",
+          "datadog", "newrelic", "sentry", "grafana", "prometheus"];
+        for (const m of monitors) {
+          if (lower.includes(m)) {
+            return { pass: true, detail: `${m} reference in README` };
+          }
+        }
+        // Check for uptime/status badges
+        if (/uptime|status.*badge|monitoring/i.test(ctx.readme)) {
+          return { pass: true, detail: "Monitoring/uptime badge in README" };
+        }
+      }
+      // Check workflow YAML for monitoring setup (exclude k6/grafana perf test false positives)
+      for (const wf of ctx.workflows) {
+        const content = wf.content.toLowerCase();
+        if (content.includes("uptimerobot") || content.includes("sentry") ||
+            content.includes("datadog") || content.includes("newrelic") ||
+            content.includes("prometheus")) {
+          return { pass: true, detail: `Monitoring integration in ${wf.path}` };
+        }
+        // Grafana only counts if it's dashboard/monitoring, not k6 perf tests
+        if (content.includes("grafana") && !content.includes("k6") && !content.includes("grafana/k6")) {
+          return { pass: true, detail: `Grafana monitoring in ${wf.path}` };
+        }
+      }
+      // Check for monitoring config files in repo
+      const monitorFiles = [".sentryclirc", "sentry.properties", "newrelic.js",
+        "prometheus.yml", "docker-compose.monitoring.yml"];
+      for (const f of monitorFiles) {
+        const res = await ghFetch(`/repos/${owner}/${repo}/contents/${f}`);
+        if (res.ok) {
+          return { pass: true, detail: `Monitoring config: ${f}` };
+        }
+      }
+      return { pass: false, detail: "No external monitoring found" };
     },
   },
 };
@@ -886,8 +1120,8 @@ const BONUS_CHECKS = {
     category: "bonus",
     label: "Health endpoint",
     run: async (_owner, _repo, team) => {
-      if (!team.deploy_url) return { pass: false, detail: "No deploy URL" };
-      const base = team.deploy_url.replace(/\/+$/, "");
+      if (!team.prod_url) return { pass: false, detail: "No deploy URL" };
+      const base = team.prod_url.replace(/\/+$/, "");
       for (const path of ["/health", "/healthz", "/api/health"]) {
         try {
           const res = await fetch(`${base}${path}`, { signal: AbortSignal.timeout(10000) });
@@ -967,6 +1201,80 @@ const BONUS_CHECKS = {
       return { pass: false, detail: "No release-please/semantic-release/conventional-changelog found" };
     },
   },
+  feature_flags: {
+    points: 5,
+    category: "bonus",
+    label: "Feature flags",
+    run: async (owner, repo, _team, ctx) => {
+      const flagTools = ["launchdarkly", "unleash", "flagsmith", "configcat", "flipt",
+        "growthbook", "feature-flag", "featureflag", "feature_flag", "ff-client"];
+      // Check code files via search API
+      if (ctx.readme) {
+        const lower = ctx.readme.toLowerCase();
+        for (const tool of flagTools) {
+          if (lower.includes(tool)) {
+            return { pass: true, detail: `${tool} reference in README` };
+          }
+        }
+      }
+      // Check package.json / requirements.txt
+      const pkg = await ghRaw(owner, repo, "package.json");
+      if (pkg) {
+        const lower = pkg.toLowerCase();
+        for (const tool of flagTools) {
+          if (lower.includes(tool)) return { pass: true, detail: `${tool} in package.json` };
+        }
+      }
+      const reqs = await ghRaw(owner, repo, "requirements.txt");
+      if (reqs) {
+        const lower = reqs.toLowerCase();
+        for (const tool of flagTools) {
+          if (lower.includes(tool)) return { pass: true, detail: `${tool} in requirements.txt` };
+        }
+      }
+      // Check for .env or config references
+      for (const wf of ctx.workflows) {
+        const lower = wf.content.toLowerCase();
+        for (const tool of flagTools) {
+          if (lower.includes(tool)) return { pass: true, detail: `${tool} in ${wf.path}` };
+        }
+      }
+      return { pass: false, detail: "No feature flag implementation found" };
+    },
+  },
+  blue_green_canary: {
+    points: 5,
+    category: "bonus",
+    label: "Blue/Green or Canary deployment",
+    run: async (owner, repo, _team, ctx) => {
+      // Check workflows for blue/green or canary patterns
+      for (const wf of ctx.workflows) {
+        const lower = wf.content.toLowerCase();
+        if (lower.includes("blue-green") || lower.includes("blue_green") || lower.includes("bluegreen") ||
+            lower.includes("canary") || lower.includes("rolling-update") || lower.includes("rolling_update")) {
+          const strategy = ["blue-green", "blue_green", "bluegreen", "canary", "rolling-update", "rolling_update"]
+            .find(s => lower.includes(s));
+          return { pass: true, detail: `${strategy} strategy in ${wf.path}` };
+        }
+      }
+      // Check README
+      if (ctx.readme) {
+        const lower = ctx.readme.toLowerCase();
+        if (lower.includes("blue/green") || lower.includes("blue-green") || lower.includes("canary deployment") ||
+            lower.includes("rolling update")) {
+          return { pass: true, detail: "Deployment strategy documented in README" };
+        }
+      }
+      // Check for multiple deploy targets suggesting blue/green
+      if (ctx.environments?.length >= 3) {
+        const names = ctx.environments.map(e => e.name.toLowerCase());
+        if (names.some(n => n.includes("blue") || n.includes("green") || n.includes("canary"))) {
+          return { pass: true, detail: `Blue/Green or Canary environment detected: ${names.join(", ")}` };
+        }
+      }
+      return { pass: false, detail: "No blue/green or canary deployment found" };
+    },
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -1017,6 +1325,27 @@ async function scoreTeam(team) {
     }
   }
 
+  // Expert checks
+  let expert = 0;
+  let maxExpert = 0;
+  const expertResults = {};
+
+  console.log(`  --- Expert ---`);
+  for (const [key, check] of Object.entries(EXPERT_CHECKS)) {
+    try {
+      const result = await check.run(owner, repo, team, ctx);
+      expertResults[key] = { ...result, points: check.points, label: check.label, category: check.category };
+      if (result.pass) expert += check.points;
+      maxExpert += check.points;
+      const icon = result.pass ? "🔴" : "○";
+      console.log(`  ${icon} ${check.label} (${result.pass ? check.points : 0}/${check.points}) — ${result.detail}`);
+    } catch (e) {
+      expertResults[key] = { pass: false, points: check.points, label: check.label, category: check.category, detail: `Error: ${e.message}` };
+      maxExpert += check.points;
+      console.log(`  ⚠️  ${check.label} — Error: ${e.message}`);
+    }
+  }
+
   // Bonus checks
   let bonus = 0;
   let maxBonus = 0;
@@ -1039,14 +1368,16 @@ async function scoreTeam(team) {
   }
 
   return {
-    team: team.team, members: team.members, repo: team.repo, deploy_url: team.deploy_url,
-    total, maxTotal, bonus, maxBonus, grandTotal: total + bonus,
-    results, bonusResults,
+    team: team.team, members: team.members, repo: team.repo, prod_url: team.prod_url, staging_url: team.staging_url,
+    total, maxTotal, expert, maxExpert, bonus, maxBonus,
+    grandTotal: total + expert + bonus,
+    results, expertResults, bonusResults,
   };
 }
 
 async function main() {
-  const teams = JSON.parse(readFileSync("teams.json", "utf-8"));
+  const teamsFile = process.argv[2] || "teams.json";
+  const teams = JSON.parse(readFileSync(teamsFile, "utf-8"));
   const scores = [];
 
   for (const team of teams) {
@@ -1059,17 +1390,19 @@ async function main() {
   const output = {
     generated_at: new Date().toISOString(),
     total_possible: Object.values(CHECKS).reduce((s, c) => s + c.points, 0),
+    expert_possible: Object.values(EXPERT_CHECKS).reduce((s, c) => s + c.points, 0),
     bonus_possible: Object.values(BONUS_CHECKS).reduce((s, c) => s + c.points, 0),
     teams: scores,
   };
 
   mkdirSync("docs", { recursive: true });
-  writeFileSync("docs/scores.json", JSON.stringify(output, null, 2));
-  console.log(`\n📊 Scores written to docs/scores.json`);
+  const outFile = teamsFile === "teams.json" ? "docs/scores.json" : "docs/scores-test.json";
+  writeFileSync(outFile, JSON.stringify(output, null, 2));
+  console.log(`\n📊 Scores written to ${outFile}`);
   console.log(`\n🏆 Leaderboard:`);
   for (const s of scores) {
-    const bonusStr = s.bonus > 0 ? ` (+${s.bonus} bonus)` : "";
-    console.log(`  #${s.rank} ${s.team} — ${s.total}/${s.maxTotal} pts${bonusStr}`);
+    const extraStr = (s.expert > 0 || s.bonus > 0) ? ` (+${s.expert + s.bonus} extra)` : "";
+    console.log(`  #${s.rank} ${s.team} — ${s.total}/${s.maxTotal} pts${extraStr}`);
   }
 }
 
