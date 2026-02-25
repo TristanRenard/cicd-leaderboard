@@ -799,6 +799,36 @@ const EXPERT_CHECKS = {
       return { pass: false, detail: "No CI notification job/step found" };
     },
   },
+  matrix_testing: {
+    points: 5,
+    category: "expert",
+    label: "Matrix testing (multi-version)",
+    run: async (owner, repo, _team, ctx) => {
+      // Check workflow YAML for strategy.matrix
+      for (const wf of ctx.workflows) {
+        const content = wf.content;
+        if (/strategy:\s*\n\s*matrix:/i.test(content)) {
+          // Extract what's in the matrix for detail
+          const matrixMatch = content.match(/matrix:\s*\n((?:\s+.+\n)*)/);
+          let detail = `Matrix strategy in ${wf.path}`;
+          if (matrixMatch) {
+            const keys = [...matrixMatch[1].matchAll(/^\s+(\w[\w-]*):/gm)].map(m => m[1]);
+            if (keys.length) detail += ` (${keys.join(", ")})`;
+          }
+          return { pass: true, detail };
+        }
+      }
+      // Fallback: check if Jobs API shows matrix expansion (job names like "test (18.x)")
+      if (ctx.lastRunJobs?.length) {
+        const matrixJobs = ctx.lastRunJobs.filter(j => /\(.+\)/.test(j.name));
+        if (matrixJobs.length >= 2) {
+          const names = matrixJobs.map(j => j.name).slice(0, 4).join(", ");
+          return { pass: true, detail: `Matrix jobs detected: ${names}` };
+        }
+      }
+      return { pass: false, detail: "No matrix strategy found in workflows" };
+    },
+  },
 };
 
 // ---------------------------------------------------------------------------
