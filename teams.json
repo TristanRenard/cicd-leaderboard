@@ -39,7 +39,7 @@
         "team": "sql_injection"
     },
     {
-        "deploy_url": "",
+        "deploy_url": "https://todo-api-node-phi.vercel.app/",
         "members": [
             "SIMSEK Lutfi",
             "BALOUP Clément"
