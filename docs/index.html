@@ -165,10 +165,11 @@
       data.teams.forEach((t) => {
         const pct = Math.round((t.total / data.total_possible) * 100);
 
-        // Core checks
-        const checks = Object.entries(t.results)
-          .map(([k, v]) => `<span class="check ${v.pass ? 'pass' : 'fail'}" title="${v.detail}">${v.pass ? '✅' : '❌'} ${v.label}</span>`)
-          .join('');
+        // Core checks — compact summary
+        const coreEntries = Object.entries(t.results);
+        const corePassed = coreEntries.filter(([k, v]) => v.pass).length;
+        const coreTotal = coreEntries.length;
+        const checks = `<span class="check ${corePassed === coreTotal ? 'pass' : corePassed > 0 ? 'pass' : 'fail'}">✅ Core ${corePassed}/${coreTotal}</span>`;
 
         // Expert checks — compact summary (count only)
         const expertEntries = t.expertResults ? Object.entries(t.expertResults) : [];
@@ -178,11 +179,13 @@
           ? `<span class="check ${expertPassed > 0 ? 'pass' : 'fail'}" style="${expertPassed > 0 ? 'background:#1a0a2e;color:#a371f7' : ''}">🔴 Expert ${expertPassed}/${expertTotal}</span>`
           : '';
 
-        // Bonus checks — only show earned ones
-        const bonusChecks = t.bonusResults ? Object.entries(t.bonusResults)
-          .filter(([k, v]) => v.pass)
-          .map(([k, v]) => `<span class="check bonus-pass" title="${v.detail}">⭐ ${v.label}</span>`)
-          .join('') : '';
+        // Bonus checks — compact summary
+        const bonusEntries = t.bonusResults ? Object.entries(t.bonusResults) : [];
+        const bonusPassed = bonusEntries.filter(([k, v]) => v.pass).length;
+        const bonusTotal = bonusEntries.length;
+        const bonusChecks = bonusTotal > 0
+          ? `<span class="check ${bonusPassed > 0 ? 'bonus-pass' : 'bonus-fail'}">⭐ Bonus ${bonusPassed}/${bonusTotal}</span>`
+          : '';
 
         // Detail rows
         const coreDetails = Object.entries(t.results)
