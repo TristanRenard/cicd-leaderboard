@@ -957,50 +957,143 @@ const EXPERT_CHECKS = {
       return { pass: false, detail: "No rollback strategy found" };
     },
   },
-  monitoring: {
+  external_monitoring: {
     points: 10,
     category: "expert",
     label: "External monitoring",
     run: async (owner, repo, _team, ctx) => {
-      // Check README for monitoring badges/links
-      if (ctx.readme) {
-        const lower = ctx.readme.toLowerCase();
-        const monitors = ["uptimerobot", "pingdom", "betteruptime", "statuspage",
+      const readme = ctx.readme || await ghRaw(owner, repo, "README.md");
+
+      if (readme) {
+        // 1. Extract all URLs from README (markdown images, links, raw URLs)
+        const urlRegex = /https?:\/\/[^\s\)"\]>]+/gi;
+        const allUrls = [...readme.matchAll(urlRegex)].map(m => m[0]);
+
+        // 2. Check for verifiable monitoring badge/status page URLs
+        const monitoringUrlPatterns = [
+          /status\.uptimerobot\.com/i,
+          /stats\.uptimerobot\.com/i,
+          /badge\.uptimerobot\.com/i,
+          /uptime\.betterstack\.com/i,
+          /[a-z0-9-]+\.betteruptime\.com/i,
+          /app\.statuscake\.com/i,
+          /statuspage\.io/i,
+          /stats\.pingdom\.com/i,
+          /status\.freshping\.io/i,
+          /checkly\.com/i,
+        ];
+
+        for (const url of allUrls) {
+          for (const pattern of monitoringUrlPatterns) {
+            if (pattern.test(url)) {
+              // Fetch the URL to verify it's live (not a 404)
+              try {
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 10000);
+                const res = await fetch(url, { signal: controller.signal });
+                clearTimeout(timeout);
+                if (res.ok || res.status === 301 || res.status === 302) {
+                  return { pass: true, detail: `Verified monitoring URL: ${url} → HTTP ${res.status} ✅` };
+                }
+              } catch { /* URL not reachable, continue */ }
+            }
+          }
+        }
+
+        // 3. Fallback: keyword detection in README (lower weight — still pass but note it)
+        const lower = readme.toLowerCase();
+        const monitors = ["uptimerobot", "pingdom", "betteruptime", "betterstack", "statuspage",
           "freshping", "hetrixtools", "uptime-kuma", "statuscake", "checkly",
           "datadog", "newrelic", "sentry", "grafana", "prometheus"];
         for (const m of monitors) {
           if (lower.includes(m)) {
-            return { pass: true, detail: `${m} reference in README` };
+            return { pass: true, detail: `${m} reference in README (no verifiable URL — add a badge/status page link!)` };
           }
         }
-        // Check for uptime/status badges
-        if (/uptime|status.*badge|monitoring/i.test(ctx.readme)) {
-          return { pass: true, detail: "Monitoring/uptime badge in README" };
-        }
       }
-      // Check workflow YAML for monitoring setup (exclude k6/grafana perf test false positives)
+
+      // 4. Check workflow YAML for monitoring setup
       for (const wf of ctx.workflows) {
         const content = wf.content.toLowerCase();
         if (content.includes("uptimerobot") || content.includes("sentry") ||
             content.includes("datadog") || content.includes("newrelic") ||
             content.includes("prometheus")) {
-          return { pass: true, detail: `Monitoring integration in ${wf.path}` };
+          return { pass: true, detail: `Monitoring integration in ${wf.path} (add a status badge in README for full credit)` };
         }
-        // Grafana only counts if it's dashboard/monitoring, not k6 perf tests
         if (content.includes("grafana") && !content.includes("k6") && !content.includes("grafana/k6")) {
           return { pass: true, detail: `Grafana monitoring in ${wf.path}` };
         }
       }
-      // Check for monitoring config files in repo
+
+      // 5. Check for monitoring config files in repo
       const monitorFiles = [".sentryclirc", "sentry.properties", "newrelic.js",
         "prometheus.yml", "docker-compose.monitoring.yml"];
       for (const f of monitorFiles) {
         const res = await ghFetch(`/repos/${owner}/${repo}/contents/${f}`);
         if (res.ok) {
-          return { pass: true, detail: `Monitoring config: ${f}` };
+          return { pass: true, detail: `Monitoring config: ${f} (add a status badge in README!)` };
         }
       }
-      return { pass: false, detail: "No external monitoring found" };
+
+      return { pass: false, detail: "No external monitoring found (add UptimeRobot/BetterStack badge in README)" };
+    },
+  },
+  auto_recovery: {
+    points: 10,
+    category: "expert",
+    label: "Auto-recovery / Resilience",
+    run: async (owner, repo, _team, ctx) => {
+      let score = 0;
+      const details = [];
+
+      // 1. Check for workflow_dispatch trigger (manual redeploy)
+      for (const wf of ctx.workflows) {
+        const content = wf.content;
+        if (/workflow_dispatch\s*:/m.test(content)) {
+          // Bonus: check for inputs
+          const hasInputs = /workflow_dispatch\s*:\s*\n\s*inputs\s*:/m.test(content);
+          if (hasInputs) {
+            score += 6;
+            details.push(`workflow_dispatch with inputs in ${wf.path}`);
+          } else {
+            score += 4;
+            details.push(`workflow_dispatch in ${wf.path}`);
+          }
+          break;
+        }
+      }
+
+      // 2. Check for health-check / smoke test post-deploy steps
+      const healthResult = findGreenStep(ctx, ["health-check", "health_check", "healthcheck", "smoke", "verify-deploy", "verify_deploy", "post-deploy"]);
+      if (healthResult.found) {
+        score += 4;
+        details.push(healthResult.detail);
+      } else {
+        // Also check workflow YAML for curl-based health checks
+        for (const wf of ctx.workflows) {
+          const lower = wf.content.toLowerCase();
+          if ((lower.includes("curl") || lower.includes("wget")) &&
+              (lower.includes("/health") || lower.includes("healthz") || lower.includes("smoke"))) {
+            score += 3;
+            details.push(`Health check via curl/wget in ${wf.path}`);
+            break;
+          }
+        }
+      }
+
+      // 3. Check for dedicated restart/redeploy/rollback workflow files
+      for (const wf of ctx.workflows) {
+        if (/rollback|redeploy|restart|recover/i.test(wf.path)) {
+          score += 3;
+          details.push(`Recovery workflow: ${wf.path}`);
+          break;
+        }
+      }
+
+      if (score >= 4) {
+        return { pass: true, detail: details.join(" + ") };
+      }
+      return { pass: false, detail: "No auto-recovery mechanisms found (add workflow_dispatch, health checks, or recovery workflows)" };
     },
   },
 };

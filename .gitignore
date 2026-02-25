@@ -6,3 +6,5 @@ node_modules/
 # Test env
 teams-test.json
 docs/scores-test.json
+plagiarism.mjs
+docs/plagiarism-report.json
