@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-25T13:29:19.977Z",
+  "generated_at": "2026-02-25T13:56:58.913Z",
   "total_possible": 140,
   "bonus_possible": 40,
   "teams": [
@@ -195,7 +195,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":13087.159199039}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":14741.171978733}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -241,14 +241,14 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#195 — CI)",
+          "detail": "Last run: success (#200 — CI)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
         },
         "lint_pass": {
           "pass": true,
-          "detail": "Job \"lint\" green ✅",
+          "detail": "Step \"Run actions/checkout@v6\" in \"perf\" green ✅",
           "points": 5,
           "label": "Lint step in pipeline",
           "category": "fundamentals"
@@ -360,7 +360,7 @@
         },
         "pipeline_fast": {
           "pass": true,
-          "detail": "Average: 1.7 min (last 10 runs)",
+          "detail": "Average: 1.4 min (last 10 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
@@ -411,7 +411,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":456.216525558}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":318.177566933}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
