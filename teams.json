@@ -1,5 +1,15 @@
 [
     {
+        "deploy_url": "https://todo-api-node.vercel.app/",
+        "members": [
+            "Baptiste DANDE",
+            "Keryan CHAMPION",
+            "Nathan HUMEAU"
+        ],
+        "repo": "keryanchpn/todo-api-node",
+        "team": "West Coast Team"
+    },
+    {
         "deploy_url": "https://todoapp.fabienlaurence.com/",
         "members": [
             "Fabien LAURENCE",
@@ -75,16 +85,6 @@
         ],
         "repo": "un-mec-paumer/todo-api-node",
         "team": "hello world"
-    },
-    {
-        "deploy_url": "https://todo-api-node.vercel.app/",
-        "members": [
-            "Baptiste DANDE",
-            "Keryan CHAMPION",
-            "Nathan HUMEAU"
-        ],
-        "repo": "keryanchpn/todo-api-node",
-        "team": "West Coast Team"
     },
     {
         "deploy_url": "https://ci-cd-425f.onrender.com",
