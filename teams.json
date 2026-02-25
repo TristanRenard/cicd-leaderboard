@@ -7,14 +7,12 @@
         "branch":"main"
     },
     {
-        "deploy_url": "https://todo.lootopia.io",
-        "members": [
-            "Allan THIERY-DEMANGEON",
-            "Hugo WEHRLE",
-            "Tristan RENARD"
-        ],
-        "repo": "lootopia-les-3-dev/todo-api-node",
         "team": "HAT-main",
-        "branch":"main"
-    }
+        "members": ["Allan THIERY-DEMANGEON", "Hugo WEHRLE", "Tristan RENARD"],
+        "repo": "lootopia-les-3-dev/todo-api-node",
+        "branch": "main",
+        "prod_url": "https://todo.lootopia.io",
+        "staging_url": "https://pp-todo.lootopia.io"
+      }
 ]
+
