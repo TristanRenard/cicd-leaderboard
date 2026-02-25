@@ -98,7 +98,8 @@
     <div class="legend-item"><div class="legend-dot fund"></div> Fondamentaux (60 pts)</div>
     <div class="legend-item"><div class="legend-dot inter"></div> Intermédiaire (40 pts)</div>
     <div class="legend-item"><div class="legend-dot adv"></div> Avancé (30 pts)</div>
-    <div class="legend-item"><div class="legend-dot bonus"></div> Bonus (25 pts)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#a371f7"></div> Expert (45 pts)</div>
+    <div class="legend-item"><div class="legend-dot bonus"></div> Bonus (50 pts)</div>
   </div>
 
   <div class="updated" id="updated"></div>
@@ -169,6 +170,12 @@
           .map(([k, v]) => `<span class="check ${v.pass ? 'pass' : 'fail'}" title="${v.detail}">${v.pass ? '✅' : '❌'} ${v.label}</span>`)
           .join('');
 
+        // Expert checks — only show earned ones
+        const expertChecks = t.expertResults ? Object.entries(t.expertResults)
+          .filter(([k, v]) => v.pass)
+          .map(([k, v]) => `<span class="check bonus-pass" title="${v.detail}" style="background:#1a0a2e;color:#a371f7">🔴 ${v.label}</span>`)
+          .join('') : '';
+
         // Bonus checks — only show earned ones
         const bonusChecks = t.bonusResults ? Object.entries(t.bonusResults)
           .filter(([k, v]) => v.pass)
@@ -180,12 +187,18 @@
           .map(([k, v]) => `<div><span class="check ${v.pass ? 'pass' : 'fail'}">${v.pass ? '✅' : '❌'} ${v.label} (${v.pass ? v.points : 0}/${v.points})</span> — ${v.detail}</div>`)
           .join('');
 
+        const earnedExpert = t.expertResults ? Object.entries(t.expertResults).filter(([k, v]) => v.pass) : [];
+        const expertDetails = Object.entries(t.expertResults || {})
+          .map(([k, v]) => `<div><span class="check ${v.pass ? 'pass' : 'fail'}" style="${v.pass ? 'background:#1a0a2e;color:#a371f7' : ''}">${v.pass ? '🔴' : '○'} ${v.label} (${v.pass ? v.points : 0}/${v.points})</span> — ${v.detail}</div>`)
+          .join('');
+
         const earnedBonus = t.bonusResults ? Object.entries(t.bonusResults).filter(([k, v]) => v.pass) : [];
         const bonusDetails = earnedBonus
           .map(([k, v]) => `<div><span class="check bonus-pass">⭐ ${v.label} (+${v.points})</span> — ${v.detail}</div>`)
           .join('');
 
-        const bonusScore = t.bonus > 0 ? `<span class="score-bonus"> +${t.bonus}</span>` : '';
+        const extraScore = (t.expert || 0) + (t.bonus || 0);
+        const bonusScore = extraScore > 0 ? `<span class="score-bonus"> +${extraScore}</span>` : '';
 
         // Review scores
         const review = reviews[t.repo];
@@ -206,17 +219,18 @@
             <td>
               <div class="team-name"><a class="repo-link" href="https://github.com/${t.repo}" target="_blank">${t.team}</a></div>
               <div class="team-members">${t.members.join(', ')}</div>
-              ${t.deploy_url ? `<a class="deploy-link" href="${t.deploy_url}" target="_blank">🌐 ${t.deploy_url}</a>` : ''}
+              ${t.prod_url ? `<a class="deploy-link" href="${t.prod_url}" target="_blank">🌐 ${t.prod_url}</a>` : ''}
             </td>
             <td class="score">${t.total}<span style="color:#8b949e;font-weight:normal">/${data.total_possible}</span>${bonusScore}</td>
             <td><div class="bar"><div class="bar-fill" style="width:${pct}%"></div></div></td>
-            <td class="checks">${checks}${bonusChecks ? '<br>' + bonusChecks : ''}${reviewBadge ? '<br>' + reviewBadge : ''}</td>
+            <td class="checks">${checks}${expertChecks ? '<br>' + expertChecks : ''}${bonusChecks ? '<br>' + bonusChecks : ''}${reviewBadge ? '<br>' + reviewBadge : ''}</td>
             <td><button class="details-btn" onclick="toggleDetail(this)">Détails</button></td>
           </tr>
           <tr class="detail-row">
             <td colspan="6" class="detail-cell">
               <div class="detail-section">Core</div>
               ${coreDetails}
+              ${expertDetails ? `<div class="detail-section" style="margin-top:12px">🔴 Expert (${data.expert_possible}pts)</div>${expertDetails}` : ''}
               ${bonusDetails ? `<div class="detail-section" style="margin-top:12px">⭐ Bonus</div>${bonusDetails}` : ''}
               ${reviewDetails}
             </td>
