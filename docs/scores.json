@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-25T17:36:19.423Z",
+  "generated_at": "2026-02-25T18:26:57.515Z",
   "total_possible": 140,
   "expert_possible": 45,
   "bonus_possible": 50,
@@ -250,7 +250,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"timestamp\":\"2026-02-25T17:36:19.299Z\"}",
+          "detail": "/health → {\"status\":\"ok\",\"timestamp\":\"2026-02-25T18:26:57.281Z\"}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -533,7 +533,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":2.589542977}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":4.051437845}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -1098,7 +1098,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":27886.130225321}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":30841.37001525}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -1381,7 +1381,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":13457.416281945}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":16417.379986588}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -2838,13 +2838,13 @@
       ],
       "repo": "AReyn343/todo-api-node",
       "deploy_url": "https://todo-api-node-y2tg.onrender.com/",
-      "total": 135,
+      "total": 140,
       "maxTotal": 140,
       "expert": 0,
       "maxExpert": 45,
       "bonus": 15,
       "maxBonus": 50,
-      "grandTotal": 150,
+      "grandTotal": 155,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -2910,8 +2910,8 @@
           "category": "fundamentals"
         },
         "swagger_docs": {
-          "pass": false,
-          "detail": "No Swagger/OpenAPI docs found",
+          "pass": true,
+          "detail": "Swagger found at /docs",
           "points": 5,
           "label": "API documentation (Swagger)",
           "category": "fundamentals"
@@ -3076,7 +3076,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"timestamp\":\"2026-02-25T17:35:37.468Z\"}",
+          "detail": "/health → {\"status\":\"ok\",\"timestamp\":\"2026-02-25T18:24:41.782Z\"}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -3137,7 +3137,7 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#27 — Release Please)",
+          "detail": "Last run: success (#28 — Release Please)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
@@ -3256,7 +3256,7 @@
         },
         "pipeline_fast": {
           "pass": true,
-          "detail": "Average: 1.6 min (last 10 runs)",
+          "detail": "Average: 2.2 min (last 10 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
@@ -3344,7 +3344,7 @@
         },
         "conventional_commits": {
           "pass": true,
-          "detail": "18/20 conventional (90%)",
+          "detail": "17/19 conventional (89%)",
           "points": 5,
           "label": "Conventional commits",
           "category": "bonus"
