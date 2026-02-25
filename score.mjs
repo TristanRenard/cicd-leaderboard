@@ -1098,7 +1098,8 @@ async function scoreTeam(team) {
 }
 
 async function main() {
-  const teams = JSON.parse(readFileSync("teams.json", "utf-8"));
+  const teamsFile = process.argv[2] || "teams.json";
+  const teams = JSON.parse(readFileSync(teamsFile, "utf-8"));
   const scores = [];
 
   for (const team of teams) {
@@ -1117,8 +1118,9 @@ async function main() {
   };
 
   mkdirSync("docs", { recursive: true });
-  writeFileSync("docs/scores.json", JSON.stringify(output, null, 2));
-  console.log(`\n📊 Scores written to docs/scores.json`);
+  const outFile = teamsFile === "teams.json" ? "docs/scores.json" : "docs/scores-test.json";
+  writeFileSync(outFile, JSON.stringify(output, null, 2));
+  console.log(`\n📊 Scores written to ${outFile}`);
   console.log(`\n🏆 Leaderboard:`);
   for (const s of scores) {
     const extraStr = (s.expert > 0 || s.bonus > 0) ? ` (+${s.expert + s.bonus} extra)` : "";
