@@ -170,10 +170,9 @@
           .map(([k, v]) => `<span class="check ${v.pass ? 'pass' : 'fail'}" title="${v.detail}">${v.pass ? '✅' : '❌'} ${v.label}</span>`)
           .join('');
 
-        // Expert checks — only show earned ones
+        // Expert checks — show all (pass + fail)
         const expertChecks = t.expertResults ? Object.entries(t.expertResults)
-          .filter(([k, v]) => v.pass)
-          .map(([k, v]) => `<span class="check bonus-pass" title="${v.detail}" style="background:#1a0a2e;color:#a371f7">🔴 ${v.label}</span>`)
+          .map(([k, v]) => `<span class="check ${v.pass ? 'pass' : 'fail'}" title="${v.detail}" ${v.pass ? 'style="background:#1a0a2e;color:#a371f7"' : ''}>🔴 ${v.label}</span>`)
           .join('') : '';
 
         // Bonus checks — only show earned ones
