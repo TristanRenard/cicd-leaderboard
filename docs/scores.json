@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-25T20:45:09.913Z",
+  "generated_at": "2026-02-25T21:33:34.277Z",
   "total_possible": 140,
   "expert_possible": 45,
   "bonus_possible": 50,
@@ -16,11 +16,11 @@
       "staging_url": "https://pp-todo.lootopia.io",
       "total": 140,
       "maxTotal": 140,
-      "expert": 35,
+      "expert": 45,
       "maxExpert": 45,
       "bonus": 50,
       "maxBonus": 50,
-      "grandTotal": 225,
+      "grandTotal": 235,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -173,7 +173,7 @@
         },
         "matrix_testing": {
           "pass": true,
-          "detail": "Matrix strategy in .github/workflows/ci.yml (node-version, fail-fast, name, steps, with, clean, with, node-version, run, run, if, run, perf, runs-on, continue-on-error, steps, with, clean, with, node-version, run, run, env, PORT, NODE_ENV, DB_PATH, run, run, run, security, runs-on, steps, with, clean, uses, with, scan-type, scan-ref, severity, env, TRIVY_CACHE_DIR, docker-build, runs-on, if, steps, with, clean, uses, with, driver, driver-opts, buildkitd-flags, uses, with, context, push, outputs, cache-from, cache-to, provenance, sbom, docker-push, runs-on, needs, if, permissions, contents, packages, steps, uses, with, registry, username, password, run, deploy-staging, needs, if, uses, with, environment, strategy, secrets, DEPLOY_HOOK, HEALTH_URL, REGISTRY_TOKEN, rollback-staging, runs-on, needs, if, environment, name, permissions, contents, packages, steps, uses, with, registry, username, password, run, run, run, deploy, needs, if, uses, with, environment, strategy, secrets, DEPLOY_HOOK, HEALTH_URL, REGISTRY_TOKEN, rollback-production, runs-on, needs, if, environment, name, permissions, contents, packages, steps, uses, with, registry, username, password, run, run, run, release-please, runs-on, if, permissions, contents, pull-requests, steps, with, release-type, notify, runs-on, needs, if, steps, id, run, run)",
+          "detail": "Matrix strategy in .github/workflows/ci.yml (node-version, fail-fast, name, steps, with, clean, with, node-version, run, run, if, run, perf, runs-on, continue-on-error, steps, with, clean, with, node-version, run, run, env, PORT, NODE_ENV, DB_PATH, run, run, run, security, runs-on, steps, with, clean, uses, with, scan-type, scan-ref, severity, env, TRIVY_CACHE_DIR, docker-build, runs-on, if, steps, with, clean, uses, with, driver, driver-opts, buildkitd-flags, uses, with, context, push, outputs, cache-from, cache-to, provenance, sbom, docker-push, runs-on, needs, if, permissions, contents, packages, steps, uses, with, registry, username, password, run, deploy-staging, needs, if, uses, with, environment, strategy, secrets, DEPLOY_HOOK, HEALTH_URL, REGISTRY_TOKEN, UPTIMEROBOT_HEARTBEAT, rollback-staging, runs-on, needs, if, environment, name, permissions, contents, packages, steps, uses, with, registry, username, password, run, run, run, deploy, needs, if, uses, with, environment, strategy, secrets, DEPLOY_HOOK, HEALTH_URL, REGISTRY_TOKEN, UPTIMEROBOT_HEARTBEAT, rollback-production, runs-on, needs, if, environment, name, permissions, contents, packages, steps, uses, with, registry, username, password, run, run, run, release-please, runs-on, if, permissions, contents, pull-requests, steps, with, release-type, notify, runs-on, needs, if, steps, id, run, run)",
           "points": 5,
           "label": "Matrix testing (multi-version)",
           "category": "expert"
@@ -207,8 +207,8 @@
           "category": "expert"
         },
         "monitoring": {
-          "pass": false,
-          "detail": "No external monitoring found",
+          "pass": true,
+          "detail": "Monitoring integration in .github/workflows/ci.yml",
           "points": 10,
           "label": "External monitoring",
           "category": "expert"
@@ -252,7 +252,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":122.075006378}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":3026.24517906}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
