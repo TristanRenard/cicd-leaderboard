@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-25T10:49:58.701Z",
+  "generated_at": "2026-02-25T11:39:15.355Z",
   "total_possible": 140,
   "bonus_possible": 40,
   "teams": [
@@ -195,7 +195,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":3526.289255125}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":6479.155028748}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -226,11 +226,11 @@
       ],
       "repo": "lootopia-les-3-dev/todo-api-node",
       "deploy_url": "https://todo.lootopia.io",
-      "total": 140,
+      "total": 135,
       "maxTotal": 140,
       "bonus": 40,
       "maxBonus": 40,
-      "grandTotal": 180,
+      "grandTotal": 175,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -241,14 +241,14 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#183 — CI)",
+          "detail": "Last run: success (#186 — CI)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
         },
         "lint_pass": {
           "pass": true,
-          "detail": "Step \"Run actions/checkout@v6\" in \"docker-build\" green ✅",
+          "detail": "Step \"Run actions/checkout@v6\" in \"perf\" green ✅",
           "points": 5,
           "label": "Lint step in pipeline",
           "category": "fundamentals"
@@ -304,7 +304,7 @@
         },
         "comment_ratio": {
           "pass": true,
-          "detail": "592 comment lines / 1149 total (52%)",
+          "detail": "598 comment lines / 1172 total (51%)",
           "points": 5,
           "label": "Code commented (≥ 5%)",
           "category": "fundamentals"
@@ -338,8 +338,8 @@
           "category": "intermediate"
         },
         "branch_protection": {
-          "pass": true,
-          "detail": "Classic branch protection — PR required ✅",
+          "pass": false,
+          "detail": "No branch protection (checked classic + rulesets)",
           "points": 5,
           "label": "Branch protection on main",
           "category": "advanced"
@@ -360,7 +360,7 @@
         },
         "pipeline_fast": {
           "pass": true,
-          "detail": "Average: 2.2 min (last 10 runs)",
+          "detail": "Average: 2.1 min (last 10 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
@@ -411,7 +411,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":4861.207299446}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":418.113904323}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
