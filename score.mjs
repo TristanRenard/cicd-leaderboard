@@ -28,6 +28,10 @@ async function gh(path) {
   return res.json();
 }
 
+async function ghFetch(path) {
+  return fetch(`${API}${path}`, { headers });
+}
+
 async function ghRaw(owner, repo, path) {
   const res = await fetch(
     `https://raw.githubusercontent.com/${owner}/${repo}/main/${path}`,
@@ -829,6 +833,145 @@ const EXPERT_CHECKS = {
       return { pass: false, detail: "No matrix strategy found in workflows" };
     },
   },
+  reusable_workflows: {
+    points: 5,
+    category: "expert",
+    label: "Reusable workflows",
+    run: async (owner, repo, _team, ctx) => {
+      for (const wf of ctx.workflows) {
+        const content = wf.content;
+        // Check for workflow_call trigger (this workflow IS reusable)
+        if (/on:\s*\n\s*workflow_call:/m.test(content) || /on:\s*\[.*workflow_call.*\]/m.test(content)) {
+          return { pass: true, detail: `Reusable workflow (workflow_call) in ${wf.path}` };
+        }
+        // Check for calling a reusable workflow (uses: ./.github/workflows/ or uses: org/repo/.github/workflows/)
+        if (/uses:\s*['"]?\.\/\.github\/workflows\//m.test(content) ||
+            /uses:\s*['"]?[\w-]+\/[\w-]+\/\.github\/workflows\//m.test(content)) {
+          return { pass: true, detail: `Calls reusable workflow in ${wf.path}` };
+        }
+      }
+      return { pass: false, detail: "No reusable workflows (workflow_call) found" };
+    },
+  },
+  release_tagging: {
+    points: 5,
+    category: "expert",
+    label: "Release tagging (GitHub Releases)",
+    run: async (owner, repo, _team, ctx) => {
+      // Check GitHub Releases API
+      const res = await ghFetch(`/repos/${owner}/${repo}/releases?per_page=3`);
+      if (res.ok) {
+        const releases = await res.json();
+        if (releases.length > 0) {
+          const latest = releases[0].tag_name;
+          return { pass: true, detail: `${releases.length} release(s), latest: ${latest}` };
+        }
+      }
+      // Fallback: check tags
+      const tagsRes = await ghFetch(`/repos/${owner}/${repo}/tags?per_page=3`);
+      if (tagsRes.ok) {
+        const tags = await tagsRes.json();
+        if (tags.length > 0) {
+          return { pass: true, detail: `${tags.length} tag(s), latest: ${tags[0].name}` };
+        }
+      }
+      return { pass: false, detail: "No releases or tags found" };
+    },
+  },
+  smoke_tests: {
+    points: 5,
+    category: "expert",
+    label: "Smoke tests post-deploy",
+    run: async (owner, repo, _team, ctx) => {
+      // Check for smoke/e2e/integration test steps in workflows
+      const result = findGreenStep(ctx, ["smoke", "e2e", "integration-test", "acceptance", "post-deploy", "health-check"]);
+      if (result.found) {
+        return { pass: true, detail: result.detail };
+      }
+      // Check workflow YAML for curl/wget calls after deploy steps
+      for (const wf of ctx.workflows) {
+        const content = wf.content;
+        if (/smoke[-_]?test/i.test(content) || /post[-_]?deploy[-_]?test/i.test(content) ||
+            /e2e[-_]?test/i.test(content)) {
+          return { pass: true, detail: `Smoke test reference in ${wf.path}` };
+        }
+      }
+      return { pass: false, detail: "No smoke/e2e tests post-deploy found" };
+    },
+  },
+  rollback_strategy: {
+    points: 10,
+    category: "expert",
+    label: "Rollback strategy",
+    run: async (owner, repo, _team, ctx) => {
+      // Check for rollback-related workflow or job
+      const result = findGreenStep(ctx, ["rollback", "revert", "undo-deploy", "previous-version"]);
+      if (result.found) {
+        return { pass: true, detail: result.detail };
+      }
+      // Check workflow YAML for rollback mechanisms
+      for (const wf of ctx.workflows) {
+        const content = wf.content.toLowerCase();
+        if (content.includes("rollback") || content.includes("revert") ||
+            /workflow_dispatch:[\s\S]*?(rollback|revert|previous)/i.test(wf.content)) {
+          return { pass: true, detail: `Rollback mechanism in ${wf.path}` };
+        }
+      }
+      // Check for a dedicated rollback workflow file
+      for (const wf of ctx.workflows) {
+        if (/rollback|revert/i.test(wf.path)) {
+          return { pass: true, detail: `Rollback workflow: ${wf.path}` };
+        }
+      }
+      return { pass: false, detail: "No rollback strategy found" };
+    },
+  },
+  monitoring: {
+    points: 10,
+    category: "expert",
+    label: "External monitoring",
+    run: async (owner, repo, _team, ctx) => {
+      // Check README for monitoring badges/links
+      if (ctx.readme) {
+        const lower = ctx.readme.toLowerCase();
+        const monitors = ["uptimerobot", "pingdom", "betteruptime", "statuspage",
+          "freshping", "hetrixtools", "uptime-kuma", "statuscake", "checkly",
+          "datadog", "newrelic", "sentry", "grafana", "prometheus"];
+        for (const m of monitors) {
+          if (lower.includes(m)) {
+            return { pass: true, detail: `${m} reference in README` };
+          }
+        }
+        // Check for uptime/status badges
+        if (/uptime|status.*badge|monitoring/i.test(ctx.readme)) {
+          return { pass: true, detail: "Monitoring/uptime badge in README" };
+        }
+      }
+      // Check workflow YAML for monitoring setup (exclude k6/grafana perf test false positives)
+      for (const wf of ctx.workflows) {
+        const content = wf.content.toLowerCase();
+        if (content.includes("uptimerobot") || content.includes("sentry") ||
+            content.includes("datadog") || content.includes("newrelic") ||
+            content.includes("prometheus")) {
+          return { pass: true, detail: `Monitoring integration in ${wf.path}` };
+        }
+        // Grafana only counts if it's dashboard/monitoring, not k6 perf tests
+        if (content.includes("grafana") && !content.includes("k6") && !content.includes("grafana/k6")) {
+          return { pass: true, detail: `Grafana monitoring in ${wf.path}` };
+        }
+      }
+      // Check for monitoring config files in repo
+      const monitorFiles = [".sentryclirc", "sentry.properties", "newrelic.js",
+        "prometheus.yml", "docker-compose.monitoring.yml"];
+      for (const f of monitorFiles) {
+        const res = await ghFetch(`/repos/${owner}/${repo}/contents/${f}`);
+        if (res.ok) {
+          return { pass: true, detail: `Monitoring config: ${f}` };
+        }
+      }
+      return { pass: false, detail: "No external monitoring found" };
+    },
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -1025,6 +1168,80 @@ const BONUS_CHECKS = {
       }
 
       return { pass: false, detail: "No release-please/semantic-release/conventional-changelog found" };
+    },
+  },
+  feature_flags: {
+    points: 5,
+    category: "bonus",
+    label: "Feature flags",
+    run: async (owner, repo, _team, ctx) => {
+      const flagTools = ["launchdarkly", "unleash", "flagsmith", "configcat", "flipt",
+        "growthbook", "feature-flag", "featureflag", "feature_flag", "ff-client"];
+      // Check code files via search API
+      if (ctx.readme) {
+        const lower = ctx.readme.toLowerCase();
+        for (const tool of flagTools) {
+          if (lower.includes(tool)) {
+            return { pass: true, detail: `${tool} reference in README` };
+          }
+        }
+      }
+      // Check package.json / requirements.txt
+      const pkg = await ghRaw(owner, repo, "package.json");
+      if (pkg) {
+        const lower = pkg.toLowerCase();
+        for (const tool of flagTools) {
+          if (lower.includes(tool)) return { pass: true, detail: `${tool} in package.json` };
+        }
+      }
+      const reqs = await ghRaw(owner, repo, "requirements.txt");
+      if (reqs) {
+        const lower = reqs.toLowerCase();
+        for (const tool of flagTools) {
+          if (lower.includes(tool)) return { pass: true, detail: `${tool} in requirements.txt` };
+        }
+      }
+      // Check for .env or config references
+      for (const wf of ctx.workflows) {
+        const lower = wf.content.toLowerCase();
+        for (const tool of flagTools) {
+          if (lower.includes(tool)) return { pass: true, detail: `${tool} in ${wf.path}` };
+        }
+      }
+      return { pass: false, detail: "No feature flag implementation found" };
+    },
+  },
+  blue_green_canary: {
+    points: 5,
+    category: "bonus",
+    label: "Blue/Green or Canary deployment",
+    run: async (owner, repo, _team, ctx) => {
+      // Check workflows for blue/green or canary patterns
+      for (const wf of ctx.workflows) {
+        const lower = wf.content.toLowerCase();
+        if (lower.includes("blue-green") || lower.includes("blue_green") || lower.includes("bluegreen") ||
+            lower.includes("canary") || lower.includes("rolling-update") || lower.includes("rolling_update")) {
+          const strategy = ["blue-green", "blue_green", "bluegreen", "canary", "rolling-update", "rolling_update"]
+            .find(s => lower.includes(s));
+          return { pass: true, detail: `${strategy} strategy in ${wf.path}` };
+        }
+      }
+      // Check README
+      if (ctx.readme) {
+        const lower = ctx.readme.toLowerCase();
+        if (lower.includes("blue/green") || lower.includes("blue-green") || lower.includes("canary deployment") ||
+            lower.includes("rolling update")) {
+          return { pass: true, detail: "Deployment strategy documented in README" };
+        }
+      }
+      // Check for multiple deploy targets suggesting blue/green
+      if (ctx.environments?.length >= 3) {
+        const names = ctx.environments.map(e => e.name.toLowerCase());
+        if (names.some(n => n.includes("blue") || n.includes("green") || n.includes("canary"))) {
+          return { pass: true, detail: `Blue/Green or Canary environment detected: ${names.join(", ")}` };
+        }
+      }
+      return { pass: false, detail: "No blue/green or canary deployment found" };
     },
   },
 };
