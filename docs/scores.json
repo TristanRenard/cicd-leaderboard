@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-25T13:09:38.984Z",
+  "generated_at": "2026-02-25T13:29:19.977Z",
   "total_possible": 140,
   "bonus_possible": 40,
   "teams": [
@@ -195,7 +195,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":11906.667567246}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":13087.159199039}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -241,14 +241,14 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#194 — CI)",
+          "detail": "Last run: success (#195 — CI)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
         },
         "lint_pass": {
           "pass": true,
-          "detail": "Step \"Run actions/checkout@v6\" in \"security\" green ✅",
+          "detail": "Job \"lint\" green ✅",
           "points": 5,
           "label": "Lint step in pipeline",
           "category": "fundamentals"
@@ -262,14 +262,14 @@
         },
         "tests_exist": {
           "pass": true,
-          "detail": "4 real test file(s), run in CI — Job \"test\" green ✅",
+          "detail": "4 real test file(s), run in CI — Step \"Run k6 load tests\" in \"perf\" green ✅",
           "points": 10,
           "label": "Tests exist in pipeline",
           "category": "fundamentals"
         },
         "tests_pass": {
           "pass": true,
-          "detail": "Job \"test\" green ✅",
+          "detail": "Step \"Run k6 load tests\" in \"perf\" green ✅",
           "points": 5,
           "label": "Tests pass",
           "category": "fundamentals"
@@ -304,7 +304,7 @@
         },
         "comment_ratio": {
           "pass": true,
-          "detail": "599 comment lines / 1171 total (51%)",
+          "detail": "601 comment lines / 1173 total (51%)",
           "points": 5,
           "label": "Code commented (≥ 5%)",
           "category": "fundamentals"
@@ -360,7 +360,7 @@
         },
         "pipeline_fast": {
           "pass": true,
-          "detail": "Average: 1.8 min (last 10 runs)",
+          "detail": "Average: 1.7 min (last 10 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
@@ -411,14 +411,14 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":402.657067851}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":456.216525558}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
         },
         "perf_tests": {
           "pass": true,
-          "detail": "Step \"Upload to Codecov\" in \"test\" green ✅",
+          "detail": "Job \"perf\" green ✅",
           "points": 5,
           "label": "Performance tests in CI",
           "category": "bonus"
