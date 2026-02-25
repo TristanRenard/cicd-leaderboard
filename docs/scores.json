@@ -1,7 +1,8 @@
 {
-  "generated_at": "2026-02-25T19:04:24.722Z",
+  "generated_at": "2026-02-25T19:45:24.346Z",
   "total_possible": 140,
-  "bonus_possible": 40,
+  "expert_possible": 45,
+  "bonus_possible": 50,
   "teams": [
     {
       "team": "TeamRedBox",
@@ -9,12 +10,13 @@
         "test test"
       ],
       "repo": "LuaPanic/todo-api-node",
-      "deploy_url": "https://todo-api.httpd.zip",
-      "total": 140,
+      "total": 115,
       "maxTotal": 140,
-      "bonus": 40,
-      "maxBonus": 40,
-      "grandTotal": 180,
+      "expert": 5,
+      "maxExpert": 45,
+      "bonus": 35,
+      "maxBonus": 50,
+      "grandTotal": 155,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -80,8 +82,8 @@
           "category": "fundamentals"
         },
         "swagger_docs": {
-          "pass": true,
-          "detail": "Swagger found at /api-docs",
+          "pass": false,
+          "detail": "No prod_url — cannot check Swagger",
           "points": 5,
           "label": "API documentation (Swagger)",
           "category": "fundamentals"
@@ -115,8 +117,8 @@
           "category": "intermediate"
         },
         "deployed": {
-          "pass": true,
-          "detail": "https://todo-api.httpd.zip → HTTP 200 ✅ (Todo API verified)",
+          "pass": false,
+          "detail": "No prod_url in teams.json",
           "points": 10,
           "label": "App deployed (HTTP 200)",
           "category": "intermediate"
@@ -136,8 +138,8 @@
           "category": "advanced"
         },
         "multi_env": {
-          "pass": true,
-          "detail": "GitHub environments: production, staging ✅",
+          "pass": false,
+          "detail": "GitHub environments: production, staging — but no staging_url in teams.json (add it via PR!)",
           "points": 10,
           "label": "Multiple environments",
           "category": "advanced"
@@ -155,6 +157,57 @@
           "points": 5,
           "label": "Dependabot/Renovate configured",
           "category": "advanced"
+        }
+      },
+      "expertResults": {
+        "ci_notifications": {
+          "pass": false,
+          "detail": "No CI notification job/step found",
+          "points": 5,
+          "label": "CI notifications (Discord/Slack)",
+          "category": "expert"
+        },
+        "matrix_testing": {
+          "pass": false,
+          "detail": "No matrix strategy found in workflows",
+          "points": 5,
+          "label": "Matrix testing (multi-version)",
+          "category": "expert"
+        },
+        "reusable_workflows": {
+          "pass": false,
+          "detail": "No reusable workflows (workflow_call) found",
+          "points": 5,
+          "label": "Reusable workflows",
+          "category": "expert"
+        },
+        "release_tagging": {
+          "pass": true,
+          "detail": "1 release(s), latest: v1.0.0",
+          "points": 5,
+          "label": "Release tagging (GitHub Releases)",
+          "category": "expert"
+        },
+        "smoke_tests": {
+          "pass": false,
+          "detail": "No smoke/e2e tests post-deploy found",
+          "points": 5,
+          "label": "Smoke tests post-deploy",
+          "category": "expert"
+        },
+        "rollback_strategy": {
+          "pass": false,
+          "detail": "No rollback strategy found",
+          "points": 10,
+          "label": "Rollback strategy",
+          "category": "expert"
+        },
+        "monitoring": {
+          "pass": false,
+          "detail": "No external monitoring found",
+          "points": 10,
+          "label": "External monitoring",
+          "category": "expert"
         }
       },
       "bonusResults": {
@@ -194,8 +247,8 @@
           "category": "bonus"
         },
         "health_endpoint": {
-          "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":33192.861276759}",
+          "pass": false,
+          "detail": "No deploy URL",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -213,6 +266,20 @@
           "points": 5,
           "label": "Automated changelog",
           "category": "bonus"
+        },
+        "feature_flags": {
+          "pass": false,
+          "detail": "No feature flag implementation found",
+          "points": 5,
+          "label": "Feature flags",
+          "category": "bonus"
+        },
+        "blue_green_canary": {
+          "pass": false,
+          "detail": "No blue/green or canary deployment found",
+          "points": 5,
+          "label": "Blue/Green or Canary deployment",
+          "category": "bonus"
         }
       },
       "rank": 1
@@ -225,12 +292,13 @@
         "Tristan RENARD"
       ],
       "repo": "lootopia-les-3-dev/todo-api-node",
-      "deploy_url": "https://todo.lootopia.io",
-      "total": 140,
+      "total": 115,
       "maxTotal": 140,
-      "bonus": 40,
-      "maxBonus": 40,
-      "grandTotal": 180,
+      "expert": 5,
+      "maxExpert": 45,
+      "bonus": 35,
+      "maxBonus": 50,
+      "grandTotal": 155,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -296,8 +364,8 @@
           "category": "fundamentals"
         },
         "swagger_docs": {
-          "pass": true,
-          "detail": "Swagger found at /docs",
+          "pass": false,
+          "detail": "No prod_url — cannot check Swagger",
           "points": 5,
           "label": "API documentation (Swagger)",
           "category": "fundamentals"
@@ -331,8 +399,8 @@
           "category": "intermediate"
         },
         "deployed": {
-          "pass": true,
-          "detail": "https://todo.lootopia.io → HTTP 200 ✅ (Todo API verified)",
+          "pass": false,
+          "detail": "No prod_url in teams.json",
           "points": 10,
           "label": "App deployed (HTTP 200)",
           "category": "intermediate"
@@ -352,8 +420,8 @@
           "category": "advanced"
         },
         "multi_env": {
-          "pass": true,
-          "detail": "GitHub environments: production, staging ✅",
+          "pass": false,
+          "detail": "GitHub environments: production, staging — but no staging_url in teams.json (add it via PR!)",
           "points": 10,
           "label": "Multiple environments",
           "category": "advanced"
@@ -371,6 +439,57 @@
           "points": 5,
           "label": "Dependabot/Renovate configured",
           "category": "advanced"
+        }
+      },
+      "expertResults": {
+        "ci_notifications": {
+          "pass": false,
+          "detail": "No CI notification job/step found",
+          "points": 5,
+          "label": "CI notifications (Discord/Slack)",
+          "category": "expert"
+        },
+        "matrix_testing": {
+          "pass": false,
+          "detail": "No matrix strategy found in workflows",
+          "points": 5,
+          "label": "Matrix testing (multi-version)",
+          "category": "expert"
+        },
+        "reusable_workflows": {
+          "pass": false,
+          "detail": "No reusable workflows (workflow_call) found",
+          "points": 5,
+          "label": "Reusable workflows",
+          "category": "expert"
+        },
+        "release_tagging": {
+          "pass": true,
+          "detail": "3 release(s), latest: v1.1.0",
+          "points": 5,
+          "label": "Release tagging (GitHub Releases)",
+          "category": "expert"
+        },
+        "smoke_tests": {
+          "pass": false,
+          "detail": "No smoke/e2e tests post-deploy found",
+          "points": 5,
+          "label": "Smoke tests post-deploy",
+          "category": "expert"
+        },
+        "rollback_strategy": {
+          "pass": false,
+          "detail": "No rollback strategy found",
+          "points": 10,
+          "label": "Rollback strategy",
+          "category": "expert"
+        },
+        "monitoring": {
+          "pass": false,
+          "detail": "No external monitoring found",
+          "points": 10,
+          "label": "External monitoring",
+          "category": "expert"
         }
       },
       "bonusResults": {
@@ -410,8 +529,8 @@
           "category": "bonus"
         },
         "health_endpoint": {
-          "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":18764.011533015}",
+          "pass": false,
+          "detail": "No deploy URL",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -428,6 +547,20 @@
           "detail": "Found release-please in .github/workflows/ci.yml",
           "points": 5,
           "label": "Automated changelog",
+          "category": "bonus"
+        },
+        "feature_flags": {
+          "pass": false,
+          "detail": "No feature flag implementation found",
+          "points": 5,
+          "label": "Feature flags",
+          "category": "bonus"
+        },
+        "blue_green_canary": {
+          "pass": false,
+          "detail": "No blue/green or canary deployment found",
+          "points": 5,
+          "label": "Blue/Green or Canary deployment",
           "category": "bonus"
         }
       },
