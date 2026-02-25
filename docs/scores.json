@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-25T19:45:24.346Z",
+  "generated_at": "2026-02-25T19:58:35.228Z",
   "total_possible": 140,
   "expert_possible": 45,
   "bonus_possible": 50,
@@ -292,13 +292,13 @@
         "Tristan RENARD"
       ],
       "repo": "lootopia-les-3-dev/todo-api-node",
-      "total": 115,
+      "total": 75,
       "maxTotal": 140,
-      "expert": 5,
+      "expert": 35,
       "maxExpert": 45,
-      "bonus": 35,
+      "bonus": 30,
       "maxBonus": 50,
-      "grandTotal": 155,
+      "grandTotal": 140,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -308,15 +308,15 @@
           "category": "fundamentals"
         },
         "pipeline_green": {
-          "pass": true,
-          "detail": "Last run: success (#200 — CI)",
+          "pass": false,
+          "detail": "Last run: cancelled (#206 — CI)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
         },
         "lint_pass": {
-          "pass": true,
-          "detail": "Step \"Run actions/checkout@v6\" in \"perf\" green ✅",
+          "pass": false,
+          "detail": "No green lint/format job or step found in last CI run",
           "points": 5,
           "label": "Lint step in pipeline",
           "category": "fundamentals"
@@ -329,15 +329,15 @@
           "category": "fundamentals"
         },
         "tests_exist": {
-          "pass": true,
-          "detail": "4 real test file(s), run in CI — Step \"Run k6 load tests\" in \"perf\" green ✅",
+          "pass": false,
+          "detail": "4 real test file(s) but not run in CI",
           "points": 10,
           "label": "Tests exist in pipeline",
           "category": "fundamentals"
         },
         "tests_pass": {
-          "pass": true,
-          "detail": "Step \"Run k6 load tests\" in \"perf\" green ✅",
+          "pass": false,
+          "detail": "Pipeline not green (CI #206)",
           "points": 5,
           "label": "Tests pass",
           "category": "fundamentals"
@@ -357,8 +357,8 @@
           "category": "fundamentals"
         },
         "docker_builds": {
-          "pass": true,
-          "detail": "Job \"docker-build\" green ✅",
+          "pass": false,
+          "detail": "No green Docker build job/step found in last CI run",
           "points": 5,
           "label": "Docker build in CI",
           "category": "fundamentals"
@@ -379,7 +379,7 @@
         },
         "security_scan": {
           "pass": true,
-          "detail": "Job \"security\" green ✅",
+          "detail": "Check run \"security\" (app: GitHub Actions) green ✅",
           "points": 10,
           "label": "Security scan in CI",
           "category": "intermediate"
@@ -392,8 +392,8 @@
           "category": "intermediate"
         },
         "quality_gate": {
-          "pass": true,
-          "detail": "Step \"Upload to Codecov\" in \"test\" green ✅",
+          "pass": false,
+          "detail": "No quality gate configured",
           "points": 10,
           "label": "Quality gate (SonarCloud etc.)",
           "category": "intermediate"
@@ -414,7 +414,7 @@
         },
         "auto_deploy": {
           "pass": true,
-          "detail": "Job \"release-please\" green ✅",
+          "detail": "GitHub deployment to \"staging\" found (2026-02-25T19:56:13Z)",
           "points": 10,
           "label": "Auto-deploy on push to main",
           "category": "advanced"
@@ -443,15 +443,15 @@
       },
       "expertResults": {
         "ci_notifications": {
-          "pass": false,
-          "detail": "No CI notification job/step found",
+          "pass": true,
+          "detail": "Notification action in .github/workflows/ci.yml",
           "points": 5,
           "label": "CI notifications (Discord/Slack)",
           "category": "expert"
         },
         "matrix_testing": {
-          "pass": false,
-          "detail": "No matrix strategy found in workflows",
+          "pass": true,
+          "detail": "Matrix strategy in .github/workflows/ci.yml (node-version, fail-fast, name, steps, with, clean, with, node-version, run, run, if, run, perf, runs-on, continue-on-error, steps, with, clean, with, node-version, run, run, env, PORT, NODE_ENV, DB_PATH, run, run, run, security, runs-on, steps, with, clean, uses, with, scan-type, scan-ref, severity, env, TRIVY_CACHE_DIR, docker-build, runs-on, if, steps, with, clean, uses, with, driver, driver-opts, buildkitd-flags, uses, with, context, push, outputs, cache-from, cache-to, provenance, sbom, docker-push, runs-on, needs, if, permissions, contents, packages, steps, uses, with, registry, username, password, run, deploy-staging, runs-on, needs, if, environment, name, steps, run, run, run, run, if, run, rollback-staging, runs-on, needs, if, environment, name, steps, run, run, run, deploy, runs-on, needs, if, environment, name, steps, run, run, run, run, run, if, run, rollback-production, runs-on, needs, if, environment, name, steps, run, run, run, release-please, runs-on, if, permissions, contents, pull-requests, steps, with, release-type, notify, runs-on, needs, if, steps, id, run, run)",
           "points": 5,
           "label": "Matrix testing (multi-version)",
           "category": "expert"
@@ -478,15 +478,15 @@
           "category": "expert"
         },
         "rollback_strategy": {
-          "pass": false,
-          "detail": "No rollback strategy found",
+          "pass": true,
+          "detail": "Rollback mechanism in .github/workflows/ci.yml",
           "points": 10,
           "label": "Rollback strategy",
           "category": "expert"
         },
         "monitoring": {
-          "pass": false,
-          "detail": "No external monitoring found",
+          "pass": true,
+          "detail": "Monitoring integration in .github/workflows/ci.yml",
           "points": 10,
           "label": "External monitoring",
           "category": "expert"
@@ -536,8 +536,8 @@
           "category": "bonus"
         },
         "perf_tests": {
-          "pass": true,
-          "detail": "Job \"perf\" green ✅",
+          "pass": false,
+          "detail": "No performance test job/step found in last CI run",
           "points": 5,
           "label": "Performance tests in CI",
           "category": "bonus"
