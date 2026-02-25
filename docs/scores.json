@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-25T09:19:19.405Z",
+  "generated_at": "2026-02-25T09:27:37.589Z",
   "total_possible": 140,
   "bonus_possible": 40,
   "teams": [
@@ -196,7 +196,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":680.325187953}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":1183.53142928}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -228,11 +228,11 @@
       "repo": "lootopia-les-3-dev/todo-api-node",
       "branch": "main",
       "deploy_url": "https://todo.lootopia.io",
-      "total": 130,
+      "total": 135,
       "maxTotal": 140,
       "bonus": 40,
       "maxBonus": 40,
-      "grandTotal": 170,
+      "grandTotal": 175,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -243,14 +243,14 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#172 — CI)",
+          "detail": "Last run: success (#182 — CI)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
         },
         "lint_pass": {
           "pass": true,
-          "detail": "Step \"Run actions/checkout@v6\" in \"docker-build\" green ✅",
+          "detail": "Job \"lint\" green ✅",
           "points": 5,
           "label": "Lint step in pipeline",
           "category": "fundamentals"
@@ -361,8 +361,8 @@
           "category": "advanced"
         },
         "pipeline_fast": {
-          "pass": false,
-          "detail": "Average: 64.3 min (last 10 runs)",
+          "pass": true,
+          "detail": "Average: 2.3 min (last 10 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
@@ -413,7 +413,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":72.408947121}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":297.474328508}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
