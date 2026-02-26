@@ -1,5 +1,16 @@
 [
   {
+    "team": "Le Jardin",
+    "repo": "FabLrc/todo-api-node",
+    "members": [
+      "Fabien LAURENCE",
+      "Douri Mohamad Monif",
+      "Evoeke Rafiringa"
+    ],
+    "prod_url": "https://todoapp.fabienlaurence.com/",
+    "staging_url": "https://todo-api-node-8vq3znppw-fablrcs-projects.vercel.app"
+  },
+  {
     "team": "West Coast Team",
     "repo": "keryanchpn/todo-api-node",
     "members": [
@@ -9,17 +20,6 @@
     ],
     "prod_url": "https://todo-api-node.vercel.app/",
     "staging_url": "https://todo-api-node-staging.vercel.app/"
-  },
-  {
-    "team": "Le Jardin",
-    "repo": "FabLrc/todo-api-node",
-    "members": [
-      "Fabien LAURENCE",
-      "Douri Mohamad Monif",
-      "Evoeke Rafiringa"
-    ],
-    "prod_url": "https://todoapp.fabienlaurence.com/",
-    "staging_url": ""
   },
   {
     "team": "Exemple",
