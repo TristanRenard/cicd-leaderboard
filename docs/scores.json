@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-02-26T10:43:37.814Z",
+  "generated_at": "2026-02-26T10:54:27.142Z",
   "total_possible": 140,
-  "expert_possible": 45,
-  "bonus_possible": 50,
+  "expert_possible": 75,
+  "bonus_possible": 55,
   "teams": [
     {
       "team": "HAT-main",
@@ -16,11 +16,11 @@
       "staging_url": "https://pp-todo.lootopia.io",
       "total": 140,
       "maxTotal": 140,
-      "expert": 45,
-      "maxExpert": 45,
+      "expert": 60,
+      "maxExpert": 75,
       "bonus": 50,
-      "maxBonus": 50,
-      "grandTotal": 235,
+      "maxBonus": 55,
+      "grandTotal": 250,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -173,7 +173,7 @@
         },
         "matrix_testing": {
           "pass": true,
-          "detail": "Matrix strategy in .github/workflows/ci.yml (node-version, fail-fast, name, steps, with, clean, with, node-version, run, run, if, run, perf, runs-on, continue-on-error, steps, with, clean, with, node-version, run, run, env, PORT, NODE_ENV, DB_PATH, run, run, run, security, runs-on, steps, with, clean, uses, with, scan-type, scan-ref, severity, env, TRIVY_CACHE_DIR, docker-build, runs-on, if, steps, with, clean, uses, with, driver, driver-opts, buildkitd-flags, uses, with, context, push, outputs, cache-from, cache-to, provenance, sbom, docker-push, runs-on, needs, if, permissions, contents, packages, steps, uses, with, registry, username, password, run, deploy-staging, needs, if, uses, with, environment, strategy, secrets, DEPLOY_HOOK, HEALTH_URL, REGISTRY_TOKEN, UPTIMEROBOT_HEARTBEAT, rollback-staging, runs-on, needs, if, environment, name, permissions, contents, packages, steps, uses, with, registry, username, password, run, run, run, deploy, needs, if, uses, with, environment, strategy, secrets, DEPLOY_HOOK, HEALTH_URL, REGISTRY_TOKEN, UPTIMEROBOT_HEARTBEAT, rollback-production, runs-on, needs, if, environment, name, permissions, contents, packages, steps, uses, with, registry, username, password, run, run, run, release-please, runs-on, if, permissions, contents, pull-requests, steps, with, release-type, notify, runs-on, needs, if, steps, id, run, run)",
+          "detail": "Matrix strategy in .github/workflows/ci.yml (node-version)",
           "points": 5,
           "label": "Matrix testing (multi-version)",
           "category": "expert"
@@ -206,11 +206,39 @@
           "label": "Rollback strategy",
           "category": "expert"
         },
-        "monitoring": {
+        "external_monitoring": {
           "pass": true,
-          "detail": "Monitoring integration in .github/workflows/ci.yml",
+          "detail": "Monitoring integration in .github/workflows/ci.yml (add a status badge in README for full credit)",
           "points": 10,
           "label": "External monitoring",
+          "category": "expert"
+        },
+        "auto_recovery": {
+          "pass": true,
+          "detail": "Step \"Smoke test — health\" in \"deploy / deploy\" green ✅",
+          "points": 10,
+          "label": "Auto-recovery / Resilience",
+          "category": "expert"
+        },
+        "ci_cache": {
+          "pass": true,
+          "detail": "Docker layer cache in .github/workflows/ci.yml",
+          "points": 5,
+          "label": "CI cache optimization",
+          "category": "expert"
+        },
+        "contract_testing": {
+          "pass": false,
+          "detail": "API spec found (auto-generated) but no contract validation in CI",
+          "points": 5,
+          "label": "API contract testing",
+          "category": "expert"
+        },
+        "observability": {
+          "pass": false,
+          "detail": "No observability/telemetry found (OpenTelemetry, Sentry, Datadog, etc.)",
+          "points": 10,
+          "label": "Observability / Telemetry",
           "category": "expert"
         }
       },
@@ -252,7 +280,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":50429.924714366}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":51079.341828453}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -284,6 +312,13 @@
           "points": 5,
           "label": "Blue/Green or Canary deployment",
           "category": "bonus"
+        },
+        "structured_logging": {
+          "pass": false,
+          "detail": "No structured logging library found (winston, pino, loguru, etc.)",
+          "points": 5,
+          "label": "Structured logging",
+          "category": "bonus"
         }
       },
       "rank": 1
@@ -296,11 +331,11 @@
       "repo": "LuaPanic/todo-api-node",
       "total": 115,
       "maxTotal": 140,
-      "expert": 5,
-      "maxExpert": 45,
+      "expert": 10,
+      "maxExpert": 75,
       "bonus": 35,
-      "maxBonus": 50,
-      "grandTotal": 155,
+      "maxBonus": 55,
+      "grandTotal": 160,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -486,11 +521,39 @@
           "label": "Rollback strategy",
           "category": "expert"
         },
-        "monitoring": {
+        "external_monitoring": {
           "pass": false,
-          "detail": "No external monitoring found",
+          "detail": "No external monitoring found (add UptimeRobot/BetterStack badge in README)",
           "points": 10,
           "label": "External monitoring",
+          "category": "expert"
+        },
+        "auto_recovery": {
+          "pass": false,
+          "detail": "No auto-recovery mechanisms found (add workflow_dispatch, health checks, or recovery workflows)",
+          "points": 10,
+          "label": "Auto-recovery / Resilience",
+          "category": "expert"
+        },
+        "ci_cache": {
+          "pass": true,
+          "detail": "Built-in npm cache in .github/workflows/cd.yml",
+          "points": 5,
+          "label": "CI cache optimization",
+          "category": "expert"
+        },
+        "contract_testing": {
+          "pass": false,
+          "detail": "No OpenAPI spec or contract testing found",
+          "points": 5,
+          "label": "API contract testing",
+          "category": "expert"
+        },
+        "observability": {
+          "pass": false,
+          "detail": "No observability/telemetry found (OpenTelemetry, Sentry, Datadog, etc.)",
+          "points": 10,
+          "label": "Observability / Telemetry",
           "category": "expert"
         }
       },
@@ -563,6 +626,13 @@
           "detail": "No blue/green or canary deployment found",
           "points": 5,
           "label": "Blue/Green or Canary deployment",
+          "category": "bonus"
+        },
+        "structured_logging": {
+          "pass": false,
+          "detail": "No structured logging library found (winston, pino, loguru, etc.)",
+          "points": 5,
+          "label": "Structured logging",
           "category": "bonus"
         }
       },
