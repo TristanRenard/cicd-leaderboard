@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-26T11:39:07.090Z",
+  "generated_at": "2026-02-26T12:57:02.214Z",
   "total_possible": 140,
   "expert_possible": 75,
   "bonus_possible": 55,
@@ -31,14 +31,14 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#219 — CI)",
+          "detail": "Last run: success (#223 — CI)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
         },
         "lint_pass": {
           "pass": true,
-          "detail": "Step \"Run actions/checkout@v6\" in \"docker-build\" green ✅",
+          "detail": "Step \"Run actions/checkout@v6\" in \"security\" green ✅",
           "points": 5,
           "label": "Lint step in pipeline",
           "category": "fundamentals"
@@ -280,7 +280,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":53759.17624802}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":138.434953164}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
