@@ -41,7 +41,7 @@
       "Oussama DGHOUGHI"
     ],
     "prod_url": "https://todo-api-node-y2tg.onrender.com/",
-    "staging_url": ""
+    "staging_url": "https://todo-api-node-staging.onrender.com"
   },
   {
     "team": "sql_injection",
