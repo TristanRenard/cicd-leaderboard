@@ -50,8 +50,8 @@
       "Mathieu Fercocq",
       "Kenann Tobiansky"
     ],
-    "prod_url": "https://www.sqlinjection.wookiesrpeople2.dev/ ",
-    "staging_url": ""
+    "prod_url": " https://sqlinjection.wookiesrpeople2.dev/",
+    "staging_url": "https://sqlinjectionint.wookiesrpeople2.dev/"
   },
   {
     "team": "La team",
