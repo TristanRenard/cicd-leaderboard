@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-26T13:02:50.918Z",
+  "generated_at": "2026-02-26T14:30:23.215Z",
   "total_possible": 140,
   "expert_possible": 75,
   "bonus_possible": 55,
@@ -280,7 +280,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":487.120547959}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":5739.381020003}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -331,11 +331,11 @@
       "repo": "LuaPanic/todo-api-node",
       "total": 115,
       "maxTotal": 140,
-      "expert": 10,
+      "expert": 15,
       "maxExpert": 75,
       "bonus": 35,
       "maxBonus": 55,
-      "grandTotal": 160,
+      "grandTotal": 165,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -346,7 +346,7 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#40 — CD)",
+          "detail": "Last run: success (#41 — CD)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
@@ -458,14 +458,14 @@
         },
         "multi_env": {
           "pass": false,
-          "detail": "GitHub environments: production, staging — but no staging_url in teams.json (add it via PR!)",
+          "detail": "Multi-env jobs: \"Deploy to staging\" + \"Deploy to production\" — but no staging_url in teams.json (add it via PR!)",
           "points": 10,
           "label": "Multiple environments",
           "category": "advanced"
         },
         "pipeline_fast": {
           "pass": true,
-          "detail": "Average: 2.2 min (last 10 runs)",
+          "detail": "Average: 2.1 min (last 10 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
@@ -487,8 +487,8 @@
           "category": "expert"
         },
         "matrix_testing": {
-          "pass": false,
-          "detail": "No matrix strategy found in workflows",
+          "pass": true,
+          "detail": "Matrix strategy in .github/workflows/ci.yml (node-version)",
           "points": 5,
           "label": "Matrix testing (multi-version)",
           "category": "expert"
