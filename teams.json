@@ -123,6 +123,6 @@
       "Jeremy Sananikone"
     ],
     "prod_url": "https://todo-api-node-production.up.railway.app/",
-    "staging_url": ""
+    "staging_url": "https://todo-api-node-staging.up.railway.app/"
   }
 ]
