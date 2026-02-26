@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-26T14:30:23.215Z",
+  "generated_at": "2026-02-26T15:28:00.253Z",
   "total_possible": 140,
   "expert_possible": 75,
   "bonus_possible": 55,
@@ -280,7 +280,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":5739.381020003}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":9196.475134256}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -346,7 +346,7 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#41 — CD)",
+          "detail": "Last run: success (#45 — CD)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
@@ -416,7 +416,7 @@
         },
         "security_scan": {
           "pass": true,
-          "detail": "Step \"Trivy vulnerability scan\" in \"Build & Publish\" green ✅",
+          "detail": "Job \"Security scan\" green ✅",
           "points": 10,
           "label": "Security scan in CI",
           "category": "intermediate"
@@ -430,7 +430,7 @@
         },
         "quality_gate": {
           "pass": true,
-          "detail": "Step \"Build SonarSource/sonarcloud-github-action@383f7e52eae3ab0510c3cb0e7d9d150bbaeab838\" in \"Build & Publish\" green ✅",
+          "detail": "Step \"Build SonarSource/sonarcloud-github-action@383f7e52eae3ab0510c3cb0e7d9d150bbaeab838\" in \"Security scan\" green ✅",
           "points": 10,
           "label": "Quality gate (SonarCloud etc.)",
           "category": "intermediate"
@@ -458,14 +458,14 @@
         },
         "multi_env": {
           "pass": false,
-          "detail": "Multi-env jobs: \"Deploy to staging\" + \"Deploy to production\" — but no staging_url in teams.json (add it via PR!)",
+          "detail": "GitHub environments: production, staging — but no staging_url in teams.json (add it via PR!)",
           "points": 10,
           "label": "Multiple environments",
           "category": "advanced"
         },
         "pipeline_fast": {
           "pass": true,
-          "detail": "Average: 2.1 min (last 10 runs)",
+          "detail": "Average: 2.2 min (last 10 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
@@ -602,7 +602,7 @@
         },
         "perf_tests": {
           "pass": true,
-          "detail": "Step \"Health check & Performance tests (Artillery)\" in \"Build & Publish\" green ✅",
+          "detail": "Job \"Performance tests (Artillery)\" green ✅",
           "points": 5,
           "label": "Performance tests in CI",
           "category": "bonus"
