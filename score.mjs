@@ -844,10 +844,10 @@ const EXPERT_CHECKS = {
         const content = wf.content;
         if (/strategy:\s*\n\s*matrix:/i.test(content)) {
           // Extract what's in the matrix for detail
-          const matrixMatch = content.match(/matrix:\s*\n((?:\s+.+\n)*)/);
+          const matrixBlock = content.match(/matrix:\s*\n((?:[ ]{6,}\S.*\n)*)/);
           let detail = `Matrix strategy in ${wf.path}`;
-          if (matrixMatch) {
-            const keys = [...matrixMatch[1].matchAll(/^\s+(\w[\w-]*):/gm)].map(m => m[1]);
+          if (matrixBlock) {
+            const keys = [...matrixBlock[1].matchAll(/^\s+(\w[\w-]*):\s*\[/gm)].map(m => m[1]);
             if (keys.length) detail += ` (${keys.join(", ")})`;
           }
           return { pass: true, detail };
@@ -957,50 +957,266 @@ const EXPERT_CHECKS = {
       return { pass: false, detail: "No rollback strategy found" };
     },
   },
-  monitoring: {
+  external_monitoring: {
     points: 10,
     category: "expert",
     label: "External monitoring",
     run: async (owner, repo, _team, ctx) => {
-      // Check README for monitoring badges/links
-      if (ctx.readme) {
-        const lower = ctx.readme.toLowerCase();
-        const monitors = ["uptimerobot", "pingdom", "betteruptime", "statuspage",
+      const readme = ctx.readme || await ghRaw(owner, repo, "README.md");
+
+      if (readme) {
+        // 1. Extract all URLs from README (markdown images, links, raw URLs)
+        const urlRegex = /https?:\/\/[^\s\)"\]>]+/gi;
+        const allUrls = [...readme.matchAll(urlRegex)].map(m => m[0]);
+
+        // 2. Check for verifiable monitoring badge/status page URLs
+        const monitoringUrlPatterns = [
+          /status\.uptimerobot\.com/i,
+          /stats\.uptimerobot\.com/i,
+          /badge\.uptimerobot\.com/i,
+          /uptime\.betterstack\.com/i,
+          /[a-z0-9-]+\.betteruptime\.com/i,
+          /app\.statuscake\.com/i,
+          /statuspage\.io/i,
+          /stats\.pingdom\.com/i,
+          /status\.freshping\.io/i,
+          /checkly\.com/i,
+        ];
+
+        for (const url of allUrls) {
+          for (const pattern of monitoringUrlPatterns) {
+            if (pattern.test(url)) {
+              // Fetch the URL to verify it's live (not a 404)
+              try {
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 10000);
+                const res = await fetch(url, { signal: controller.signal });
+                clearTimeout(timeout);
+                if (res.ok || res.status === 301 || res.status === 302) {
+                  return { pass: true, detail: `Verified monitoring URL: ${url} → HTTP ${res.status} ✅` };
+                }
+              } catch { /* URL not reachable, continue */ }
+            }
+          }
+        }
+
+        // 3. Fallback: keyword detection in README (lower weight — still pass but note it)
+        const lower = readme.toLowerCase();
+        const monitors = ["uptimerobot", "pingdom", "betteruptime", "betterstack", "statuspage",
           "freshping", "hetrixtools", "uptime-kuma", "statuscake", "checkly",
           "datadog", "newrelic", "sentry", "grafana", "prometheus"];
         for (const m of monitors) {
           if (lower.includes(m)) {
-            return { pass: true, detail: `${m} reference in README` };
+            return { pass: true, detail: `${m} reference in README (no verifiable URL — add a badge/status page link!)` };
           }
         }
-        // Check for uptime/status badges
-        if (/uptime|status.*badge|monitoring/i.test(ctx.readme)) {
-          return { pass: true, detail: "Monitoring/uptime badge in README" };
-        }
       }
-      // Check workflow YAML for monitoring setup (exclude k6/grafana perf test false positives)
+
+      // 4. Check workflow YAML for monitoring setup
       for (const wf of ctx.workflows) {
         const content = wf.content.toLowerCase();
         if (content.includes("uptimerobot") || content.includes("sentry") ||
             content.includes("datadog") || content.includes("newrelic") ||
             content.includes("prometheus")) {
-          return { pass: true, detail: `Monitoring integration in ${wf.path}` };
+          return { pass: true, detail: `Monitoring integration in ${wf.path} (add a status badge in README for full credit)` };
         }
-        // Grafana only counts if it's dashboard/monitoring, not k6 perf tests
         if (content.includes("grafana") && !content.includes("k6") && !content.includes("grafana/k6")) {
           return { pass: true, detail: `Grafana monitoring in ${wf.path}` };
         }
       }
-      // Check for monitoring config files in repo
+
+      // 5. Check for monitoring config files in repo
       const monitorFiles = [".sentryclirc", "sentry.properties", "newrelic.js",
         "prometheus.yml", "docker-compose.monitoring.yml"];
       for (const f of monitorFiles) {
         const res = await ghFetch(`/repos/${owner}/${repo}/contents/${f}`);
         if (res.ok) {
-          return { pass: true, detail: `Monitoring config: ${f}` };
+          return { pass: true, detail: `Monitoring config: ${f} (add a status badge in README!)` };
         }
       }
-      return { pass: false, detail: "No external monitoring found" };
+
+      return { pass: false, detail: "No external monitoring found (add UptimeRobot/BetterStack badge in README)" };
+    },
+  },
+  auto_recovery: {
+    points: 10,
+    category: "expert",
+    label: "Auto-recovery / Resilience",
+    run: async (owner, repo, _team, ctx) => {
+      let score = 0;
+      const details = [];
+
+      // 1. Check for workflow_dispatch trigger (manual redeploy)
+      for (const wf of ctx.workflows) {
+        const content = wf.content;
+        if (/workflow_dispatch\s*:/m.test(content)) {
+          // Bonus: check for inputs
+          const hasInputs = /workflow_dispatch\s*:\s*\n\s*inputs\s*:/m.test(content);
+          if (hasInputs) {
+            score += 6;
+            details.push(`workflow_dispatch with inputs in ${wf.path}`);
+          } else {
+            score += 4;
+            details.push(`workflow_dispatch in ${wf.path}`);
+          }
+          break;
+        }
+      }
+
+      // 2. Check for health-check / smoke test post-deploy steps
+      const healthResult = findGreenStep(ctx, ["health-check", "health_check", "healthcheck", "smoke", "verify-deploy", "verify_deploy", "post-deploy"]);
+      if (healthResult.found) {
+        score += 4;
+        details.push(healthResult.detail);
+      } else {
+        // Also check workflow YAML for curl-based health checks
+        for (const wf of ctx.workflows) {
+          const lower = wf.content.toLowerCase();
+          if ((lower.includes("curl") || lower.includes("wget")) &&
+              (lower.includes("/health") || lower.includes("healthz") || lower.includes("smoke"))) {
+            score += 3;
+            details.push(`Health check via curl/wget in ${wf.path}`);
+            break;
+          }
+        }
+      }
+
+      // 3. Check for dedicated restart/redeploy/rollback workflow files
+      for (const wf of ctx.workflows) {
+        if (/rollback|redeploy|restart|recover/i.test(wf.path)) {
+          score += 3;
+          details.push(`Recovery workflow: ${wf.path}`);
+          break;
+        }
+      }
+
+      if (score >= 4) {
+        return { pass: true, detail: details.join(" + ") };
+      }
+      return { pass: false, detail: "No auto-recovery mechanisms found (add workflow_dispatch, health checks, or recovery workflows)" };
+    },
+  },
+  ci_cache: {
+    points: 5,
+    category: "expert",
+    label: "CI cache optimization",
+    run: async (owner, repo, _team, ctx) => {
+      for (const wf of ctx.workflows) {
+        const content = wf.content;
+        // actions/cache
+        if (/uses:\s*['"]?actions\/cache/i.test(content)) {
+          return { pass: true, detail: `actions/cache in ${wf.path}` };
+        }
+        // setup-node/setup-python with cache option
+        if (/cache:\s*['"]?(npm|yarn|pnpm|pip|poetry)/i.test(content)) {
+          const cacheType = content.match(/cache:\s*['"]?(npm|yarn|pnpm|pip|poetry)/i)[1];
+          return { pass: true, detail: `Built-in ${cacheType} cache in ${wf.path}` };
+        }
+        // Docker layer caching
+        if (/cache-from|cache-to|buildkit.*cache|DOCKER_BUILDKIT/i.test(content)) {
+          return { pass: true, detail: `Docker layer cache in ${wf.path}` };
+        }
+      }
+      return { pass: false, detail: "No CI cache found (actions/cache, setup-node cache, Docker layer cache)" };
+    },
+  },
+  contract_testing: {
+    points: 5,
+    category: "expert",
+    label: "API contract testing",
+    run: async (owner, repo, _team, ctx) => {
+      // Check for OpenAPI spec file
+      const specFiles = ["openapi.yaml", "openapi.yml", "openapi.json", "swagger.yaml", "swagger.yml", "swagger.json", "api-spec.yaml", "api-spec.json"];
+      let hasSpec = false;
+      let specFile = "";
+      for (const f of specFiles) {
+        const content = await ghRaw(owner, repo, f);
+        if (content) { hasSpec = true; specFile = f; break; }
+      }
+      // Also check docs/ folder
+      if (!hasSpec) {
+        for (const f of specFiles) {
+          const content = await ghRaw(owner, repo, `docs/${f}`);
+          if (content) { hasSpec = true; specFile = `docs/${f}`; break; }
+        }
+      }
+      // Check for swagger-jsdoc / swagger-autogen in deps (auto-generation)
+      const pkg = await ghRaw(owner, repo, "package.json");
+      let hasGenerator = false;
+      if (pkg) {
+        const lower = pkg.toLowerCase();
+        if (lower.includes("swagger-jsdoc") || lower.includes("swagger-autogen") || lower.includes("tsoa") || lower.includes("nestjs/swagger")) {
+          hasGenerator = true;
+        }
+      }
+      // Check for contract validation in CI (dredd, schemathesis, prism, spectral)
+      let hasValidator = false;
+      const result = findGreenStep(ctx, ["contract", "openapi", "swagger-validate", "dredd", "schemathesis", "prism", "spectral"]);
+      if (result.found) hasValidator = true;
+      if (!hasValidator) {
+        for (const wf of ctx.workflows) {
+          const lower = wf.content.toLowerCase();
+          if (lower.includes("dredd") || lower.includes("schemathesis") || lower.includes("prism") || lower.includes("spectral") || lower.includes("openapi-validate")) {
+            hasValidator = true; break;
+          }
+        }
+      }
+      // Also check package.json for test/validation tools
+      if (!hasValidator && pkg) {
+        const lower = pkg.toLowerCase();
+        if (lower.includes("dredd") || lower.includes("schemathesis") || lower.includes("@stoplight/prism") || lower.includes("@stoplight/spectral")) {
+          hasValidator = true;
+        }
+      }
+
+      if ((hasSpec || hasGenerator) && hasValidator) {
+        return { pass: true, detail: `API spec (${specFile || 'auto-generated'}) + contract validation in CI` };
+      }
+      if (hasSpec || hasGenerator) {
+        return { pass: false, detail: `API spec found (${specFile || 'auto-generated'}) but no contract validation in CI` };
+      }
+      return { pass: false, detail: "No OpenAPI spec or contract testing found" };
+    },
+  },
+  observability: {
+    points: 10,
+    category: "expert",
+    label: "Observability / Telemetry",
+    run: async (owner, repo, _team, ctx) => {
+      const otelPackages = ["@opentelemetry/", "opentelemetry-", "opentelemetry_", "jaeger-client", "honeycomb-beeline", "@sentry/node", "@sentry/python", "dd-trace", "elastic-apm-node", "applicationinsights"];
+      // Check package.json
+      const pkg = await ghRaw(owner, repo, "package.json");
+      if (pkg) {
+        const lower = pkg.toLowerCase();
+        for (const p of otelPackages) {
+          if (lower.includes(p)) {
+            return { pass: true, detail: `${p} in package.json` };
+          }
+        }
+      }
+      // Check requirements.txt
+      const reqs = await ghRaw(owner, repo, "requirements.txt");
+      if (reqs) {
+        const lower = reqs.toLowerCase();
+        for (const p of otelPackages) {
+          if (lower.includes(p)) {
+            return { pass: true, detail: `${p} in requirements.txt` };
+          }
+        }
+      }
+      // Check for OTEL config files
+      const otelFiles = ["otel-collector-config.yaml", "otel-config.yaml", "tracing.js", "tracing.ts", "instrument.js", "instrument.ts"];
+      for (const f of otelFiles) {
+        const content = await ghRaw(owner, repo, f);
+        if (content) return { pass: true, detail: `Telemetry config: ${f}` };
+      }
+      // Check workflows for OTEL env vars
+      for (const wf of ctx.workflows) {
+        if (/OTEL_|OPENTELEMETRY|JAEGER|HONEYCOMB/i.test(wf.content)) {
+          return { pass: true, detail: `Telemetry env vars in ${wf.path}` };
+        }
+      }
+      return { pass: false, detail: "No observability/telemetry found (OpenTelemetry, Sentry, Datadog, etc.)" };
     },
   },
 };
@@ -1273,6 +1489,38 @@ const BONUS_CHECKS = {
         }
       }
       return { pass: false, detail: "No blue/green or canary deployment found" };
+    },
+  },
+  structured_logging: {
+    points: 5,
+    category: "bonus",
+    label: "Structured logging",
+    run: async (owner, repo, _team, ctx) => {
+      const logLibs = {
+        node: ["winston", "pino", "bunyan", "log4js", "signale", "tslog"],
+        python: ["loguru", "structlog", "python-json-logger"],
+      };
+      // Check package.json
+      const pkg = await ghRaw(owner, repo, "package.json");
+      if (pkg) {
+        const lower = pkg.toLowerCase();
+        for (const lib of logLibs.node) {
+          if (lower.includes(`"${lib}"`)) {
+            return { pass: true, detail: `${lib} in package.json` };
+          }
+        }
+      }
+      // Check requirements.txt
+      const reqs = await ghRaw(owner, repo, "requirements.txt");
+      if (reqs) {
+        const lower = reqs.toLowerCase();
+        for (const lib of logLibs.python) {
+          if (lower.includes(lib)) {
+            return { pass: true, detail: `${lib} in requirements.txt` };
+          }
+        }
+      }
+      return { pass: false, detail: "No structured logging library found (winston, pino, loguru, etc.)" };
     },
   },
 };
