@@ -71,7 +71,7 @@
       "Jules Vallet"
     ],
     "prod_url": "https://todo-api.httpd.zip",
-    "staging_url": ""
+    "staging_url": "https://staging-todo-api.httpd.zip/"
   },
   {
     "team": "HAT",
