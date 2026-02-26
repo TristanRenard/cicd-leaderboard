@@ -1,23 +1,23 @@
 {
-  "generated_at": "2026-02-26T07:30:00Z",
+  "generated_at": "2026-02-26T13:30:00Z",
   "teams": [
     {
       "team": "West Coast Team",
       "repo": "keryanchpn/todo-api-node",
       "code_quality": {
         "score": 7,
-        "details": "Good naming conventions and meaningful variable names. Clean separation with routes/, database/ directories. Proper error handling with try/catch and appropriate HTTP codes (422, 404, 500). Parameterized SQL queries — no eval(). Some console.log statements remain (e.g., 'someone hit the root endpoint', 'creating todo'). No .env.example file. Helper functions (toObj, toArray) are well-placed but inline in routes file."
+        "details": "Good naming conventions and meaningful variable names. Clean separation with routes/todo.js, database/database.js, and app.js. Proper error handling with try/catch and Sentry integration, correct HTTP status codes (422, 404, 500). Some console.log statements remain (e.g. 'someone hit the root endpoint', 'creating todo'). No eval() or hardcoded secrets — env vars used properly via dotenv and Sentry DSN. Swagger served from static JSON file. Minor: helper functions (toObj/toArray) are defined inline in routes rather than extracted to a utility module."
       },
       "documentation": {
-        "score": 7,
-        "details": "README is solid — includes badges (CI, Coverage, Quality Gate), feature list, stack, install instructions, test commands, and CI/CD pipeline description. JSDoc comments on all route handlers and helper functions. Swagger UI integrated via swagger.json at /api-docs. Missing .env.example but no env vars needed beyond PORT."
+        "score": 8,
+        "details": "Excellent README with badges (CI, Coverage, Quality Gate), clear feature list, stack description, installation instructions, test commands, and CI/CD pipeline explanation. Swagger UI active at /api-docs. JSDoc comments on all route handlers explaining purpose and behavior. Good setup instructions with prerequisites and commands."
       },
-      "total": 14,
-      "summary": "Solid, clean project. Good fundamentals — parameterized queries, proper HTTP codes, Swagger docs, SonarCloud integration. Minor issues: leftover console.logs and no .env.example.",
+      "total": 15,
+      "summary": "Solid project with Sentry observability, clean CRUD routes, and comprehensive README. Code is well-structured with proper error handling. Minor cleanup needed on console.logs and helper extraction.",
       "tips": [
-        "Remove or reduce console.log statements in production code — use a logger like winston or pino with log levels instead",
-        "Extract toObj/toArray helpers into a utils/ file to keep routes/todo.js focused on routing logic",
-        "Add a .env.example file so others know which env vars are available (PORT, NODE_ENV)"
+        "Extract toObj/toArray helpers into a shared utils module to reduce duplication",
+        "Remove or guard console.log statements behind a proper logger (like winston or pino) for production",
+        "Name your PRs with conventional commit format (feat: xxx, fix: xxx) — squash merges use the PR title as the commit message"
       ]
     },
     {
@@ -25,37 +25,37 @@
       "repo": "FabLrc/todo-api-node",
       "code_quality": {
         "score": 9,
-        "details": "Excellent structure: helmet for security headers, morgan for logging, global error handler middleware. Helpers extracted to utils/helpers.js. .env.example present. Husky + commitlint for commit conventions. Errors forwarded with next(err) instead of inline catch — clean Express pattern. No eval(), no debug endpoint, no hardcoded secrets. swagger-jsdoc generates docs from inline annotations. Only minor: dotenv loaded in database.js."
+        "details": "Excellent code organization: helpers extracted to utils/helpers.js with JSDoc, routes cleanly separated, database module with resetDb() for testing. Helmet and morgan for security/logging. Global error handler properly defined. Husky + commitlint for commit quality. No console.logs in routes (uses next(err) pattern). No eval(), no hardcoded secrets. .env.example provided. Only minor issue: a stray 'package/index.js' file (test-exclude library code) appears committed by accident."
       },
       "documentation": {
         "score": 9,
-        "details": "Outstanding README: badges, table of contents, installation, env vars, scripts table, full API reference with request/response examples, project structure, Docker instructions, security section, and live demo link. Swagger annotations on every route with full schema definitions. CHANGELOG.md auto-generated. .env.example included."
+        "details": "Outstanding README with multiple badges, table of contents, detailed API reference with request/response examples, environment variable documentation, Docker instructions, security section, and project structure overview. Swagger UI active with swagger-jsdoc annotations on every route including full schema definitions. .env.example included. Scripts documented in a table."
       },
       "total": 18,
-      "summary": "One of the strongest projects. Professional-grade setup with helmet, morgan, husky, commitlint, and a global error handler. Comprehensive documentation with full API reference in README and Swagger.",
+      "summary": "Top-tier project. Clean architecture with proper middleware (helmet, morgan), extracted helpers with JSDoc, error forwarding via next(), and an exceptionally detailed README. One of the strongest submissions.",
       "tips": [
-        "Consider moving dotenv.config() to a single entry point instead of database.js",
-        "Name your PRs with conventional commit format (feat: xxx, fix: xxx) — squash merges use the PR title as the commit message",
-        "Add a .env.example entry for API_URL to document the Swagger server URL configuration"
+        "Remove the accidental 'package/' directory (contains test-exclude library source code, not your code)",
+        "Consider adding rate limiting for production readiness",
+        "Name your PRs with conventional commit format (feat: xxx, fix: xxx) — squash merges use the PR title as the commit message"
       ]
     },
     {
       "team": "Exemple",
       "repo": "ayoun07/todo-api-node",
       "code_quality": {
-        "score": 6,
-        "details": "Decent structure with routes/, database/, helpers.js. Parameterized queries, proper HTTP codes. Has .env.example. However: /debug endpoint exists (gated behind NODE_ENV=development but still in codebase — exposes SECRET_KEY and API_KEY). No try/catch on GET/PUT/DELETE routes in todo.js — only POST and search have error handling. No global error handler. Console.log in root endpoint. App listens unconditionally (no test guard)."
+        "score": 7,
+        "details": "Good use of Zod for input validation (querySchema, idSchema, todoSchema) — a step above most teams. Winston logger properly configured. Morgan for HTTP logging. Swagger with swagger-jsdoc. However: /debug endpoint exists (gated by NODE_ENV=development but still risky), error.log file committed to repo. app.listen() called unconditionally in app.js (breaks test isolation). Some console.error still present alongside logger. No helmet for security headers."
       },
       "documentation": {
-        "score": 7,
-        "details": "Good README with badges, features, stack description, install/run instructions, Docker, and security scan instructions (CodeQL, Trivy). Swagger-jsdoc annotations on all routes. Missing: env vars documentation table, project structure overview. CHANGELOG.md present (auto-generated)."
+        "score": 8,
+        "details": "Very good README with multiple badges (Quality Gate, Coverage, Uptime), stack description, security tools listed (CodeQL, Trivy, Dependabot, SonarCloud, Morgan). Installation and Docker instructions present. .env.example provided. Swagger UI documented. Could benefit from API endpoint table and response examples."
       },
-      "total": 13,
-      "summary": "Good foundation but inconsistent error handling — some routes have try/catch, others don't. The /debug endpoint is a security concern even when gated. App doesn't properly export for testing.",
+      "total": 15,
+      "summary": "Strong validation with Zod and good observability (winston + morgan). The /debug endpoint and unconditional app.listen() are the main issues. Good security tooling integration in CI.",
       "tips": [
         "Remove or protect the /debug endpoint — it exposes environment variables and secrets",
-        "Add try/catch to all route handlers (GET /, GET /:id, PUT, DELETE are unprotected)",
-        "Wrap app.listen in a condition (require.main === module or NODE_ENV !== 'test') for proper test support"
+        "Guard app.listen() with a check (if require.main === module or NODE_ENV !== 'test') for proper test isolation",
+        "Add helmet middleware for security headers"
       ]
     },
     {
@@ -63,18 +63,18 @@
       "repo": "AReyn343/todo-api-node",
       "code_quality": {
         "score": 8,
-        "details": "Clean code with helmet for security, swagger-jsdoc, .env.example, proper module export pattern (require.main === module). Global error handler present. Utils extracted to utils/helpers.js. No eval(), no debug endpoint, parameterized queries throughout. Separate CI workflows for develop and main branches. Minor: no try/catch in route handlers (errors go to global handler which is fine but less specific). OpenAPI spec exposed at /openapi.json."
+        "details": "Clean, well-structured code. Helmet for security. Swagger via swagger-jsdoc with proper JSDoc annotations. Helpers properly extracted to utils/helpers.js. Global error handler. Server start gated by require.main === module. DB_PATH configurable via env var. No eval(), no hardcoded secrets. No debug endpoint. Routes lack try/catch (errors fall through to global handler which is acceptable but less explicit). Swagger config duplicated between swagger.js and app.js."
       },
       "documentation": {
         "score": 8,
-        "details": "Comprehensive README: table of contents, stack info, prerequisites, install, env vars table, Docker instructions with GHCR pull command, endpoint table with examples, Swagger docs reference, CI/CD description with secrets table. Swagger annotations on routes. Missing: project structure diagram."
+        "details": "Comprehensive README with table of contents, stack overview, prerequisites, installation, env vars table, Docker instructions with GHCR pull command, endpoints table with curl examples, and Swagger UI mentioned. .env.example provided. CI/CD section explains the full pipeline with multiple workflows."
       },
       "total": 16,
-      "summary": "Well-architected project with good security (helmet), proper export pattern, and thorough documentation. Dual CI pipelines for develop/main is a nice touch. Clean, professional codebase.",
+      "summary": "Well-polished project with helmet, proper server gating, and a thorough README. Multiple CI workflows (develop, main, release, rollback, matrix) show advanced CI/CD understanding. Minor swagger config duplication.",
       "tips": [
-        "Add try/catch blocks in route handlers for more specific error messages (current global handler returns generic 500)",
-        "Add a .env.example file with all supported variables documented",
-        "Consider adding a CHANGELOG.md with conventional commits or release-please"
+        "Remove the duplicate swagger.js file — the config is already in app.js",
+        "Add try/catch in route handlers for more explicit error responses instead of relying solely on the global handler",
+        "Add a .env.example with all variables documented"
       ]
     },
     {
@@ -82,37 +82,37 @@
       "repo": "WookiesRpeople2/todo-api-node",
       "code_quality": {
         "score": 7,
-        "details": "Good structure with thorough JSDoc comments. Kubernetes manifests (kustomize overlays for dev/integration/prod) show advanced deployment. release-please for versioning. knip for dead code detection. /debug endpoint present (gated behind NODE_ENV !== production but still a concern). formatTodo/formatTodos use verbose var/for-loop style instead of modern JS. No try/catch in route handlers. Swagger via static JSON file."
+        "details": "Good code with detailed JSDoc comments on every function. Parameterized queries explicitly noted. formatTodo/formatTodos helpers for consistent output. esbuild for production bundling. Coverage merge script and verification script show advanced CI understanding. Kubernetes manifests (k8s/) show deployment maturity. However: /debug endpoint still present (gated by NODE_ENV but exposes secrets). productionLazyImport wrapper is unnecessarily complex — a simple if statement suffices. Swagger served from static JSON rather than generated."
       },
       "documentation": {
         "score": 7,
-        "details": "Solid README: badges, features list, prerequisites, install, run, test, Docker, full API reference with examples. Swagger UI at /docs. Missing: env vars documentation, project structure. No .env.example. CHANGELOG.md auto-generated."
+        "details": "Good README with features list, prerequisites, installation, testing, Docker instructions, API reference with curl examples, and endpoint documentation. However, README could benefit from badges, env vars table, and CI/CD pipeline description. No .env.example file."
       },
       "total": 14,
-      "summary": "Impressive infrastructure (K8s, ArgoCD, release-please, knip) but code has stylistic issues — verbose formatTodo/formatTodos, /debug endpoint. Good Swagger docs and comprehensive README.",
+      "summary": "Strong technical depth with K8s manifests, esbuild bundling, and coverage merge tooling. The /debug endpoint and lack of .env.example are the main gaps. Good JSDoc coverage.",
       "tips": [
         "Remove or protect the /debug endpoint — it exposes environment variables and secrets",
         "Add a .env.example file so others know which env vars are needed",
-        "Replace verbose formatTodo/formatTodos with modern destructuring or spread — the current var/for-loop style is harder to maintain"
+        "Simplify the productionLazyImport pattern — a plain if (process.env.NODE_ENV !== 'production') block is clearer"
       ]
     },
     {
       "team": "La team",
       "repo": "paspigui/todo-api-node",
       "code_quality": {
-        "score": 5,
-        "details": "Minimal app.js — just express.json(), root endpoint, health, and router. No security middleware (no helmet). No error handling — no try/catch in any route, no global error handler. No Swagger/API docs endpoint. No .env.example. Prettierrc present which is good. Code works but is essentially the bare minimum over the original sabotaged version. Helpers (toObj/toArray) duplicated in routes file."
+        "score": 6,
+        "details": "Clean app/server separation (app.js + server.js). Swagger spec defined as a full JSON object in swagger.js — thorough but verbose. Routes are functional but lack try/catch error handling — any database error will crash. Helper functions (toObj/toArray) defined inline in routes/todo.js. Search endpoint defined after /:id which causes routing conflicts (GET /todos/search/all will match /:id first). No helmet, no logging middleware. Prettier configured."
       },
       "documentation": {
-        "score": 2,
-        "details": "README is essentially empty: 'a todo api' + 'npm install / npm start' + one SonarCloud badge. No API docs, no env vars, no project structure, no Docker instructions, no feature description. No Swagger endpoint."
+        "score": 4,
+        "details": "Very minimal README — just 'a todo api' with run command, Swagger UI link, and a coverage badge. No installation instructions beyond npm install/start. No env vars documentation. No API endpoints listed. No Docker instructions. No project structure. The Swagger spec itself is thorough but the README is far too sparse."
       },
-      "total": 7,
-      "summary": "Bare minimum effort. Code works but lacks error handling, security, and documentation. The README is nearly empty and there's no API documentation.",
+      "total": 10,
+      "summary": "Functional API with thorough Swagger spec, but the README is nearly empty and routes lack error handling. Search endpoint has a routing conflict. Missing security middleware.",
       "tips": [
         "Update your README with real setup instructions, API docs, and badges",
-        "Add Swagger/OpenAPI docs — Express can use swagger-jsdoc + swagger-ui-express easily",
-        "Add try/catch error handling to all routes and consider a global error handler middleware"
+        "Add try/catch in all route handlers to prevent unhandled crashes",
+        "Move the search route before /:id to avoid routing conflicts, or restructure the route path"
       ]
     },
     {
@@ -120,18 +120,18 @@
       "repo": "LuaPanic/todo-api-node",
       "code_quality": {
         "score": 8,
-        "details": "Modern ES modules throughout. Uses @scalar/express-api-reference for API docs (nicer than basic Swagger UI). .env.example present. /debug endpoint gated behind NODE_ENV=development. vitest for testing (modern choice). esbuild for bundling. Clean route handlers with early returns. Separate CI and CD workflows. compose.yml for local dev. No global error handler but routes are clean. CHANGELOG.md auto-generated."
+        "details": "Modern ES modules throughout. Clean code with good comments. Scalar API reference instead of standard swagger-ui (nice touch). Vitest for testing. Debug endpoint properly gated by NODE_ENV. dotenv.config with quiet option. esbuild config for builds. .env.example provided. Compose file included. No try/catch in routes (errors not caught). console.log statements remain in routes. Routes well-structured with proper HTTP codes."
       },
       "documentation": {
-        "score": 9,
-        "details": "Excellent README: CI/CD badges, table of contents, prerequisites, install, env vars table, run/test commands, Docker instructions with GHCR pull, full API reference with all endpoints, query params, request/response examples. CI/CD pipeline described in detail. Well-structured and thorough."
+        "score": 8,
+        "details": "Excellent README with CI/CD badges, table of contents, prerequisites, getting started, env vars table, Docker with GHCR pull instructions, full API reference with curl examples and response bodies, and CI/CD pipeline description. .env.example provided. Swagger UI via Scalar at /api-docs."
       },
-      "total": 17,
-      "summary": "Strong project with modern tooling (ES modules, vitest, esbuild, Scalar API docs). Excellent documentation. /debug endpoint is the main concern but properly gated.",
+      "total": 16,
+      "summary": "Modern, well-documented project using ES modules and Scalar for API docs. Good CI/CD with separate CI and CD workflows. Minor issues: missing try/catch in routes and leftover console.logs.",
       "tips": [
-        "Remove or protect the /debug endpoint — even gated behind NODE_ENV, it's better to remove it entirely in production builds",
-        "Add a global error handler middleware for unexpected errors",
-        "Consider adding helmet for security headers — it's a quick win"
+        "Add try/catch in route handlers to return proper 500 responses instead of crashing",
+        "Replace console.log with a structured logger (pino or winston) for production",
+        "Remove or protect the /debug endpoint — it exposes environment variables and secrets"
       ]
     },
     {
@@ -139,18 +139,18 @@
       "repo": "lootopia-les-3-dev/todo-api-node",
       "code_quality": {
         "score": 10,
-        "details": "Best code quality in the class. Zod validation schemas for all inputs (create, update, pagination, search). Helmet for security. Morgan for logging. Rate limiting with express-rate-limit. Request ID tracking (X-Request-ID). CORS configuration via env var. Proper error handler with env-aware messages (hides details in production). All routes use next(err) pattern. .env.example with all vars documented. Husky pre-commit/pre-push hooks. ESLint with comprehensive config. pnpm. No eval(), no debug endpoint, no hardcoded secrets."
+        "details": "Exceptional code quality. ES modules, Zod validation on all inputs (create, update, pagination, search) with proper error responses. Helmet, morgan, rate limiting, CORS, and request ID middleware. Async database with fs/promises. Proper global error handler with env-aware error messages. Husky pre-commit and pre-push hooks. No debug endpoint. No console.logs in production code. No eval(), no hardcoded secrets. Clean separation of concerns. Release-please for versioning. pnpm as package manager."
       },
       "documentation": {
-        "score": 8,
-        "details": "Good README: badges, stack, setup instructions, env vars table with defaults, Docker, available commands, endpoint table, environment deployment table. Extremely detailed Swagger annotations with multiple examples per endpoint, error cases, validation error schemas. Missing: full API reference in README (relies on /docs). Could use a project structure section."
+        "score": 9,
+        "details": "Excellent README with badges, stack description, complete setup guide (clone, install, env, Docker), comprehensive env vars table with descriptions and defaults. Commands table. API endpoints table. Environments section. Swagger UI at /docs with extremely detailed swagger.js spec including examples, descriptions, and error schemas. .env.example with all variables."
       },
-      "total": 18,
-      "summary": "The gold standard. Input validation with Zod, security hardening (helmet, rate limiting, CORS, request IDs), proper error handling, and the most detailed Swagger docs in the class. Exemplary CI/CD setup.",
+      "total": 19,
+      "summary": "The gold standard submission. Production-ready with rate limiting, request IDs, CORS, helmet, Zod validation, async file I/O, and comprehensive Swagger docs. Excellent CI/CD with release-please, reusable deploy workflow, and husky hooks.",
       "tips": [
-        "Add a project structure section to the README for quick orientation",
-        "Consider adding a /health endpoint response time metric for monitoring",
-        "The Swagger docs are incredibly detailed — consider extracting the spec to a YAML file for easier editing"
+        "Consider adding API versioning (e.g., /v1/todos) for future-proofing",
+        "Add a CONTRIBUTING.md to formalize the PR and review process",
+        "Name your PRs with conventional commit format (feat: xxx, fix: xxx) — squash merges use the PR title as the commit message"
       ]
     },
     {
@@ -158,18 +158,18 @@
       "repo": "un-mec-paumer/todo-api-node",
       "code_quality": {
         "score": 7,
-        "details": "Clean separation: app.js, server.js, routes/, database/, docs/. Per-environment .env files (.env.development, etc.). Swagger via swagger-jsdoc. .env.example present. Proper try/catch with consistent error responses. Parameterized queries. No eval(), no debug endpoint. docker-compose.yml. SonarCloud integration. Minor: console.log in GET /todos, some console.error without structured logging."
+        "details": "Good separation with app.js, server.js, routes, database, and docs folders. Sentry integration. Swagger via swagger-jsdoc with route annotations. Proper error handling with try/catch in all routes. Uses node: protocol for imports (modern). DB_PASSWORD env var checked with warning. However: .env file loading by NODE_ENV is unusual and error-prone. Sentry init before dotenv means DSN might not be loaded. console.log/console.error still present. Helpers (toObj/toArray) defined inline in routes."
       },
       "documentation": {
-        "score": 7,
-        "details": "Good README with many badges (Node.js, Express, Jest, ESLint, CI, Deploy, SonarCloud quality gate). Stack description, install instructions, scripts, endpoint list, curl examples. Swagger at /api-docs. Missing: env vars table, Docker instructions, project structure. Live demo URL provided."
+        "score": 8,
+        "details": "Very impressive README with extensive badges (coverage, quality gate, uptime, duplicated lines, vulnerabilities, maintainability). Full stack description, installation guide, Docker and docker-compose instructions, API endpoints with examples. .env.example provided. Swagger documented. SonarCloud quality gate badge. UptimeRobot monitoring."
       },
-      "total": 14,
-      "summary": "Solid project with good separation of concerns (app/server split). Per-environment .env files is a nice touch. Good CI/CD with SonarCloud. Documentation is good but could use more detail.",
+      "total": 15,
+      "summary": "Well-documented project with extensive badges and monitoring (UptimeRobot). Sentry for observability. Good error handling in routes. The Sentry/dotenv init order and inline helpers are the main issues.",
       "tips": [
-        "Add an env vars documentation table to the README — the per-environment .env pattern is great but needs docs",
-        "Replace console.log/console.error with a structured logger (winston/pino)",
-        "Add Docker build/run instructions to the README"
+        "Move dotenv.config() before Sentry.init() so the DSN is loaded from env",
+        "Extract toObj/toArray into a shared helpers module",
+        "Name your PRs with conventional commit format (feat: xxx, fix: xxx) — squash merges use the PR title as the commit message"
       ]
     },
     {
@@ -177,18 +177,18 @@
       "repo": "Reemark/CI-CD",
       "code_quality": {
         "score": 8,
-        "details": "Strong code: Zod validation for create/update with custom error messages. Parameterized queries throughout. Clean route ordering (search before :id). .env.example present. Swagger-jsdoc annotations. PR template for code reviews. Trivy for vulnerability scanning. Gitleaks for secret scanning. Performance check script. No eval(), no debug endpoint. require.main === module pattern. Minor: console.log in routes (creating todo, found X todos)."
+        "details": "Strong code with Zod validation (createTodoSchema, updateTodoSchema). Sentry integration properly gated by SENTRY_DSN check. Global error handler with Sentry forwarding. Server start gated by require.main === module. Contract check script validates OpenAPI spec. Performance check script with autocannon. PR template. .trivyignore for security scanning. resetDb() for test isolation. Clean code, no eval(), no debug endpoint. Minor: console.logs in routes, helpers inline."
       },
       "documentation": {
-        "score": 6,
-        "details": "README has good badges (CI, Docker, Deploy, Coverage, Quality Gate). Basic install/lint/test instructions. CI and deployment sections explain the pipeline well. SonarCloud setup documented. However: no API endpoint documentation, no env vars table, no Docker instructions, no project structure. README is functional but sparse on API details."
+        "score": 7,
+        "details": "Good README with multiple CI badges, run/lint/test commands, CI pipeline description with 10+ checks listed, deployment section with health check and rollback, SonarCloud setup instructions, and Sentry configuration. However: no API endpoint documentation, no installation prerequisites, no env vars table, no Docker instructions beyond what CI does."
       },
-      "total": 14,
-      "summary": "Excellent CI/CD pipeline (Gitleaks, Trivy, SonarCloud, separate deploy workflows) and good code quality with Zod validation. README covers DevOps well but lacks API documentation.",
+      "total": 15,
+      "summary": "Technically strong with Zod validation, contract testing, performance gates, and Sentry. CI pipeline is comprehensive (gitleaks, trivy, SonarCloud, matrix testing). README focuses on CI/CD but lacks API documentation.",
       "tips": [
-        "Add API endpoint documentation to the README — currently no way for someone to know the routes without reading code",
-        "Remove console.log statements from route handlers — use a proper logger",
-        "Add Docker build/run instructions and env vars table to README"
+        "Add API endpoint documentation (table or Swagger link) to the README",
+        "Add a .env.example documenting all environment variables",
+        "Name your PRs with conventional commit format (feat: xxx, fix: xxx) — squash merges use the PR title as the commit message"
       ]
     },
     {
@@ -196,18 +196,18 @@
       "repo": "Christmann-Julian/todo-api-node",
       "code_quality": {
         "score": 7,
-        "details": "Good separation: routes/utils.js for formatTodo/formatTodos, handleRouteError for consistent 500 responses. /debug endpoint present but gated (returns 404 outside development — better than most). Swagger via YAML file (docs/swagger.yml). .env.example. Prettierrc. Comprehensive JSDoc on all functions. docker-compose.yml for dev and production. Vercel-aware config. Minor: README is duplicated (entire content appears twice). /debug still exposes process.env in dev."
+        "details": "Good separation with routes/utils.js extracting toArray, formatTodo, formatTodos. JSDoc on all functions. Try/catch with dedicated handleRouteError/handleAppRouteError functions. Swagger loaded from YAML file with CDN assets for Vercel. .env.example provided. However: /debug endpoint exists and exposes process.env (not just SECRET_KEY) — returns full env object which is a security risk even gated by NODE_ENV. api/index.js is just a re-export. Verbose formatTodo/formatTodos could use object destructuring."
       },
       "documentation": {
         "score": 6,
-        "details": "README has badges and covers basics (install, structure, endpoints, scripts, contributing guidelines). Swagger via docs/swagger.yml at /api-docs. However: README content is duplicated (appears twice in the file — copy-paste error). No env vars table. Endpoint docs are brief (just route + description, no examples). 'Suggestions / prochaines étapes' section feels unfinished."
+        "details": "README has badges and basic structure description, but is duplicated (same content appears twice). Endpoints listed but without examples. Setup instructions present but brief. No Docker instructions. Swagger available via YAML file. 'Suggestions / prochaines étapes' section suggests features aren't implemented yet, which reads as incomplete."
       },
       "total": 13,
-      "summary": "Decent code with good patterns (handleRouteError, utils extraction, JSDoc). The duplicated README is a visible quality issue. /debug endpoint better gated than most but still a concern.",
+      "summary": "Decent code with proper error handling and helper extraction. The /debug endpoint leaking full process.env is a significant security concern. README is duplicated and reads as unfinished.",
       "tips": [
-        "Fix the README — the entire content is duplicated (copy-paste error). Clean it up",
-        "Remove or protect the /debug endpoint — it exposes process.env which includes all environment variables",
-        "Add request/response examples to the endpoint documentation"
+        "CRITICAL: The /debug endpoint exposes the full process.env object — restrict it to specific keys or remove it entirely",
+        "Fix the duplicated README content — the same text appears twice",
+        "Simplify formatTodo with object destructuring: const { id, title, description, status } = todo; return { id, title, description, status };"
       ]
     },
     {
@@ -215,18 +215,18 @@
       "repo": "Anothays/todo-api-node",
       "code_quality": {
         "score": 9,
-        "details": "Excellent architecture: Zod validation schemas in dedicated file (routes/schemas/todo.schemas.js). Helmet via separate config. ES modules. Helpers extracted to helpers/utils.js. Swagger config in config/swagger.js. Every route has try/catch with consistent error handling. validate() utility for clean schema application. .env.example. Renovate for dependency updates. CHANGELOG.md. No eval(), no debug endpoint. Clean, well-organized codebase."
+        "details": "Excellent architecture: ES modules, config/ folder for helmet and swagger, helpers/ for utils, routes/schemas/ for Zod validation schemas. Clean validate() helper function. Every file has JSDoc. Helmet with strict CSP. Proper separation of app.js and main.js. No debug endpoint. No console.logs in app routes (only in catch blocks). resetForTesting() in database for test isolation. Renovate for dependency management. formatTodo for consistent API output. Only minor: helmet middleware applied after routes in app.js (should be before)."
       },
       "documentation": {
-        "score": 7,
-        "details": "Good README: badges, tech table, detailed local deploy instructions, env vars section, scripts table, project structure, license, Docker deploy with GHCR pull command. Swagger at /api-docs with full annotations. Missing: API endpoint reference in README (relies on Swagger). Could document the Zod validation behavior."
+        "score": 8,
+        "details": "Thorough README with badges, tech table with versions, complete local deployment guide, env vars documentation, all scripts listed in a table, project structure description, and Swagger UI link. .env.example provided. Swagger generated from JSDocs with proper component schemas. Clear and well-organized."
       },
-      "total": 16,
-      "summary": "Excellent code architecture with proper separation of concerns (schemas, config, helpers). Zod validation, helmet, Renovate for deps. Clean and professional. Documentation is good but could include API reference in README.",
+      "total": 17,
+      "summary": "Very clean, well-architected project with Zod validation schemas, helmet CSP, renovate, and proper ES modules. Strong documentation. Minor middleware ordering issue with helmet.",
       "tips": [
-        "Add a brief API endpoint reference to the README — not everyone will run the server just to see /api-docs",
-        "Document the validation behavior (what 422 responses look like) in the README",
-        "Consider adding rate limiting — the architecture is clean enough to add it easily"
+        "Move app.use(helmetMiddleware) before route definitions so security headers apply to all responses",
+        "Consider adding rate limiting middleware for production readiness",
+        "Name your PRs with conventional commit format (feat: xxx, fix: xxx) — squash merges use the PR title as the commit message"
       ]
     }
   ]
