@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-27T10:35:57.308Z",
+  "generated_at": "2026-02-27T11:30:56.928Z",
   "total_possible": 140,
   "expert_possible": 75,
   "bonus_possible": 55,
@@ -14,13 +14,13 @@
       "repo": "lootopia-les-3-dev/todo-api-node",
       "prod_url": "https://todo.lootopia.io",
       "staging_url": "https://pp-todo.lootopia.io",
-      "total": 100,
+      "total": 115,
       "maxTotal": 140,
-      "expert": 65,
+      "expert": 75,
       "maxExpert": 75,
       "bonus": 50,
       "maxBonus": 55,
-      "grandTotal": 215,
+      "grandTotal": 240,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -30,15 +30,15 @@
           "category": "fundamentals"
         },
         "pipeline_green": {
-          "pass": false,
-          "detail": "Last run: failure (#264 — CI)",
+          "pass": true,
+          "detail": "Last run: success (#270 — CI)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
         },
         "lint_pass": {
-          "pass": false,
-          "detail": "No green lint/format job or step found in last CI run",
+          "pass": true,
+          "detail": "Step \"Run actions/checkout@v6\" in \"contract\" green ✅",
           "points": 5,
           "label": "Lint step in pipeline",
           "category": "fundamentals"
@@ -51,15 +51,15 @@
           "category": "fundamentals"
         },
         "tests_exist": {
-          "pass": false,
-          "detail": "4 real test file(s) but not run in CI",
+          "pass": true,
+          "detail": "4 real test file(s), run in CI — Step \"Generate OpenAPI spec\" in \"contract\" green ✅",
           "points": 10,
           "label": "Tests exist in pipeline",
           "category": "fundamentals"
         },
         "tests_pass": {
-          "pass": false,
-          "detail": "Pipeline not green (CI #264)",
+          "pass": true,
+          "detail": "Step \"Generate OpenAPI spec\" in \"contract\" green ✅",
           "points": 5,
           "label": "Tests pass",
           "category": "fundamentals"
@@ -79,15 +79,15 @@
           "category": "fundamentals"
         },
         "docker_builds": {
-          "pass": false,
-          "detail": "No green Docker build job/step found in last CI run",
+          "pass": true,
+          "detail": "Job \"docker-build\" green ✅",
           "points": 5,
           "label": "Docker build in CI",
           "category": "fundamentals"
         },
         "swagger_docs": {
-          "pass": true,
-          "detail": "Swagger found at /docs",
+          "pass": false,
+          "detail": "No Swagger/OpenAPI docs found",
           "points": 5,
           "label": "API documentation (Swagger)",
           "category": "fundamentals"
@@ -101,7 +101,7 @@
         },
         "security_scan": {
           "pass": true,
-          "detail": "Check run \"security\" (app: GitHub Actions) green ✅",
+          "detail": "Job \"security\" green ✅",
           "points": 10,
           "label": "Security scan in CI",
           "category": "intermediate"
@@ -114,15 +114,15 @@
           "category": "intermediate"
         },
         "quality_gate": {
-          "pass": false,
-          "detail": "No quality gate configured",
+          "pass": true,
+          "detail": "Step \"Upload to Codecov\" in \"test (node 20)\" green ✅",
           "points": 10,
           "label": "Quality gate (SonarCloud etc.)",
           "category": "intermediate"
         },
         "deployed": {
-          "pass": true,
-          "detail": "https://todo.lootopia.io → HTTP 200 ✅ (Todo API verified)",
+          "pass": false,
+          "detail": "https://todo.lootopia.io → HTTP 502",
           "points": 10,
           "label": "App deployed (HTTP 200)",
           "category": "intermediate"
@@ -136,21 +136,21 @@
         },
         "auto_deploy": {
           "pass": true,
-          "detail": "GitHub deployment to \"production\" found (2026-02-27T10:34:13Z)",
+          "detail": "Job \"release-please\" green ✅",
           "points": 10,
           "label": "Auto-deploy on push to main",
           "category": "advanced"
         },
         "multi_env": {
-          "pass": true,
-          "detail": "Staging https://pp-todo.lootopia.io → HTTP 200 ✅ + Prod live (envs: production, staging)",
+          "pass": false,
+          "detail": "Staging https://pp-todo.lootopia.io → HTTP 502",
           "points": 10,
           "label": "Multiple environments",
           "category": "advanced"
         },
         "pipeline_fast": {
           "pass": true,
-          "detail": "Average: 1.3 min (last 10 runs)",
+          "detail": "Average: 1.4 min (last 10 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
@@ -166,7 +166,7 @@
       "expertResults": {
         "ci_notifications": {
           "pass": true,
-          "detail": "Notification action in .github/workflows/ci.yml",
+          "detail": "Job \"notify\" green ✅",
           "points": 5,
           "label": "CI notifications (Discord/Slack)",
           "category": "expert"
@@ -187,21 +187,21 @@
         },
         "release_tagging": {
           "pass": true,
-          "detail": "3 release(s), latest: v1.1.0",
+          "detail": "3 release(s), latest: v1.1.1",
           "points": 5,
           "label": "Release tagging (GitHub Releases)",
           "category": "expert"
         },
         "smoke_tests": {
-          "pass": false,
-          "detail": "No smoke/e2e tests post-deploy found",
+          "pass": true,
+          "detail": "Step \"Smoke test — homepage responds\" in \"deploy / deploy\" green ✅",
           "points": 5,
           "label": "Smoke tests post-deploy",
           "category": "expert"
         },
         "rollback_strategy": {
           "pass": true,
-          "detail": "Rollback mechanism in .github/workflows/ci.yml",
+          "detail": "Step \"Tag current image as previous (rollback target)\" in \"deploy / deploy\" green ✅",
           "points": 10,
           "label": "Rollback strategy",
           "category": "expert"
@@ -215,7 +215,7 @@
         },
         "auto_recovery": {
           "pass": true,
-          "detail": "workflow_dispatch with inputs in .github/workflows/ci.yml + Health check via curl/wget in .github/workflows/ci.yml",
+          "detail": "workflow_dispatch with inputs in .github/workflows/ci.yml + Step \"Smoke test — homepage responds\" in \"deploy / deploy\" green ✅",
           "points": 10,
           "label": "Auto-recovery / Resilience",
           "category": "expert"
@@ -228,8 +228,8 @@
           "category": "expert"
         },
         "contract_testing": {
-          "pass": false,
-          "detail": "API spec found (openapi.json) but no contract validation in CI",
+          "pass": true,
+          "detail": "API spec (openapi.json) + contract validation in CI",
           "points": 5,
           "label": "API contract testing",
           "category": "expert"
@@ -279,15 +279,15 @@
           "category": "bonus"
         },
         "health_endpoint": {
-          "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":667.159402053}",
+          "pass": false,
+          "detail": "No /health, /healthz, or /api/health returning JSON with status",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
         },
         "perf_tests": {
-          "pass": false,
-          "detail": "No performance test job/step found in last CI run",
+          "pass": true,
+          "detail": "Job \"perf\" green ✅",
           "points": 5,
           "label": "Performance tests in CI",
           "category": "bonus"
