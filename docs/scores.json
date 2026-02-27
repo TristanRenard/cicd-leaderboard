@@ -1,9 +1,334 @@
 {
-  "generated_at": "2026-02-27T09:44:42.428Z",
+  "generated_at": "2026-02-27T10:41:47.354Z",
   "total_possible": 140,
   "expert_possible": 75,
   "bonus_possible": 55,
   "teams": [
+    {
+      "team": "HAT",
+      "members": [
+        "Allan THIERY-DEMANGEON",
+        "Hugo WEHRLE",
+        "Tristan RENARD"
+      ],
+      "repo": "lootopia-les-3-dev/todo-api-node",
+      "prod_url": "https://todo.lootopia.io",
+      "staging_url": "https://pp-todo.lootopia.io",
+      "total": 140,
+      "maxTotal": 140,
+      "expert": 75,
+      "maxExpert": 75,
+      "bonus": 55,
+      "maxBonus": 55,
+      "grandTotal": 270,
+      "results": {
+        "pipeline_exists": {
+          "pass": true,
+          "detail": "2 workflow(s) found",
+          "points": 5,
+          "label": "Pipeline exists",
+          "category": "fundamentals"
+        },
+        "pipeline_green": {
+          "pass": true,
+          "detail": "Last run: success (#266 — CI)",
+          "points": 5,
+          "label": "Pipeline green on main",
+          "category": "fundamentals"
+        },
+        "lint_pass": {
+          "pass": true,
+          "detail": "Step \"Run actions/checkout@v6\" in \"contract\" green ✅",
+          "points": 5,
+          "label": "Lint step in pipeline",
+          "category": "fundamentals"
+        },
+        "no_secrets_in_code": {
+          "pass": true,
+          "detail": "No hardcoded secrets detected",
+          "points": 5,
+          "label": "No hardcoded secrets",
+          "category": "fundamentals"
+        },
+        "tests_exist": {
+          "pass": true,
+          "detail": "4 real test file(s), run in CI — Step \"Generate OpenAPI spec\" in \"contract\" green ✅",
+          "points": 10,
+          "label": "Tests exist in pipeline",
+          "category": "fundamentals"
+        },
+        "tests_pass": {
+          "pass": true,
+          "detail": "Step \"Generate OpenAPI spec\" in \"contract\" green ✅",
+          "points": 5,
+          "label": "Tests pass",
+          "category": "fundamentals"
+        },
+        "coverage_70": {
+          "pass": true,
+          "detail": "100% via Codecov badge ✅",
+          "points": 10,
+          "label": "Coverage ≥ 70%",
+          "category": "fundamentals"
+        },
+        "dockerfile_exists": {
+          "pass": true,
+          "detail": "Valid Dockerfile found",
+          "points": 5,
+          "label": "Dockerfile exists",
+          "category": "fundamentals"
+        },
+        "docker_builds": {
+          "pass": true,
+          "detail": "Job \"docker-build\" green ✅",
+          "points": 5,
+          "label": "Docker build in CI",
+          "category": "fundamentals"
+        },
+        "swagger_docs": {
+          "pass": true,
+          "detail": "Swagger found at /docs",
+          "points": 5,
+          "label": "API documentation (Swagger)",
+          "category": "fundamentals"
+        },
+        "comment_ratio": {
+          "pass": true,
+          "detail": "631 comment lines / 1257 total (50%)",
+          "points": 5,
+          "label": "Code commented (≥ 5%)",
+          "category": "fundamentals"
+        },
+        "security_scan": {
+          "pass": true,
+          "detail": "Job \"security\" green ✅",
+          "points": 10,
+          "label": "Security scan in CI",
+          "category": "intermediate"
+        },
+        "ghcr_published": {
+          "pass": true,
+          "detail": "Package \"todo-api-node\" found in org",
+          "points": 10,
+          "label": "Image on GHCR",
+          "category": "intermediate"
+        },
+        "quality_gate": {
+          "pass": true,
+          "detail": "Step \"Upload to Codecov\" in \"test (node 20)\" green ✅",
+          "points": 10,
+          "label": "Quality gate (SonarCloud etc.)",
+          "category": "intermediate"
+        },
+        "deployed": {
+          "pass": true,
+          "detail": "https://todo.lootopia.io → HTTP 200 ✅ (Todo API verified)",
+          "points": 10,
+          "label": "App deployed (HTTP 200)",
+          "category": "intermediate"
+        },
+        "branch_protection": {
+          "pass": true,
+          "detail": "Repository ruleset — PR required ✅",
+          "points": 5,
+          "label": "Branch protection on main",
+          "category": "advanced"
+        },
+        "auto_deploy": {
+          "pass": true,
+          "detail": "Job \"release-please\" green ✅",
+          "points": 10,
+          "label": "Auto-deploy on push to main",
+          "category": "advanced"
+        },
+        "multi_env": {
+          "pass": true,
+          "detail": "Staging https://pp-todo.lootopia.io → HTTP 200 ✅ + Prod live (envs: production, staging)",
+          "points": 10,
+          "label": "Multiple environments",
+          "category": "advanced"
+        },
+        "pipeline_fast": {
+          "pass": true,
+          "detail": "Average: 1.4 min (last 10 runs)",
+          "points": 5,
+          "label": "Pipeline < 3 minutes",
+          "category": "advanced"
+        },
+        "dependabot": {
+          "pass": true,
+          "detail": "dependabot config with valid setup",
+          "points": 5,
+          "label": "Dependabot/Renovate configured",
+          "category": "advanced"
+        }
+      },
+      "expertResults": {
+        "ci_notifications": {
+          "pass": true,
+          "detail": "Job \"notify\" green ✅",
+          "points": 5,
+          "label": "CI notifications (Discord/Slack)",
+          "category": "expert"
+        },
+        "matrix_testing": {
+          "pass": true,
+          "detail": "Matrix strategy in .github/workflows/ci.yml (node-version)",
+          "points": 5,
+          "label": "Matrix testing (multi-version)",
+          "category": "expert"
+        },
+        "reusable_workflows": {
+          "pass": true,
+          "detail": "Calls reusable workflow in .github/workflows/ci.yml",
+          "points": 5,
+          "label": "Reusable workflows",
+          "category": "expert"
+        },
+        "release_tagging": {
+          "pass": true,
+          "detail": "3 release(s), latest: v1.1.0",
+          "points": 5,
+          "label": "Release tagging (GitHub Releases)",
+          "category": "expert"
+        },
+        "smoke_tests": {
+          "pass": true,
+          "detail": "Step \"Smoke test — homepage responds\" in \"deploy / deploy\" green ✅",
+          "points": 5,
+          "label": "Smoke tests post-deploy",
+          "category": "expert"
+        },
+        "rollback_strategy": {
+          "pass": true,
+          "detail": "Step \"Tag current image as previous (rollback target)\" in \"deploy / deploy\" green ✅",
+          "points": 10,
+          "label": "Rollback strategy",
+          "category": "expert"
+        },
+        "external_monitoring": {
+          "pass": true,
+          "detail": "grafana reference in README (no verifiable URL — add a badge/status page link!)",
+          "points": 10,
+          "label": "External monitoring",
+          "category": "expert"
+        },
+        "auto_recovery": {
+          "pass": true,
+          "detail": "workflow_dispatch with inputs in .github/workflows/ci.yml + Step \"Smoke test — homepage responds\" in \"deploy / deploy\" green ✅",
+          "points": 10,
+          "label": "Auto-recovery / Resilience",
+          "category": "expert"
+        },
+        "ci_cache": {
+          "pass": true,
+          "detail": "Docker layer cache in .github/workflows/ci.yml",
+          "points": 5,
+          "label": "CI cache optimization",
+          "category": "expert"
+        },
+        "contract_testing": {
+          "pass": true,
+          "detail": "API spec (openapi.json) + contract validation in CI",
+          "points": 5,
+          "label": "API contract testing",
+          "category": "expert"
+        },
+        "observability": {
+          "pass": true,
+          "detail": "@sentry/node in package.json",
+          "points": 10,
+          "label": "Observability / Telemetry",
+          "category": "expert"
+        }
+      },
+      "bonusResults": {
+        "coverage_80": {
+          "pass": true,
+          "detail": "100% via Codecov",
+          "points": 5,
+          "label": "Coverage ≥ 80%",
+          "category": "bonus"
+        },
+        "coverage_90": {
+          "pass": true,
+          "detail": "100% via Codecov",
+          "points": 5,
+          "label": "Coverage ≥ 90%",
+          "category": "bonus"
+        },
+        "coverage_95": {
+          "pass": true,
+          "detail": "100% via Codecov",
+          "points": 5,
+          "label": "Coverage ≥ 95%",
+          "category": "bonus"
+        },
+        "conventional_commits": {
+          "pass": true,
+          "detail": "20/20 conventional (100%)",
+          "points": 5,
+          "label": "Conventional commits",
+          "category": "bonus"
+        },
+        "readme_badges": {
+          "pass": true,
+          "detail": "2 badge(s) found",
+          "points": 5,
+          "label": "README with badges",
+          "category": "bonus"
+        },
+        "health_endpoint": {
+          "pass": true,
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":22.149117088}",
+          "points": 5,
+          "label": "Health endpoint",
+          "category": "bonus"
+        },
+        "perf_tests": {
+          "pass": true,
+          "detail": "Job \"perf\" green ✅",
+          "points": 5,
+          "label": "Performance tests in CI",
+          "category": "bonus"
+        },
+        "auto_changelog": {
+          "pass": true,
+          "detail": "Found release-please in .github/workflows/ci.yml",
+          "points": 5,
+          "label": "Automated changelog",
+          "category": "bonus"
+        },
+        "feature_flags": {
+          "pass": true,
+          "detail": "feature-flag in .github/workflows/ci.yml",
+          "points": 5,
+          "label": "Feature flags",
+          "category": "bonus"
+        },
+        "blue_green_canary": {
+          "pass": true,
+          "detail": "blue-green strategy in .github/workflows/ci.yml",
+          "points": 5,
+          "label": "Blue/Green or Canary deployment",
+          "category": "bonus"
+        },
+        "structured_logging": {
+          "pass": true,
+          "detail": "pino in package.json",
+          "points": 5,
+          "label": "Structured logging",
+          "category": "bonus"
+        }
+      },
+      "tiebreakers": {
+        "reviewScore": 0,
+        "avgPipelineDuration": 78,
+        "commitCount": 179,
+        "firstGreenDate": "2026-02-25T12:56:20Z"
+      },
+      "rank": 1
+    },
     {
       "team": "West Coast Team",
       "members": [
@@ -327,7 +652,7 @@
         "commitCount": 116,
         "firstGreenDate": "2026-02-26T10:11:03Z"
       },
-      "rank": 1
+      "rank": 2
     },
     {
       "team": "sql_injection",
@@ -355,14 +680,14 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#239 — CI/CD Pipeline)",
+          "detail": "Last run: success (#249 — CI/CD Pipeline)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
         },
         "lint_pass": {
           "pass": true,
-          "detail": "Step \"Checkout repository\" in \"Analyze\" green ✅",
+          "detail": "Step \"Run actions/checkout@v4\" in \"Sync Feature Flags\" green ✅",
           "points": 5,
           "label": "Lint step in pipeline",
           "category": "fundamentals"
@@ -376,7 +701,7 @@
         },
         "tests_exist": {
           "pass": true,
-          "detail": "4 real test file(s), run in CI — Step \"Install dependencies\" in \"Analyze\" green ✅",
+          "detail": "4 real test file(s), run in CI — Step \"Run npm ci\" in \"generate-shards\" green ✅",
           "points": 10,
           "label": "Tests exist in pipeline",
           "category": "fundamentals"
@@ -418,7 +743,7 @@
         },
         "comment_ratio": {
           "pass": true,
-          "detail": "205 comment lines / 829 total (25%)",
+          "detail": "204 comment lines / 828 total (25%)",
           "points": 5,
           "label": "Code commented (≥ 5%)",
           "category": "fundamentals"
@@ -497,7 +822,7 @@
         },
         "matrix_testing": {
           "pass": true,
-          "detail": "Matrix jobs detected: test (1), test (4), test (3), test (2)",
+          "detail": "Matrix jobs detected: test (2), test (1), test (4), test (3)",
           "points": 5,
           "label": "Matrix testing (multi-version)",
           "category": "expert"
@@ -604,14 +929,14 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"UP\",\"timestamp\":\"2026-02-27T09:42:39.668Z\",\"environment\":\"production\",\"uptime\":29363.4226",
+          "detail": "/health → {\"status\":\"UP\",\"timestamp\":\"2026-02-27T10:39:27.939Z\",\"environment\":\"production\",\"uptime\":32770.9648",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
         },
         "perf_tests": {
           "pass": true,
-          "detail": "Step \"Perform CodeQL Analysis\" in \"Analyze\" green ✅",
+          "detail": "Job \"k6 Performance Test\" green ✅",
           "points": 5,
           "label": "Performance tests in CI",
           "category": "bonus"
@@ -647,11 +972,11 @@
       },
       "tiebreakers": {
         "reviewScore": 0,
-        "avgPipelineDuration": 96,
-        "commitCount": 386,
-        "firstGreenDate": "2026-02-25T17:23:29Z"
+        "avgPipelineDuration": 111,
+        "commitCount": 393,
+        "firstGreenDate": "2026-02-25T18:02:44Z"
       },
-      "rank": 2
+      "rank": 3
     },
     {
       "team": "Team-locker",
@@ -975,657 +1300,7 @@
         "commitCount": 103,
         "firstGreenDate": "2026-02-26T13:30:50Z"
       },
-      "rank": 3
-    },
-    {
-      "team": "HAT",
-      "members": [
-        "Allan THIERY-DEMANGEON",
-        "Hugo WEHRLE",
-        "Tristan RENARD"
-      ],
-      "repo": "lootopia-les-3-dev/todo-api-node",
-      "prod_url": "https://todo.lootopia.io",
-      "staging_url": "https://pp-todo.lootopia.io",
-      "total": 140,
-      "maxTotal": 140,
-      "expert": 65,
-      "maxExpert": 75,
-      "bonus": 55,
-      "maxBonus": 55,
-      "grandTotal": 260,
-      "results": {
-        "pipeline_exists": {
-          "pass": true,
-          "detail": "2 workflow(s) found",
-          "points": 5,
-          "label": "Pipeline exists",
-          "category": "fundamentals"
-        },
-        "pipeline_green": {
-          "pass": true,
-          "detail": "Last run: success (#241 — CI)",
-          "points": 5,
-          "label": "Pipeline green on main",
-          "category": "fundamentals"
-        },
-        "lint_pass": {
-          "pass": true,
-          "detail": "Step \"Run actions/checkout@v6\" in \"security\" green ✅",
-          "points": 5,
-          "label": "Lint step in pipeline",
-          "category": "fundamentals"
-        },
-        "no_secrets_in_code": {
-          "pass": true,
-          "detail": "No hardcoded secrets detected",
-          "points": 5,
-          "label": "No hardcoded secrets",
-          "category": "fundamentals"
-        },
-        "tests_exist": {
-          "pass": true,
-          "detail": "4 real test file(s), run in CI — Job \"test (node 20)\" green ✅",
-          "points": 10,
-          "label": "Tests exist in pipeline",
-          "category": "fundamentals"
-        },
-        "tests_pass": {
-          "pass": true,
-          "detail": "Job \"test (node 20)\" green ✅",
-          "points": 5,
-          "label": "Tests pass",
-          "category": "fundamentals"
-        },
-        "coverage_70": {
-          "pass": true,
-          "detail": "100% via Codecov badge ✅",
-          "points": 10,
-          "label": "Coverage ≥ 70%",
-          "category": "fundamentals"
-        },
-        "dockerfile_exists": {
-          "pass": true,
-          "detail": "Valid Dockerfile found",
-          "points": 5,
-          "label": "Dockerfile exists",
-          "category": "fundamentals"
-        },
-        "docker_builds": {
-          "pass": true,
-          "detail": "Job \"docker-build\" green ✅",
-          "points": 5,
-          "label": "Docker build in CI",
-          "category": "fundamentals"
-        },
-        "swagger_docs": {
-          "pass": true,
-          "detail": "Swagger found at /docs",
-          "points": 5,
-          "label": "API documentation (Swagger)",
-          "category": "fundamentals"
-        },
-        "comment_ratio": {
-          "pass": true,
-          "detail": "626 comment lines / 1245 total (50%)",
-          "points": 5,
-          "label": "Code commented (≥ 5%)",
-          "category": "fundamentals"
-        },
-        "security_scan": {
-          "pass": true,
-          "detail": "Job \"security\" green ✅",
-          "points": 10,
-          "label": "Security scan in CI",
-          "category": "intermediate"
-        },
-        "ghcr_published": {
-          "pass": true,
-          "detail": "Package \"todo-api-node\" found in org",
-          "points": 10,
-          "label": "Image on GHCR",
-          "category": "intermediate"
-        },
-        "quality_gate": {
-          "pass": true,
-          "detail": "Step \"Upload to Codecov\" in \"test (node 20)\" green ✅",
-          "points": 10,
-          "label": "Quality gate (SonarCloud etc.)",
-          "category": "intermediate"
-        },
-        "deployed": {
-          "pass": true,
-          "detail": "https://todo.lootopia.io → HTTP 200 ✅ (Todo API verified)",
-          "points": 10,
-          "label": "App deployed (HTTP 200)",
-          "category": "intermediate"
-        },
-        "branch_protection": {
-          "pass": true,
-          "detail": "Repository ruleset — PR required ✅",
-          "points": 5,
-          "label": "Branch protection on main",
-          "category": "advanced"
-        },
-        "auto_deploy": {
-          "pass": true,
-          "detail": "Job \"release-please\" green ✅",
-          "points": 10,
-          "label": "Auto-deploy on push to main",
-          "category": "advanced"
-        },
-        "multi_env": {
-          "pass": true,
-          "detail": "Staging https://pp-todo.lootopia.io → HTTP 200 ✅ + Prod live (envs: production, staging)",
-          "points": 10,
-          "label": "Multiple environments",
-          "category": "advanced"
-        },
-        "pipeline_fast": {
-          "pass": true,
-          "detail": "Average: 1.3 min (last 10 runs)",
-          "points": 5,
-          "label": "Pipeline < 3 minutes",
-          "category": "advanced"
-        },
-        "dependabot": {
-          "pass": true,
-          "detail": "dependabot config with valid setup",
-          "points": 5,
-          "label": "Dependabot/Renovate configured",
-          "category": "advanced"
-        }
-      },
-      "expertResults": {
-        "ci_notifications": {
-          "pass": true,
-          "detail": "Job \"notify\" green ✅",
-          "points": 5,
-          "label": "CI notifications (Discord/Slack)",
-          "category": "expert"
-        },
-        "matrix_testing": {
-          "pass": true,
-          "detail": "Matrix strategy in .github/workflows/ci.yml (node-version)",
-          "points": 5,
-          "label": "Matrix testing (multi-version)",
-          "category": "expert"
-        },
-        "reusable_workflows": {
-          "pass": true,
-          "detail": "Calls reusable workflow in .github/workflows/ci.yml",
-          "points": 5,
-          "label": "Reusable workflows",
-          "category": "expert"
-        },
-        "release_tagging": {
-          "pass": true,
-          "detail": "3 release(s), latest: v1.1.0",
-          "points": 5,
-          "label": "Release tagging (GitHub Releases)",
-          "category": "expert"
-        },
-        "smoke_tests": {
-          "pass": true,
-          "detail": "Step \"Smoke test — health\" in \"deploy / deploy\" green ✅",
-          "points": 5,
-          "label": "Smoke tests post-deploy",
-          "category": "expert"
-        },
-        "rollback_strategy": {
-          "pass": true,
-          "detail": "Step \"Tag current image as previous (rollback target)\" in \"deploy / deploy\" green ✅",
-          "points": 10,
-          "label": "Rollback strategy",
-          "category": "expert"
-        },
-        "external_monitoring": {
-          "pass": true,
-          "detail": "grafana reference in README (no verifiable URL — add a badge/status page link!)",
-          "points": 10,
-          "label": "External monitoring",
-          "category": "expert"
-        },
-        "auto_recovery": {
-          "pass": true,
-          "detail": "Step \"Smoke test — health\" in \"deploy / deploy\" green ✅",
-          "points": 10,
-          "label": "Auto-recovery / Resilience",
-          "category": "expert"
-        },
-        "ci_cache": {
-          "pass": true,
-          "detail": "Docker layer cache in .github/workflows/ci.yml",
-          "points": 5,
-          "label": "CI cache optimization",
-          "category": "expert"
-        },
-        "contract_testing": {
-          "pass": true,
-          "detail": "API spec (openapi.json) + contract validation in CI",
-          "points": 5,
-          "label": "API contract testing",
-          "category": "expert"
-        },
-        "observability": {
-          "pass": false,
-          "detail": "No observability/telemetry found (OpenTelemetry, Sentry, Datadog, etc.)",
-          "points": 10,
-          "label": "Observability / Telemetry",
-          "category": "expert"
-        }
-      },
-      "bonusResults": {
-        "coverage_80": {
-          "pass": true,
-          "detail": "100% via Codecov",
-          "points": 5,
-          "label": "Coverage ≥ 80%",
-          "category": "bonus"
-        },
-        "coverage_90": {
-          "pass": true,
-          "detail": "100% via Codecov",
-          "points": 5,
-          "label": "Coverage ≥ 90%",
-          "category": "bonus"
-        },
-        "coverage_95": {
-          "pass": true,
-          "detail": "100% via Codecov",
-          "points": 5,
-          "label": "Coverage ≥ 95%",
-          "category": "bonus"
-        },
-        "conventional_commits": {
-          "pass": true,
-          "detail": "20/20 conventional (100%)",
-          "points": 5,
-          "label": "Conventional commits",
-          "category": "bonus"
-        },
-        "readme_badges": {
-          "pass": true,
-          "detail": "2 badge(s) found",
-          "points": 5,
-          "label": "README with badges",
-          "category": "bonus"
-        },
-        "health_endpoint": {
-          "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":1520.86245254}",
-          "points": 5,
-          "label": "Health endpoint",
-          "category": "bonus"
-        },
-        "perf_tests": {
-          "pass": true,
-          "detail": "Step \"Upload to Codecov\" in \"test (node 20)\" green ✅",
-          "points": 5,
-          "label": "Performance tests in CI",
-          "category": "bonus"
-        },
-        "auto_changelog": {
-          "pass": true,
-          "detail": "Found release-please in .github/workflows/ci.yml",
-          "points": 5,
-          "label": "Automated changelog",
-          "category": "bonus"
-        },
-        "feature_flags": {
-          "pass": true,
-          "detail": "feature-flag in .github/workflows/ci.yml",
-          "points": 5,
-          "label": "Feature flags",
-          "category": "bonus"
-        },
-        "blue_green_canary": {
-          "pass": true,
-          "detail": "blue-green strategy in .github/workflows/ci.yml",
-          "points": 5,
-          "label": "Blue/Green or Canary deployment",
-          "category": "bonus"
-        },
-        "structured_logging": {
-          "pass": true,
-          "detail": "pino in package.json",
-          "points": 5,
-          "label": "Structured logging",
-          "category": "bonus"
-        }
-      },
-      "tiebreakers": {
-        "reviewScore": 0,
-        "avgPipelineDuration": 88,
-        "commitCount": 171,
-        "firstGreenDate": "2026-02-25T09:21:44Z"
-      },
       "rank": 4
-    },
-    {
-      "team": "hello world",
-      "members": [
-        "Hugo Zins",
-        "Antoine Ciric",
-        "Iliès Izikki"
-      ],
-      "repo": "un-mec-paumer/todo-api-node",
-      "prod_url": "https://todo-api-node-bnce.onrender.com/",
-      "staging_url": "https://todo-api-node-staging-09fu.onrender.com",
-      "total": 135,
-      "maxTotal": 140,
-      "expert": 75,
-      "maxExpert": 75,
-      "bonus": 45,
-      "maxBonus": 55,
-      "grandTotal": 255,
-      "results": {
-        "pipeline_exists": {
-          "pass": true,
-          "detail": "5 workflow(s) found",
-          "points": 5,
-          "label": "Pipeline exists",
-          "category": "fundamentals"
-        },
-        "pipeline_green": {
-          "pass": true,
-          "detail": "Last run: success (#88 — CI Pipeline)",
-          "points": 5,
-          "label": "Pipeline green on main",
-          "category": "fundamentals"
-        },
-        "lint_pass": {
-          "pass": true,
-          "detail": "Job \"lint\" green ✅",
-          "points": 5,
-          "label": "Lint step in pipeline",
-          "category": "fundamentals"
-        },
-        "no_secrets_in_code": {
-          "pass": true,
-          "detail": "No hardcoded secrets detected",
-          "points": 5,
-          "label": "No hardcoded secrets",
-          "category": "fundamentals"
-        },
-        "tests_exist": {
-          "pass": true,
-          "detail": "3 real test file(s), run in CI — Step \"Install dependencies\" in \"lint\" green ✅",
-          "points": 10,
-          "label": "Tests exist in pipeline",
-          "category": "fundamentals"
-        },
-        "tests_pass": {
-          "pass": true,
-          "detail": "Job \"test (24)\" green ✅",
-          "points": 5,
-          "label": "Tests pass",
-          "category": "fundamentals"
-        },
-        "coverage_70": {
-          "pass": true,
-          "detail": "100% via SonarCloud badge ✅",
-          "points": 10,
-          "label": "Coverage ≥ 70%",
-          "category": "fundamentals"
-        },
-        "dockerfile_exists": {
-          "pass": true,
-          "detail": "Valid Dockerfile found",
-          "points": 5,
-          "label": "Dockerfile exists",
-          "category": "fundamentals"
-        },
-        "docker_builds": {
-          "pass": true,
-          "detail": "Step \"Build Docker image\" in \"sonarcloud-security / security-scan\" green ✅",
-          "points": 5,
-          "label": "Docker build in CI",
-          "category": "fundamentals"
-        },
-        "swagger_docs": {
-          "pass": true,
-          "detail": "Swagger found at /api-docs",
-          "points": 5,
-          "label": "API documentation (Swagger)",
-          "category": "fundamentals"
-        },
-        "comment_ratio": {
-          "pass": true,
-          "detail": "132 comment lines / 331 total (40%)",
-          "points": 5,
-          "label": "Code commented (≥ 5%)",
-          "category": "fundamentals"
-        },
-        "security_scan": {
-          "pass": true,
-          "detail": "Job \"sonarcloud-security / security-scan\" green ✅",
-          "points": 10,
-          "label": "Security scan in CI",
-          "category": "intermediate"
-        },
-        "ghcr_published": {
-          "pass": true,
-          "detail": "Package \"todo-api-node\" found for user",
-          "points": 10,
-          "label": "Image on GHCR",
-          "category": "intermediate"
-        },
-        "quality_gate": {
-          "pass": true,
-          "detail": "Job \"sonarcloud-security / security-scan\" green ✅",
-          "points": 10,
-          "label": "Quality gate (SonarCloud etc.)",
-          "category": "intermediate"
-        },
-        "deployed": {
-          "pass": true,
-          "detail": "https://todo-api-node-bnce.onrender.com/ → HTTP 200 ✅ (Todo API verified)",
-          "points": 10,
-          "label": "App deployed (HTTP 200)",
-          "category": "intermediate"
-        },
-        "branch_protection": {
-          "pass": true,
-          "detail": "Repository ruleset active (deletion, non_fast_forward)",
-          "points": 5,
-          "label": "Branch protection on main",
-          "category": "advanced"
-        },
-        "auto_deploy": {
-          "pass": true,
-          "detail": "Job \"deploy-production\" green ✅",
-          "points": 10,
-          "label": "Auto-deploy on push to main",
-          "category": "advanced"
-        },
-        "multi_env": {
-          "pass": true,
-          "detail": "Staging https://todo-api-node-staging-09fu.onrender.com → HTTP 200 ✅ + Prod live",
-          "points": 10,
-          "label": "Multiple environments",
-          "category": "advanced"
-        },
-        "pipeline_fast": {
-          "pass": false,
-          "detail": "Average: 6.8 min (last 10 runs)",
-          "points": 5,
-          "label": "Pipeline < 3 minutes",
-          "category": "advanced"
-        },
-        "dependabot": {
-          "pass": true,
-          "detail": "dependabot config with valid setup",
-          "points": 5,
-          "label": "Dependabot/Renovate configured",
-          "category": "advanced"
-        }
-      },
-      "expertResults": {
-        "ci_notifications": {
-          "pass": true,
-          "detail": "Job \"discord-notify / Build\" green ✅",
-          "points": 5,
-          "label": "CI notifications (Discord/Slack)",
-          "category": "expert"
-        },
-        "matrix_testing": {
-          "pass": true,
-          "detail": "Matrix jobs detected: test (24), test (22)",
-          "points": 5,
-          "label": "Matrix testing (multi-version)",
-          "category": "expert"
-        },
-        "reusable_workflows": {
-          "pass": true,
-          "detail": "Calls reusable workflow in .github/workflows/ci.yml",
-          "points": 5,
-          "label": "Reusable workflows",
-          "category": "expert"
-        },
-        "release_tagging": {
-          "pass": true,
-          "detail": "1 release(s), latest: v1.0.0",
-          "points": 5,
-          "label": "Release tagging (GitHub Releases)",
-          "category": "expert"
-        },
-        "smoke_tests": {
-          "pass": true,
-          "detail": "Step \"Smoke test Production - Health Check\" in \"deploy-production\" green ✅",
-          "points": 5,
-          "label": "Smoke tests post-deploy",
-          "category": "expert"
-        },
-        "rollback_strategy": {
-          "pass": true,
-          "detail": "Rollback mechanism in .github/workflows/rollback.yml",
-          "points": 10,
-          "label": "Rollback strategy",
-          "category": "expert"
-        },
-        "external_monitoring": {
-          "pass": true,
-          "detail": "Verified monitoring URL: https://stats.uptimerobot.com/m802431958-77e54ce58517a12674e849a8 → HTTP 200 ✅",
-          "points": 10,
-          "label": "External monitoring",
-          "category": "expert"
-        },
-        "auto_recovery": {
-          "pass": true,
-          "detail": "workflow_dispatch in .github/workflows/rollback.yml + Step \"Smoke test Production - Health Check\" in \"deploy-production\" green ✅ + Recovery workflow: .github/workflows/rollback.yml",
-          "points": 10,
-          "label": "Auto-recovery / Resilience",
-          "category": "expert"
-        },
-        "ci_cache": {
-          "pass": true,
-          "detail": "Built-in npm cache in .github/workflows/ci.yml",
-          "points": 5,
-          "label": "CI cache optimization",
-          "category": "expert"
-        },
-        "contract_testing": {
-          "pass": true,
-          "detail": "API spec (auto-generated) + contract validation in CI",
-          "points": 5,
-          "label": "API contract testing",
-          "category": "expert"
-        },
-        "observability": {
-          "pass": true,
-          "detail": "@sentry/node in package.json",
-          "points": 10,
-          "label": "Observability / Telemetry",
-          "category": "expert"
-        }
-      },
-      "bonusResults": {
-        "coverage_80": {
-          "pass": true,
-          "detail": "100% via SonarCloud",
-          "points": 5,
-          "label": "Coverage ≥ 80%",
-          "category": "bonus"
-        },
-        "coverage_90": {
-          "pass": true,
-          "detail": "100% via SonarCloud",
-          "points": 5,
-          "label": "Coverage ≥ 90%",
-          "category": "bonus"
-        },
-        "coverage_95": {
-          "pass": true,
-          "detail": "100% via SonarCloud",
-          "points": 5,
-          "label": "Coverage ≥ 95%",
-          "category": "bonus"
-        },
-        "conventional_commits": {
-          "pass": true,
-          "detail": "15/15 conventional (100%)",
-          "points": 5,
-          "label": "Conventional commits",
-          "category": "bonus"
-        },
-        "readme_badges": {
-          "pass": true,
-          "detail": "16 badge(s) found",
-          "points": 5,
-          "label": "README with badges",
-          "category": "bonus"
-        },
-        "health_endpoint": {
-          "pass": true,
-          "detail": "/health → {\"status\":\"ok\"}",
-          "points": 5,
-          "label": "Health endpoint",
-          "category": "bonus"
-        },
-        "perf_tests": {
-          "pass": true,
-          "detail": "Step \"Upload coverage report\" in \"test (24)\" green ✅",
-          "points": 5,
-          "label": "Performance tests in CI",
-          "category": "bonus"
-        },
-        "auto_changelog": {
-          "pass": true,
-          "detail": "Found auto-changelog in .github/workflows/changelog.yml",
-          "points": 5,
-          "label": "Automated changelog",
-          "category": "bonus"
-        },
-        "feature_flags": {
-          "pass": false,
-          "detail": "No feature flag implementation found",
-          "points": 5,
-          "label": "Feature flags",
-          "category": "bonus"
-        },
-        "blue_green_canary": {
-          "pass": true,
-          "detail": "blue-green strategy in .github/workflows/ci.yml",
-          "points": 5,
-          "label": "Blue/Green or Canary deployment",
-          "category": "bonus"
-        },
-        "structured_logging": {
-          "pass": false,
-          "detail": "No structured logging library found (winston, pino, loguru, etc.)",
-          "points": 5,
-          "label": "Structured logging",
-          "category": "bonus"
-        }
-      },
-      "tiebreakers": {
-        "reviewScore": 0,
-        "avgPipelineDuration": 106,
-        "commitCount": 108,
-        "firstGreenDate": "2026-02-26T12:42:28Z"
-      },
-      "rank": 5
     },
     {
       "team": "?",
@@ -1653,14 +1328,14 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#11 — PRODUCTION DEPLOYMENT)",
+          "detail": "Last run: success (#12 — PRODUCTION DEPLOYMENT)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
         },
         "lint_pass": {
           "pass": true,
-          "detail": "Step \"Checkout code\" in \"quality / swagger-validate\" green ✅",
+          "detail": "Step \"Checkout code\" in \"quality / quality-gate\" green ✅",
           "points": 5,
           "label": "Lint step in pipeline",
           "category": "fundamentals"
@@ -1737,7 +1412,7 @@
         },
         "quality_gate": {
           "pass": true,
-          "detail": "Job \"quality / swagger-validate\" green ✅",
+          "detail": "Job \"quality / quality-gate\" green ✅",
           "points": 10,
           "label": "Quality gate (SonarCloud etc.)",
           "category": "intermediate"
@@ -1772,7 +1447,7 @@
         },
         "pipeline_fast": {
           "pass": true,
-          "detail": "Average: 2.7 min (last 10 runs)",
+          "detail": "Average: 2.9 min (last 10 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
@@ -1788,7 +1463,7 @@
       "expertResults": {
         "ci_notifications": {
           "pass": true,
-          "detail": "Job \"post-deploy-notify / notify-with-discord-webhook\" green ✅",
+          "detail": "Job \"post-deploy-notify / post-deploy\" green ✅",
           "points": 5,
           "label": "CI notifications (Discord/Slack)",
           "category": "expert"
@@ -1816,7 +1491,7 @@
         },
         "smoke_tests": {
           "pass": true,
-          "detail": "Job \"post-deploy-notify / notify-with-discord-webhook\" green ✅",
+          "detail": "Job \"post-deploy-notify / post-deploy\" green ✅",
           "points": 5,
           "label": "Smoke tests post-deploy",
           "category": "expert"
@@ -1837,7 +1512,7 @@
         },
         "auto_recovery": {
           "pass": true,
-          "detail": "workflow_dispatch in .github/workflows/renovate.yml + Job \"post-deploy-notify / notify-with-discord-webhook\" green ✅ + Recovery workflow: .github/workflows/rollback.yml",
+          "detail": "workflow_dispatch in .github/workflows/renovate.yml + Job \"post-deploy-notify / post-deploy\" green ✅ + Recovery workflow: .github/workflows/rollback.yml",
           "points": 10,
           "label": "Auto-recovery / Resilience",
           "category": "expert"
@@ -1902,7 +1577,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"timestamp\":\"2026-02-27T09:44:41.273Z\"}",
+          "detail": "/health → {\"status\":\"ok\",\"timestamp\":\"2026-02-27T10:41:46.174Z\"}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -1945,336 +1620,11 @@
       },
       "tiebreakers": {
         "reviewScore": 0,
-        "avgPipelineDuration": 110,
-        "commitCount": 201,
-        "firstGreenDate": "2026-02-26T19:12:35Z"
+        "avgPipelineDuration": 120,
+        "commitCount": 202,
+        "firstGreenDate": "2026-02-26T19:49:58Z"
       },
-      "rank": 6
-    },
-    {
-      "team": "Exemple",
-      "members": [
-        "lucas-bourdon",
-        "adam-younsi",
-        "lucas-butynski"
-      ],
-      "repo": "ayoun07/todo-api-node",
-      "prod_url": "https://todo-api-node-h7rm.onrender.com",
-      "staging_url": "https://todo-api-node-staging-yyl4.onrender.com",
-      "total": 130,
-      "maxTotal": 140,
-      "expert": 70,
-      "maxExpert": 75,
-      "bonus": 50,
-      "maxBonus": 55,
-      "grandTotal": 250,
-      "results": {
-        "pipeline_exists": {
-          "pass": true,
-          "detail": "2 workflow(s) found",
-          "points": 5,
-          "label": "Pipeline exists",
-          "category": "fundamentals"
-        },
-        "pipeline_green": {
-          "pass": true,
-          "detail": "Last run: success (#133 — Node.js Docker CI)",
-          "points": 5,
-          "label": "Pipeline green on main",
-          "category": "fundamentals"
-        },
-        "lint_pass": {
-          "pass": true,
-          "detail": "Job \"lint\" green ✅",
-          "points": 5,
-          "label": "Lint step in pipeline",
-          "category": "fundamentals"
-        },
-        "no_secrets_in_code": {
-          "pass": true,
-          "detail": "No hardcoded secrets detected",
-          "points": 5,
-          "label": "No hardcoded secrets",
-          "category": "fundamentals"
-        },
-        "tests_exist": {
-          "pass": true,
-          "detail": "4 real test file(s), run in CI — Step \"Run npm ci\" in \"lint\" green ✅",
-          "points": 10,
-          "label": "Tests exist in pipeline",
-          "category": "fundamentals"
-        },
-        "tests_pass": {
-          "pass": true,
-          "detail": "Step \"Run npm test -- --coverage\" in \"code-coverage\" green ✅",
-          "points": 5,
-          "label": "Tests pass",
-          "category": "fundamentals"
-        },
-        "coverage_70": {
-          "pass": true,
-          "detail": "100% via SonarCloud badge ✅",
-          "points": 10,
-          "label": "Coverage ≥ 70%",
-          "category": "fundamentals"
-        },
-        "dockerfile_exists": {
-          "pass": true,
-          "detail": "Valid Dockerfile found",
-          "points": 5,
-          "label": "Dockerfile exists",
-          "category": "fundamentals"
-        },
-        "docker_builds": {
-          "pass": true,
-          "detail": "Step \"Build and Scan Image\" in \"security-and-build\" green ✅",
-          "points": 5,
-          "label": "Docker build in CI",
-          "category": "fundamentals"
-        },
-        "swagger_docs": {
-          "pass": true,
-          "detail": "Swagger found at /api-docs",
-          "points": 5,
-          "label": "API documentation (Swagger)",
-          "category": "fundamentals"
-        },
-        "comment_ratio": {
-          "pass": true,
-          "detail": "140 comment lines / 412 total (34%)",
-          "points": 5,
-          "label": "Code commented (≥ 5%)",
-          "category": "fundamentals"
-        },
-        "security_scan": {
-          "pass": true,
-          "detail": "Step \"Run SonarSource/sonarqube-scan-action@v6\" in \"sonarcloud\" green ✅",
-          "points": 10,
-          "label": "Security scan in CI",
-          "category": "intermediate"
-        },
-        "ghcr_published": {
-          "pass": true,
-          "detail": "Package \"prod-todo-api-node\" found for user",
-          "points": 10,
-          "label": "Image on GHCR",
-          "category": "intermediate"
-        },
-        "quality_gate": {
-          "pass": true,
-          "detail": "Job \"sonarcloud\" green ✅",
-          "points": 10,
-          "label": "Quality gate (SonarCloud etc.)",
-          "category": "intermediate"
-        },
-        "deployed": {
-          "pass": true,
-          "detail": "https://todo-api-node-h7rm.onrender.com → HTTP 200 ✅ (Todo API verified)",
-          "points": 10,
-          "label": "App deployed (HTTP 200)",
-          "category": "intermediate"
-        },
-        "branch_protection": {
-          "pass": true,
-          "detail": "Repository ruleset — PR required ✅",
-          "points": 5,
-          "label": "Branch protection on main",
-          "category": "advanced"
-        },
-        "auto_deploy": {
-          "pass": true,
-          "detail": "Job \"deploy-production\" green ✅",
-          "points": 10,
-          "label": "Auto-deploy on push to main",
-          "category": "advanced"
-        },
-        "multi_env": {
-          "pass": false,
-          "detail": "Staging https://todo-api-node-staging-yyl4.onrender.com → This operation was aborted",
-          "points": 10,
-          "label": "Multiple environments",
-          "category": "advanced"
-        },
-        "pipeline_fast": {
-          "pass": true,
-          "detail": "Average: 2.3 min (last 10 runs)",
-          "points": 5,
-          "label": "Pipeline < 3 minutes",
-          "category": "advanced"
-        },
-        "dependabot": {
-          "pass": true,
-          "detail": "dependabot config with valid setup",
-          "points": 5,
-          "label": "Dependabot/Renovate configured",
-          "category": "advanced"
-        }
-      },
-      "expertResults": {
-        "ci_notifications": {
-          "pass": true,
-          "detail": "Job \"notify\" green ✅",
-          "points": 5,
-          "label": "CI notifications (Discord/Slack)",
-          "category": "expert"
-        },
-        "matrix_testing": {
-          "pass": true,
-          "detail": "Matrix strategy in .github/workflows/node.js.yml (node-version)",
-          "points": 5,
-          "label": "Matrix testing (multi-version)",
-          "category": "expert"
-        },
-        "reusable_workflows": {
-          "pass": true,
-          "detail": "Reusable workflow (workflow_call) in .github/workflows/node.js.yml",
-          "points": 5,
-          "label": "Reusable workflows",
-          "category": "expert"
-        },
-        "release_tagging": {
-          "pass": true,
-          "detail": "1 release(s), latest: v1.0.0",
-          "points": 5,
-          "label": "Release tagging (GitHub Releases)",
-          "category": "expert"
-        },
-        "smoke_tests": {
-          "pass": true,
-          "detail": "Job \"smoke-test\" green ✅",
-          "points": 5,
-          "label": "Smoke tests post-deploy",
-          "category": "expert"
-        },
-        "rollback_strategy": {
-          "pass": true,
-          "detail": "Rollback mechanism in .github/workflows/node.js.yml",
-          "points": 10,
-          "label": "Rollback strategy",
-          "category": "expert"
-        },
-        "external_monitoring": {
-          "pass": true,
-          "detail": "uptimerobot reference in README (no verifiable URL — add a badge/status page link!)",
-          "points": 10,
-          "label": "External monitoring",
-          "category": "expert"
-        },
-        "auto_recovery": {
-          "pass": true,
-          "detail": "workflow_dispatch in .github/workflows/node.js.yml + Job \"smoke-test\" green ✅",
-          "points": 10,
-          "label": "Auto-recovery / Resilience",
-          "category": "expert"
-        },
-        "ci_cache": {
-          "pass": true,
-          "detail": "Built-in npm cache in .github/workflows/node.js.yml",
-          "points": 5,
-          "label": "CI cache optimization",
-          "category": "expert"
-        },
-        "contract_testing": {
-          "pass": false,
-          "detail": "API spec found (auto-generated) but no contract validation in CI",
-          "points": 5,
-          "label": "API contract testing",
-          "category": "expert"
-        },
-        "observability": {
-          "pass": true,
-          "detail": "@sentry/node in package.json",
-          "points": 10,
-          "label": "Observability / Telemetry",
-          "category": "expert"
-        }
-      },
-      "bonusResults": {
-        "coverage_80": {
-          "pass": true,
-          "detail": "100% via SonarCloud",
-          "points": 5,
-          "label": "Coverage ≥ 80%",
-          "category": "bonus"
-        },
-        "coverage_90": {
-          "pass": true,
-          "detail": "100% via SonarCloud",
-          "points": 5,
-          "label": "Coverage ≥ 90%",
-          "category": "bonus"
-        },
-        "coverage_95": {
-          "pass": true,
-          "detail": "100% via SonarCloud",
-          "points": 5,
-          "label": "Coverage ≥ 95%",
-          "category": "bonus"
-        },
-        "conventional_commits": {
-          "pass": true,
-          "detail": "16/18 conventional (89%)",
-          "points": 5,
-          "label": "Conventional commits",
-          "category": "bonus"
-        },
-        "readme_badges": {
-          "pass": true,
-          "detail": "8 badge(s) found",
-          "points": 5,
-          "label": "README with badges",
-          "category": "bonus"
-        },
-        "health_endpoint": {
-          "pass": true,
-          "detail": "/health → {\"status\":\"ok\"}",
-          "points": 5,
-          "label": "Health endpoint",
-          "category": "bonus"
-        },
-        "perf_tests": {
-          "pass": true,
-          "detail": "Step \"Run actions/upload-artifact@v4\" in \"code-coverage\" green ✅",
-          "points": 5,
-          "label": "Performance tests in CI",
-          "category": "bonus"
-        },
-        "auto_changelog": {
-          "pass": true,
-          "detail": "Found standard-version in package.json",
-          "points": 5,
-          "label": "Automated changelog",
-          "category": "bonus"
-        },
-        "feature_flags": {
-          "pass": true,
-          "detail": "flagsmith in package.json",
-          "points": 5,
-          "label": "Feature flags",
-          "category": "bonus"
-        },
-        "blue_green_canary": {
-          "pass": false,
-          "detail": "No blue/green or canary deployment found",
-          "points": 5,
-          "label": "Blue/Green or Canary deployment",
-          "category": "bonus"
-        },
-        "structured_logging": {
-          "pass": true,
-          "detail": "winston in package.json",
-          "points": 5,
-          "label": "Structured logging",
-          "category": "bonus"
-        }
-      },
-      "tiebreakers": {
-        "reviewScore": 0,
-        "avgPipelineDuration": 134,
-        "commitCount": 155,
-        "firstGreenDate": "2026-02-26T13:40:02Z"
-      },
-      "rank": 7
+      "rank": 5
     },
     {
       "team": "Team BJ",
@@ -2597,6 +1947,656 @@
         "avgPipelineDuration": 90,
         "commitCount": 68,
         "firstGreenDate": "2026-02-23T15:22:09Z"
+      },
+      "rank": 6
+    },
+    {
+      "team": "hello world",
+      "members": [
+        "Hugo Zins",
+        "Antoine Ciric",
+        "Iliès Izikki"
+      ],
+      "repo": "un-mec-paumer/todo-api-node",
+      "prod_url": "https://todo-api-node-bnce.onrender.com/",
+      "staging_url": "https://todo-api-node-staging-09fu.onrender.com",
+      "total": 125,
+      "maxTotal": 140,
+      "expert": 75,
+      "maxExpert": 75,
+      "bonus": 45,
+      "maxBonus": 55,
+      "grandTotal": 245,
+      "results": {
+        "pipeline_exists": {
+          "pass": true,
+          "detail": "5 workflow(s) found",
+          "points": 5,
+          "label": "Pipeline exists",
+          "category": "fundamentals"
+        },
+        "pipeline_green": {
+          "pass": true,
+          "detail": "Last run: success (#88 — CI Pipeline)",
+          "points": 5,
+          "label": "Pipeline green on main",
+          "category": "fundamentals"
+        },
+        "lint_pass": {
+          "pass": true,
+          "detail": "Job \"lint\" green ✅",
+          "points": 5,
+          "label": "Lint step in pipeline",
+          "category": "fundamentals"
+        },
+        "no_secrets_in_code": {
+          "pass": true,
+          "detail": "No hardcoded secrets detected",
+          "points": 5,
+          "label": "No hardcoded secrets",
+          "category": "fundamentals"
+        },
+        "tests_exist": {
+          "pass": true,
+          "detail": "3 real test file(s), run in CI — Step \"Install dependencies\" in \"lint\" green ✅",
+          "points": 10,
+          "label": "Tests exist in pipeline",
+          "category": "fundamentals"
+        },
+        "tests_pass": {
+          "pass": true,
+          "detail": "Job \"test (24)\" green ✅",
+          "points": 5,
+          "label": "Tests pass",
+          "category": "fundamentals"
+        },
+        "coverage_70": {
+          "pass": true,
+          "detail": "100% via SonarCloud badge ✅",
+          "points": 10,
+          "label": "Coverage ≥ 70%",
+          "category": "fundamentals"
+        },
+        "dockerfile_exists": {
+          "pass": true,
+          "detail": "Valid Dockerfile found",
+          "points": 5,
+          "label": "Dockerfile exists",
+          "category": "fundamentals"
+        },
+        "docker_builds": {
+          "pass": true,
+          "detail": "Step \"Build Docker image\" in \"sonarcloud-security / security-scan\" green ✅",
+          "points": 5,
+          "label": "Docker build in CI",
+          "category": "fundamentals"
+        },
+        "swagger_docs": {
+          "pass": true,
+          "detail": "Swagger found at /api-docs",
+          "points": 5,
+          "label": "API documentation (Swagger)",
+          "category": "fundamentals"
+        },
+        "comment_ratio": {
+          "pass": true,
+          "detail": "132 comment lines / 331 total (40%)",
+          "points": 5,
+          "label": "Code commented (≥ 5%)",
+          "category": "fundamentals"
+        },
+        "security_scan": {
+          "pass": true,
+          "detail": "Job \"sonarcloud-security / security-scan\" green ✅",
+          "points": 10,
+          "label": "Security scan in CI",
+          "category": "intermediate"
+        },
+        "ghcr_published": {
+          "pass": true,
+          "detail": "Package \"todo-api-node\" found for user",
+          "points": 10,
+          "label": "Image on GHCR",
+          "category": "intermediate"
+        },
+        "quality_gate": {
+          "pass": true,
+          "detail": "Job \"sonarcloud-security / security-scan\" green ✅",
+          "points": 10,
+          "label": "Quality gate (SonarCloud etc.)",
+          "category": "intermediate"
+        },
+        "deployed": {
+          "pass": true,
+          "detail": "https://todo-api-node-bnce.onrender.com/ → HTTP 200 ✅ (Todo API verified)",
+          "points": 10,
+          "label": "App deployed (HTTP 200)",
+          "category": "intermediate"
+        },
+        "branch_protection": {
+          "pass": true,
+          "detail": "Repository ruleset active (deletion, non_fast_forward)",
+          "points": 5,
+          "label": "Branch protection on main",
+          "category": "advanced"
+        },
+        "auto_deploy": {
+          "pass": true,
+          "detail": "Job \"deploy-production\" green ✅",
+          "points": 10,
+          "label": "Auto-deploy on push to main",
+          "category": "advanced"
+        },
+        "multi_env": {
+          "pass": false,
+          "detail": "Staging https://todo-api-node-staging-09fu.onrender.com → This operation was aborted",
+          "points": 10,
+          "label": "Multiple environments",
+          "category": "advanced"
+        },
+        "pipeline_fast": {
+          "pass": false,
+          "detail": "Average: 6.8 min (last 10 runs)",
+          "points": 5,
+          "label": "Pipeline < 3 minutes",
+          "category": "advanced"
+        },
+        "dependabot": {
+          "pass": true,
+          "detail": "dependabot config with valid setup",
+          "points": 5,
+          "label": "Dependabot/Renovate configured",
+          "category": "advanced"
+        }
+      },
+      "expertResults": {
+        "ci_notifications": {
+          "pass": true,
+          "detail": "Job \"discord-notify / Build\" green ✅",
+          "points": 5,
+          "label": "CI notifications (Discord/Slack)",
+          "category": "expert"
+        },
+        "matrix_testing": {
+          "pass": true,
+          "detail": "Matrix jobs detected: test (24), test (22)",
+          "points": 5,
+          "label": "Matrix testing (multi-version)",
+          "category": "expert"
+        },
+        "reusable_workflows": {
+          "pass": true,
+          "detail": "Calls reusable workflow in .github/workflows/ci.yml",
+          "points": 5,
+          "label": "Reusable workflows",
+          "category": "expert"
+        },
+        "release_tagging": {
+          "pass": true,
+          "detail": "1 release(s), latest: v1.0.0",
+          "points": 5,
+          "label": "Release tagging (GitHub Releases)",
+          "category": "expert"
+        },
+        "smoke_tests": {
+          "pass": true,
+          "detail": "Step \"Smoke test Production - Health Check\" in \"deploy-production\" green ✅",
+          "points": 5,
+          "label": "Smoke tests post-deploy",
+          "category": "expert"
+        },
+        "rollback_strategy": {
+          "pass": true,
+          "detail": "Rollback mechanism in .github/workflows/rollback.yml",
+          "points": 10,
+          "label": "Rollback strategy",
+          "category": "expert"
+        },
+        "external_monitoring": {
+          "pass": true,
+          "detail": "Verified monitoring URL: https://stats.uptimerobot.com/m802431958-77e54ce58517a12674e849a8 → HTTP 200 ✅",
+          "points": 10,
+          "label": "External monitoring",
+          "category": "expert"
+        },
+        "auto_recovery": {
+          "pass": true,
+          "detail": "workflow_dispatch in .github/workflows/rollback.yml + Step \"Smoke test Production - Health Check\" in \"deploy-production\" green ✅ + Recovery workflow: .github/workflows/rollback.yml",
+          "points": 10,
+          "label": "Auto-recovery / Resilience",
+          "category": "expert"
+        },
+        "ci_cache": {
+          "pass": true,
+          "detail": "Built-in npm cache in .github/workflows/ci.yml",
+          "points": 5,
+          "label": "CI cache optimization",
+          "category": "expert"
+        },
+        "contract_testing": {
+          "pass": true,
+          "detail": "API spec (auto-generated) + contract validation in CI",
+          "points": 5,
+          "label": "API contract testing",
+          "category": "expert"
+        },
+        "observability": {
+          "pass": true,
+          "detail": "@sentry/node in package.json",
+          "points": 10,
+          "label": "Observability / Telemetry",
+          "category": "expert"
+        }
+      },
+      "bonusResults": {
+        "coverage_80": {
+          "pass": true,
+          "detail": "100% via SonarCloud",
+          "points": 5,
+          "label": "Coverage ≥ 80%",
+          "category": "bonus"
+        },
+        "coverage_90": {
+          "pass": true,
+          "detail": "100% via SonarCloud",
+          "points": 5,
+          "label": "Coverage ≥ 90%",
+          "category": "bonus"
+        },
+        "coverage_95": {
+          "pass": true,
+          "detail": "100% via SonarCloud",
+          "points": 5,
+          "label": "Coverage ≥ 95%",
+          "category": "bonus"
+        },
+        "conventional_commits": {
+          "pass": true,
+          "detail": "15/15 conventional (100%)",
+          "points": 5,
+          "label": "Conventional commits",
+          "category": "bonus"
+        },
+        "readme_badges": {
+          "pass": true,
+          "detail": "16 badge(s) found",
+          "points": 5,
+          "label": "README with badges",
+          "category": "bonus"
+        },
+        "health_endpoint": {
+          "pass": true,
+          "detail": "/health → {\"status\":\"ok\"}",
+          "points": 5,
+          "label": "Health endpoint",
+          "category": "bonus"
+        },
+        "perf_tests": {
+          "pass": true,
+          "detail": "Step \"Upload coverage report\" in \"test (24)\" green ✅",
+          "points": 5,
+          "label": "Performance tests in CI",
+          "category": "bonus"
+        },
+        "auto_changelog": {
+          "pass": true,
+          "detail": "Found auto-changelog in .github/workflows/changelog.yml",
+          "points": 5,
+          "label": "Automated changelog",
+          "category": "bonus"
+        },
+        "feature_flags": {
+          "pass": false,
+          "detail": "No feature flag implementation found",
+          "points": 5,
+          "label": "Feature flags",
+          "category": "bonus"
+        },
+        "blue_green_canary": {
+          "pass": true,
+          "detail": "blue-green strategy in .github/workflows/ci.yml",
+          "points": 5,
+          "label": "Blue/Green or Canary deployment",
+          "category": "bonus"
+        },
+        "structured_logging": {
+          "pass": false,
+          "detail": "No structured logging library found (winston, pino, loguru, etc.)",
+          "points": 5,
+          "label": "Structured logging",
+          "category": "bonus"
+        }
+      },
+      "tiebreakers": {
+        "reviewScore": 0,
+        "avgPipelineDuration": 106,
+        "commitCount": 108,
+        "firstGreenDate": "2026-02-26T12:42:28Z"
+      },
+      "rank": 7
+    },
+    {
+      "team": "Exemple",
+      "members": [
+        "lucas-bourdon",
+        "adam-younsi",
+        "lucas-butynski"
+      ],
+      "repo": "ayoun07/todo-api-node",
+      "prod_url": "https://todo-api-node-h7rm.onrender.com",
+      "staging_url": "https://todo-api-node-staging-yyl4.onrender.com",
+      "total": 125,
+      "maxTotal": 140,
+      "expert": 70,
+      "maxExpert": 75,
+      "bonus": 50,
+      "maxBonus": 55,
+      "grandTotal": 245,
+      "results": {
+        "pipeline_exists": {
+          "pass": true,
+          "detail": "2 workflow(s) found",
+          "points": 5,
+          "label": "Pipeline exists",
+          "category": "fundamentals"
+        },
+        "pipeline_green": {
+          "pass": true,
+          "detail": "Last run: success (#140 — Node.js Docker CI)",
+          "points": 5,
+          "label": "Pipeline green on main",
+          "category": "fundamentals"
+        },
+        "lint_pass": {
+          "pass": true,
+          "detail": "Step \"Run actions/checkout@v4\" in \"code-coverage\" green ✅",
+          "points": 5,
+          "label": "Lint step in pipeline",
+          "category": "fundamentals"
+        },
+        "no_secrets_in_code": {
+          "pass": true,
+          "detail": "No hardcoded secrets detected",
+          "points": 5,
+          "label": "No hardcoded secrets",
+          "category": "fundamentals"
+        },
+        "tests_exist": {
+          "pass": true,
+          "detail": "4 real test file(s), run in CI — Step \"Run npm ci\" in \"code-coverage\" green ✅",
+          "points": 10,
+          "label": "Tests exist in pipeline",
+          "category": "fundamentals"
+        },
+        "tests_pass": {
+          "pass": true,
+          "detail": "Step \"Run npm test -- --coverage\" in \"code-coverage\" green ✅",
+          "points": 5,
+          "label": "Tests pass",
+          "category": "fundamentals"
+        },
+        "coverage_70": {
+          "pass": true,
+          "detail": "100% via SonarCloud badge ✅",
+          "points": 10,
+          "label": "Coverage ≥ 70%",
+          "category": "fundamentals"
+        },
+        "dockerfile_exists": {
+          "pass": true,
+          "detail": "Valid Dockerfile found",
+          "points": 5,
+          "label": "Dockerfile exists",
+          "category": "fundamentals"
+        },
+        "docker_builds": {
+          "pass": true,
+          "detail": "Step \"Build and Scan Image\" in \"security-and-build\" green ✅",
+          "points": 5,
+          "label": "Docker build in CI",
+          "category": "fundamentals"
+        },
+        "swagger_docs": {
+          "pass": true,
+          "detail": "Swagger found at /api-docs",
+          "points": 5,
+          "label": "API documentation (Swagger)",
+          "category": "fundamentals"
+        },
+        "comment_ratio": {
+          "pass": true,
+          "detail": "139 comment lines / 411 total (34%)",
+          "points": 5,
+          "label": "Code commented (≥ 5%)",
+          "category": "fundamentals"
+        },
+        "security_scan": {
+          "pass": true,
+          "detail": "Step \"Run SonarSource/sonarqube-scan-action@v6\" in \"sonarcloud\" green ✅",
+          "points": 10,
+          "label": "Security scan in CI",
+          "category": "intermediate"
+        },
+        "ghcr_published": {
+          "pass": true,
+          "detail": "Package \"prod-todo-api-node\" found for user",
+          "points": 10,
+          "label": "Image on GHCR",
+          "category": "intermediate"
+        },
+        "quality_gate": {
+          "pass": true,
+          "detail": "Job \"sonarcloud\" green ✅",
+          "points": 10,
+          "label": "Quality gate (SonarCloud etc.)",
+          "category": "intermediate"
+        },
+        "deployed": {
+          "pass": true,
+          "detail": "https://todo-api-node-h7rm.onrender.com → HTTP 200 ✅ (Todo API verified)",
+          "points": 10,
+          "label": "App deployed (HTTP 200)",
+          "category": "intermediate"
+        },
+        "branch_protection": {
+          "pass": true,
+          "detail": "Repository ruleset — PR required ✅",
+          "points": 5,
+          "label": "Branch protection on main",
+          "category": "advanced"
+        },
+        "auto_deploy": {
+          "pass": true,
+          "detail": "Job \"deploy-production\" green ✅",
+          "points": 10,
+          "label": "Auto-deploy on push to main",
+          "category": "advanced"
+        },
+        "multi_env": {
+          "pass": false,
+          "detail": "Staging https://todo-api-node-staging-yyl4.onrender.com → This operation was aborted",
+          "points": 10,
+          "label": "Multiple environments",
+          "category": "advanced"
+        },
+        "pipeline_fast": {
+          "pass": false,
+          "detail": "Average: 4.9 min (last 10 runs)",
+          "points": 5,
+          "label": "Pipeline < 3 minutes",
+          "category": "advanced"
+        },
+        "dependabot": {
+          "pass": true,
+          "detail": "dependabot config with valid setup",
+          "points": 5,
+          "label": "Dependabot/Renovate configured",
+          "category": "advanced"
+        }
+      },
+      "expertResults": {
+        "ci_notifications": {
+          "pass": true,
+          "detail": "Job \"notify\" green ✅",
+          "points": 5,
+          "label": "CI notifications (Discord/Slack)",
+          "category": "expert"
+        },
+        "matrix_testing": {
+          "pass": true,
+          "detail": "Matrix strategy in .github/workflows/node.js.yml (node-version)",
+          "points": 5,
+          "label": "Matrix testing (multi-version)",
+          "category": "expert"
+        },
+        "reusable_workflows": {
+          "pass": true,
+          "detail": "Reusable workflow (workflow_call) in .github/workflows/node.js.yml",
+          "points": 5,
+          "label": "Reusable workflows",
+          "category": "expert"
+        },
+        "release_tagging": {
+          "pass": true,
+          "detail": "1 release(s), latest: v1.0.0",
+          "points": 5,
+          "label": "Release tagging (GitHub Releases)",
+          "category": "expert"
+        },
+        "smoke_tests": {
+          "pass": true,
+          "detail": "Job \"smoke-test\" green ✅",
+          "points": 5,
+          "label": "Smoke tests post-deploy",
+          "category": "expert"
+        },
+        "rollback_strategy": {
+          "pass": true,
+          "detail": "Rollback mechanism in .github/workflows/node.js.yml",
+          "points": 10,
+          "label": "Rollback strategy",
+          "category": "expert"
+        },
+        "external_monitoring": {
+          "pass": true,
+          "detail": "uptimerobot reference in README (no verifiable URL — add a badge/status page link!)",
+          "points": 10,
+          "label": "External monitoring",
+          "category": "expert"
+        },
+        "auto_recovery": {
+          "pass": true,
+          "detail": "workflow_dispatch in .github/workflows/node.js.yml + Job \"smoke-test\" green ✅",
+          "points": 10,
+          "label": "Auto-recovery / Resilience",
+          "category": "expert"
+        },
+        "ci_cache": {
+          "pass": true,
+          "detail": "Built-in npm cache in .github/workflows/node.js.yml",
+          "points": 5,
+          "label": "CI cache optimization",
+          "category": "expert"
+        },
+        "contract_testing": {
+          "pass": false,
+          "detail": "API spec found (auto-generated) but no contract validation in CI",
+          "points": 5,
+          "label": "API contract testing",
+          "category": "expert"
+        },
+        "observability": {
+          "pass": true,
+          "detail": "@sentry/node in package.json",
+          "points": 10,
+          "label": "Observability / Telemetry",
+          "category": "expert"
+        }
+      },
+      "bonusResults": {
+        "coverage_80": {
+          "pass": true,
+          "detail": "100% via SonarCloud",
+          "points": 5,
+          "label": "Coverage ≥ 80%",
+          "category": "bonus"
+        },
+        "coverage_90": {
+          "pass": true,
+          "detail": "100% via SonarCloud",
+          "points": 5,
+          "label": "Coverage ≥ 90%",
+          "category": "bonus"
+        },
+        "coverage_95": {
+          "pass": true,
+          "detail": "100% via SonarCloud",
+          "points": 5,
+          "label": "Coverage ≥ 95%",
+          "category": "bonus"
+        },
+        "conventional_commits": {
+          "pass": true,
+          "detail": "18/20 conventional (90%)",
+          "points": 5,
+          "label": "Conventional commits",
+          "category": "bonus"
+        },
+        "readme_badges": {
+          "pass": true,
+          "detail": "8 badge(s) found",
+          "points": 5,
+          "label": "README with badges",
+          "category": "bonus"
+        },
+        "health_endpoint": {
+          "pass": true,
+          "detail": "/health → {\"status\":\"ok\"}",
+          "points": 5,
+          "label": "Health endpoint",
+          "category": "bonus"
+        },
+        "perf_tests": {
+          "pass": true,
+          "detail": "Step \"Run actions/upload-artifact@v4\" in \"code-coverage\" green ✅",
+          "points": 5,
+          "label": "Performance tests in CI",
+          "category": "bonus"
+        },
+        "auto_changelog": {
+          "pass": true,
+          "detail": "Found standard-version in package.json",
+          "points": 5,
+          "label": "Automated changelog",
+          "category": "bonus"
+        },
+        "feature_flags": {
+          "pass": true,
+          "detail": "flagsmith in package.json",
+          "points": 5,
+          "label": "Feature flags",
+          "category": "bonus"
+        },
+        "blue_green_canary": {
+          "pass": false,
+          "detail": "No blue/green or canary deployment found",
+          "points": 5,
+          "label": "Blue/Green or Canary deployment",
+          "category": "bonus"
+        },
+        "structured_logging": {
+          "pass": true,
+          "detail": "winston in package.json",
+          "points": 5,
+          "label": "Structured logging",
+          "category": "bonus"
+        }
+      },
+      "tiebreakers": {
+        "reviewScore": 0,
+        "avgPipelineDuration": 140,
+        "commitCount": 159,
+        "firstGreenDate": "2026-02-26T13:56:03Z"
       },
       "rank": 8
     },
@@ -2933,13 +2933,13 @@
       "repo": "LuaPanic/todo-api-node",
       "prod_url": "https://todo-api.httpd.zip",
       "staging_url": "https://staging-todo-api.httpd.zip/",
-      "total": 140,
+      "total": 135,
       "maxTotal": 140,
       "expert": 50,
       "maxExpert": 75,
-      "bonus": 45,
+      "bonus": 40,
       "maxBonus": 55,
-      "grandTotal": 235,
+      "grandTotal": 225,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -2950,7 +2950,7 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#56 — CD)",
+          "detail": "Last run: success (#59 — CD)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
@@ -3068,8 +3068,8 @@
           "category": "advanced"
         },
         "pipeline_fast": {
-          "pass": true,
-          "detail": "Average: 2.8 min (last 10 runs)",
+          "pass": false,
+          "detail": "Average: 3.0 min (last 10 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
@@ -3141,7 +3141,7 @@
         },
         "ci_cache": {
           "pass": true,
-          "detail": "Built-in npm cache in .github/workflows/cd.yml",
+          "detail": "Docker layer cache in .github/workflows/cd.yml",
           "points": 5,
           "label": "CI cache optimization",
           "category": "expert"
@@ -3185,7 +3185,7 @@
         },
         "conventional_commits": {
           "pass": true,
-          "detail": "10/10 conventional (100%)",
+          "detail": "9/9 conventional (100%)",
           "points": 5,
           "label": "Conventional commits",
           "category": "bonus"
@@ -3199,14 +3199,14 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":1110.322618183}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":2414.781116306}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
         },
         "perf_tests": {
-          "pass": true,
-          "detail": "Job \"Performance tests (Artillery)\" green ✅",
+          "pass": false,
+          "detail": "No performance test job/step found in last CI run",
           "points": 5,
           "label": "Performance tests in CI",
           "category": "bonus"
@@ -3242,8 +3242,8 @@
       },
       "tiebreakers": {
         "reviewScore": 0,
-        "avgPipelineDuration": 89,
-        "commitCount": 139,
+        "avgPipelineDuration": 78,
+        "commitCount": 145,
         "firstGreenDate": "2026-02-24T18:06:24Z"
       },
       "rank": 10
@@ -3524,7 +3524,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"timestamp\":\"2026-02-27T09:42:27.713Z\"}",
+          "detail": "/health → {\"status\":\"ok\",\"timestamp\":\"2026-02-27T10:39:16.067Z\"}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -3583,31 +3583,31 @@
       "repo": "FabLrc/todo-api-node",
       "prod_url": "https://todoapp.fabienlaurence.com/",
       "staging_url": "https://todo-api-node-8vq3znppw-fablrcs-projects.vercel.app",
-      "total": 130,
+      "total": 90,
       "maxTotal": 140,
-      "expert": 35,
+      "expert": 50,
       "maxExpert": 75,
-      "bonus": 40,
+      "bonus": 30,
       "maxBonus": 55,
-      "grandTotal": 205,
+      "grandTotal": 170,
       "results": {
         "pipeline_exists": {
           "pass": true,
-          "detail": "4 workflow(s) found",
+          "detail": "6 workflow(s) found",
           "points": 5,
           "label": "Pipeline exists",
           "category": "fundamentals"
         },
         "pipeline_green": {
-          "pass": true,
-          "detail": "Last run: success (#66 — CI/CD Pipeline)",
+          "pass": false,
+          "detail": "Last run: failure (#6 — .github/workflows/rollback.yml)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
         },
         "lint_pass": {
-          "pass": true,
-          "detail": "Job \"quality / Quality Checks (Node 18)\" green ✅",
+          "pass": false,
+          "detail": "No green lint/format job or step found in last CI run",
           "points": 5,
           "label": "Lint step in pipeline",
           "category": "fundamentals"
@@ -3620,15 +3620,15 @@
           "category": "fundamentals"
         },
         "tests_exist": {
-          "pass": true,
-          "detail": "2 real test file(s), run in CI — Step \"Install dependencies\" in \"quality / Quality Checks (Node 18)\" green ✅",
+          "pass": false,
+          "detail": "4 real test file(s) but not run in CI",
           "points": 10,
           "label": "Tests exist in pipeline",
           "category": "fundamentals"
         },
         "tests_pass": {
-          "pass": true,
-          "detail": "Step \"Run tests with coverage\" in \"quality / Quality Checks (Node 18)\" green ✅",
+          "pass": false,
+          "detail": "Pipeline not green (.github/workflows/rollback.yml #6)",
           "points": 5,
           "label": "Tests pass",
           "category": "fundamentals"
@@ -3648,8 +3648,8 @@
           "category": "fundamentals"
         },
         "docker_builds": {
-          "pass": true,
-          "detail": "Step \"Build Docker image\" in \"quality / Quality Checks (Node 20)\" green ✅",
+          "pass": false,
+          "detail": "No green Docker build job/step found in last CI run",
           "points": 5,
           "label": "Docker build in CI",
           "category": "fundamentals"
@@ -3663,14 +3663,14 @@
         },
         "comment_ratio": {
           "pass": true,
-          "detail": "278 comment lines / 603 total (46%)",
+          "detail": "283 comment lines / 615 total (46%)",
           "points": 5,
           "label": "Code commented (≥ 5%)",
           "category": "fundamentals"
         },
         "security_scan": {
-          "pass": true,
-          "detail": "Step \"Security audit (npm audit)\" in \"quality / Quality Checks (Node 18)\" green ✅",
+          "pass": false,
+          "detail": "No security scan job/step or check run found",
           "points": 10,
           "label": "Security scan in CI",
           "category": "intermediate"
@@ -3684,7 +3684,7 @@
         },
         "quality_gate": {
           "pass": true,
-          "detail": "Job \"quality / Quality Checks (Node 18)\" green ✅",
+          "detail": "Check run \"SonarCloud Code Analysis\" (app: SonarQubeCloud) green ✅",
           "points": 10,
           "label": "Quality gate (SonarCloud etc.)",
           "category": "intermediate"
@@ -3705,7 +3705,7 @@
         },
         "auto_deploy": {
           "pass": true,
-          "detail": "GitHub deployment to \"Preview\" found (2026-02-27T09:24:12Z)",
+          "detail": "GitHub deployment to \"Production\" found (2026-02-27T10:08:57Z)",
           "points": 10,
           "label": "Auto-deploy on push to main",
           "category": "advanced"
@@ -3719,7 +3719,7 @@
         },
         "pipeline_fast": {
           "pass": true,
-          "detail": "Average: 1.3 min (last 8 runs)",
+          "detail": "Average: 1.3 min (last 9 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
@@ -3735,14 +3735,14 @@
       "expertResults": {
         "ci_notifications": {
           "pass": true,
-          "detail": "Job \"notify / Discord Notification\" green ✅",
+          "detail": "Notification action in .github/workflows/notify.yml",
           "points": 5,
           "label": "CI notifications (Discord/Slack)",
           "category": "expert"
         },
         "matrix_testing": {
-          "pass": true,
-          "detail": "Matrix jobs detected: quality / Quality Checks (Node 18), quality / Quality Checks (Node 22), quality / Quality Checks (Node 20)",
+          "pass": false,
+          "detail": "No matrix strategy found in workflows",
           "points": 5,
           "label": "Matrix testing (multi-version)",
           "category": "expert"
@@ -3756,7 +3756,7 @@
         },
         "release_tagging": {
           "pass": true,
-          "detail": "3 release(s), latest: v1.3.2",
+          "detail": "3 release(s), latest: v1.3.3",
           "points": 5,
           "label": "Release tagging (GitHub Releases)",
           "category": "expert"
@@ -3769,22 +3769,22 @@
           "category": "expert"
         },
         "rollback_strategy": {
-          "pass": false,
-          "detail": "No rollback strategy found",
+          "pass": true,
+          "detail": "Rollback mechanism in .github/workflows/recover.yml",
           "points": 10,
           "label": "Rollback strategy",
           "category": "expert"
         },
         "external_monitoring": {
           "pass": true,
-          "detail": "Verified monitoring URL: https://stats.uptimerobot.com/02n8bNhz0g → HTTP 200 ✅",
+          "detail": "uptimerobot reference in README (no verifiable URL — add a badge/status page link!)",
           "points": 10,
           "label": "External monitoring",
           "category": "expert"
         },
         "auto_recovery": {
-          "pass": false,
-          "detail": "No auto-recovery mechanisms found (add workflow_dispatch, health checks, or recovery workflows)",
+          "pass": true,
+          "detail": "workflow_dispatch with inputs in .github/workflows/ci-cd.yml + Health check via curl/wget in .github/workflows/recover.yml + Recovery workflow: .github/workflows/recover.yml",
           "points": 10,
           "label": "Auto-recovery / Resilience",
           "category": "expert"
@@ -3848,15 +3848,15 @@
           "category": "bonus"
         },
         "health_endpoint": {
-          "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":1605.604884932}",
+          "pass": false,
+          "detail": "No /health, /healthz, or /api/health returning JSON with status",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
         },
         "perf_tests": {
-          "pass": true,
-          "detail": "Step \"Run performance tests\" in \"quality / Quality Checks (Node 18)\" green ✅",
+          "pass": false,
+          "detail": "No performance test job/step found in last CI run",
           "points": 5,
           "label": "Performance tests in CI",
           "category": "bonus"
@@ -3892,8 +3892,8 @@
       },
       "tiebreakers": {
         "reviewScore": 0,
-        "avgPipelineDuration": 73,
-        "commitCount": 86,
+        "avgPipelineDuration": 74,
+        "commitCount": 87,
         "firstGreenDate": "2026-02-24T12:18:40Z"
       },
       "rank": 12
