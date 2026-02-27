@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-27T15:36:16.352Z",
+  "generated_at": "2026-02-27T16:39:03.551Z",
   "total_possible": 140,
   "expert_possible": 75,
   "bonus_possible": 55,
@@ -31,14 +31,14 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#281 — CI)",
+          "detail": "Last run: success (#286 — CI)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
         },
         "lint_pass": {
           "pass": true,
-          "detail": "Step \"Run actions/checkout@v6\" in \"docker-build\" green ✅",
+          "detail": "Job \"lint\" green ✅",
           "points": 5,
           "label": "Lint step in pipeline",
           "category": "fundamentals"
@@ -52,14 +52,14 @@
         },
         "tests_exist": {
           "pass": true,
-          "detail": "4 real test file(s), run in CI — Step \"Generate OpenAPI spec\" in \"contract\" green ✅",
+          "detail": "4 real test file(s), run in CI — Job \"test (node 18)\" green ✅",
           "points": 10,
           "label": "Tests exist in pipeline",
           "category": "fundamentals"
         },
         "tests_pass": {
           "pass": true,
-          "detail": "Step \"Generate OpenAPI spec\" in \"contract\" green ✅",
+          "detail": "Job \"test (node 18)\" green ✅",
           "points": 5,
           "label": "Tests pass",
           "category": "fundamentals"
@@ -280,14 +280,14 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":5669.209445213}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":2516.962198927}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
         },
         "perf_tests": {
           "pass": true,
-          "detail": "Job \"perf\" green ✅",
+          "detail": "Step \"Upload to Codecov\" in \"test (node 20)\" green ✅",
           "points": 5,
           "label": "Performance tests in CI",
           "category": "bonus"
@@ -323,9 +323,9 @@
       },
       "tiebreakers": {
         "reviewScore": 0,
-        "avgPipelineDuration": 87,
-        "commitCount": 187,
-        "firstGreenDate": "2026-02-25T19:59:41Z"
+        "avgPipelineDuration": 85,
+        "commitCount": 188,
+        "firstGreenDate": "2026-02-25T20:30:40Z"
       },
       "rank": 1
     },
