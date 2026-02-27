@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-27T11:30:56.928Z",
+  "generated_at": "2026-02-27T12:56:03.936Z",
   "total_possible": 140,
   "expert_possible": 75,
   "bonus_possible": 55,
@@ -14,13 +14,13 @@
       "repo": "lootopia-les-3-dev/todo-api-node",
       "prod_url": "https://todo.lootopia.io",
       "staging_url": "https://pp-todo.lootopia.io",
-      "total": 115,
+      "total": 130,
       "maxTotal": 140,
       "expert": 75,
       "maxExpert": 75,
-      "bonus": 50,
+      "bonus": 55,
       "maxBonus": 55,
-      "grandTotal": 240,
+      "grandTotal": 260,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -31,14 +31,14 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#270 — CI)",
+          "detail": "Last run: success (#274 — CI)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
         },
         "lint_pass": {
           "pass": true,
-          "detail": "Step \"Run actions/checkout@v6\" in \"contract\" green ✅",
+          "detail": "Step \"Run actions/checkout@v6\" in \"perf\" green ✅",
           "points": 5,
           "label": "Lint step in pipeline",
           "category": "fundamentals"
@@ -52,14 +52,14 @@
         },
         "tests_exist": {
           "pass": true,
-          "detail": "4 real test file(s), run in CI — Step \"Generate OpenAPI spec\" in \"contract\" green ✅",
+          "detail": "4 real test file(s), run in CI — Step \"Run k6 load tests\" in \"perf\" green ✅",
           "points": 10,
           "label": "Tests exist in pipeline",
           "category": "fundamentals"
         },
         "tests_pass": {
           "pass": true,
-          "detail": "Step \"Generate OpenAPI spec\" in \"contract\" green ✅",
+          "detail": "Step \"Run k6 load tests\" in \"perf\" green ✅",
           "points": 5,
           "label": "Tests pass",
           "category": "fundamentals"
@@ -86,8 +86,8 @@
           "category": "fundamentals"
         },
         "swagger_docs": {
-          "pass": false,
-          "detail": "No Swagger/OpenAPI docs found",
+          "pass": true,
+          "detail": "Swagger found at /docs",
           "points": 5,
           "label": "API documentation (Swagger)",
           "category": "fundamentals"
@@ -121,8 +121,8 @@
           "category": "intermediate"
         },
         "deployed": {
-          "pass": false,
-          "detail": "https://todo.lootopia.io → HTTP 502",
+          "pass": true,
+          "detail": "https://todo.lootopia.io → HTTP 200 ✅ (Todo API verified)",
           "points": 10,
           "label": "App deployed (HTTP 200)",
           "category": "intermediate"
@@ -279,8 +279,8 @@
           "category": "bonus"
         },
         "health_endpoint": {
-          "pass": false,
-          "detail": "No /health, /healthz, or /api/health returning JSON with status",
+          "pass": true,
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":630.393589401}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
