@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-27T12:56:03.936Z",
+  "generated_at": "2026-02-27T13:25:24.480Z",
   "total_possible": 140,
   "expert_possible": 75,
   "bonus_possible": 55,
@@ -14,13 +14,13 @@
       "repo": "lootopia-les-3-dev/todo-api-node",
       "prod_url": "https://todo.lootopia.io",
       "staging_url": "https://pp-todo.lootopia.io",
-      "total": 130,
+      "total": 140,
       "maxTotal": 140,
       "expert": 75,
       "maxExpert": 75,
       "bonus": 55,
       "maxBonus": 55,
-      "grandTotal": 260,
+      "grandTotal": 270,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -31,14 +31,14 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#274 — CI)",
+          "detail": "Last run: success (#277 — CI)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
         },
         "lint_pass": {
           "pass": true,
-          "detail": "Step \"Run actions/checkout@v6\" in \"perf\" green ✅",
+          "detail": "Job \"lint\" green ✅",
           "points": 5,
           "label": "Lint step in pipeline",
           "category": "fundamentals"
@@ -52,14 +52,14 @@
         },
         "tests_exist": {
           "pass": true,
-          "detail": "4 real test file(s), run in CI — Step \"Run k6 load tests\" in \"perf\" green ✅",
+          "detail": "4 real test file(s), run in CI — Step \"Generate OpenAPI spec\" in \"contract\" green ✅",
           "points": 10,
           "label": "Tests exist in pipeline",
           "category": "fundamentals"
         },
         "tests_pass": {
           "pass": true,
-          "detail": "Step \"Run k6 load tests\" in \"perf\" green ✅",
+          "detail": "Step \"Generate OpenAPI spec\" in \"contract\" green ✅",
           "points": 5,
           "label": "Tests pass",
           "category": "fundamentals"
@@ -142,8 +142,8 @@
           "category": "advanced"
         },
         "multi_env": {
-          "pass": false,
-          "detail": "Staging https://pp-todo.lootopia.io → HTTP 502",
+          "pass": true,
+          "detail": "Staging https://pp-todo.lootopia.io → HTTP 200 ✅ + Prod live (envs: production, staging)",
           "points": 10,
           "label": "Multiple environments",
           "category": "advanced"
@@ -280,14 +280,14 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":630.393589401}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":1743.185567113}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
         },
         "perf_tests": {
           "pass": true,
-          "detail": "Job \"perf\" green ✅",
+          "detail": "Step \"Upload to Codecov\" in \"test (node 20)\" green ✅",
           "points": 5,
           "label": "Performance tests in CI",
           "category": "bonus"
@@ -320,6 +320,12 @@
           "label": "Structured logging",
           "category": "bonus"
         }
+      },
+      "tiebreakers": {
+        "reviewScore": 0,
+        "avgPipelineDuration": 87,
+        "commitCount": 186,
+        "firstGreenDate": "2026-02-25T19:59:41Z"
       },
       "rank": 1
     },
@@ -635,6 +641,12 @@
           "label": "Structured logging",
           "category": "bonus"
         }
+      },
+      "tiebreakers": {
+        "reviewScore": 0,
+        "avgPipelineDuration": 78,
+        "commitCount": 145,
+        "firstGreenDate": "2026-02-24T18:06:24Z"
       },
       "rank": 2
     }
