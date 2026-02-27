@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-27T08:39:05.050Z",
+  "generated_at": "2026-02-27T09:39:16.230Z",
   "total_possible": 140,
   "expert_possible": 75,
   "bonus_possible": 55,
@@ -16,11 +16,11 @@
       "staging_url": "https://pp-todo.lootopia.io",
       "total": 140,
       "maxTotal": 140,
-      "expert": 60,
+      "expert": 65,
       "maxExpert": 75,
-      "bonus": 50,
+      "bonus": 55,
       "maxBonus": 55,
-      "grandTotal": 250,
+      "grandTotal": 260,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -31,7 +31,7 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#223 — CI)",
+          "detail": "Last run: success (#241 — CI)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
@@ -52,14 +52,14 @@
         },
         "tests_exist": {
           "pass": true,
-          "detail": "4 real test file(s), run in CI — Step \"Run k6 load tests\" in \"perf\" green ✅",
+          "detail": "4 real test file(s), run in CI — Job \"test (node 20)\" green ✅",
           "points": 10,
           "label": "Tests exist in pipeline",
           "category": "fundamentals"
         },
         "tests_pass": {
           "pass": true,
-          "detail": "Step \"Run k6 load tests\" in \"perf\" green ✅",
+          "detail": "Job \"test (node 20)\" green ✅",
           "points": 5,
           "label": "Tests pass",
           "category": "fundamentals"
@@ -94,7 +94,7 @@
         },
         "comment_ratio": {
           "pass": true,
-          "detail": "601 comment lines / 1173 total (51%)",
+          "detail": "626 comment lines / 1245 total (50%)",
           "points": 5,
           "label": "Code commented (≥ 5%)",
           "category": "fundamentals"
@@ -150,7 +150,7 @@
         },
         "pipeline_fast": {
           "pass": true,
-          "detail": "Average: 1.2 min (last 10 runs)",
+          "detail": "Average: 1.3 min (last 10 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
@@ -208,7 +208,7 @@
         },
         "external_monitoring": {
           "pass": true,
-          "detail": "Monitoring integration in .github/workflows/ci.yml (add a status badge in README for full credit)",
+          "detail": "grafana reference in README (no verifiable URL — add a badge/status page link!)",
           "points": 10,
           "label": "External monitoring",
           "category": "expert"
@@ -228,8 +228,8 @@
           "category": "expert"
         },
         "contract_testing": {
-          "pass": false,
-          "detail": "API spec found (auto-generated) but no contract validation in CI",
+          "pass": true,
+          "detail": "API spec (openapi.json) + contract validation in CI",
           "points": 5,
           "label": "API contract testing",
           "category": "expert"
@@ -280,14 +280,14 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":71061.193912178}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":1284.676164602}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
         },
         "perf_tests": {
           "pass": true,
-          "detail": "Job \"perf\" green ✅",
+          "detail": "Step \"Upload to Codecov\" in \"test (node 20)\" green ✅",
           "points": 5,
           "label": "Performance tests in CI",
           "category": "bonus"
@@ -314,8 +314,8 @@
           "category": "bonus"
         },
         "structured_logging": {
-          "pass": false,
-          "detail": "No structured logging library found (winston, pino, loguru, etc.)",
+          "pass": true,
+          "detail": "pino in package.json",
           "points": 5,
           "label": "Structured logging",
           "category": "bonus"
@@ -329,24 +329,24 @@
         "test test"
       ],
       "repo": "LuaPanic/todo-api-node",
-      "total": 115,
+      "total": 110,
       "maxTotal": 140,
-      "expert": 35,
+      "expert": 50,
       "maxExpert": 75,
       "bonus": 40,
       "maxBonus": 55,
-      "grandTotal": 190,
+      "grandTotal": 200,
       "results": {
         "pipeline_exists": {
           "pass": true,
-          "detail": "2 workflow(s) found",
+          "detail": "3 workflow(s) found",
           "points": 5,
           "label": "Pipeline exists",
           "category": "fundamentals"
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#52 — CD)",
+          "detail": "Last run: success (#56 — CD)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
@@ -464,8 +464,8 @@
           "category": "advanced"
         },
         "pipeline_fast": {
-          "pass": true,
-          "detail": "Average: 2.7 min (last 10 runs)",
+          "pass": false,
+          "detail": "Average: 3.7 min (last 10 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
@@ -481,7 +481,7 @@
       "expertResults": {
         "ci_notifications": {
           "pass": true,
-          "detail": "Job \"notify\" green ✅",
+          "detail": "Job \"notify / notify\" green ✅",
           "points": 5,
           "label": "CI notifications (Discord/Slack)",
           "category": "expert"
@@ -494,8 +494,8 @@
           "category": "expert"
         },
         "reusable_workflows": {
-          "pass": false,
-          "detail": "No reusable workflows (workflow_call) found",
+          "pass": true,
+          "detail": "Calls reusable workflow in .github/workflows/cd.yml",
           "points": 5,
           "label": "Reusable workflows",
           "category": "expert"
@@ -522,8 +522,8 @@
           "category": "expert"
         },
         "external_monitoring": {
-          "pass": false,
-          "detail": "No external monitoring found (add UptimeRobot/BetterStack badge in README)",
+          "pass": true,
+          "detail": "Verified monitoring URL: https://stats.uptimerobot.com/mnQBsxmhMG → HTTP 200 ✅",
           "points": 10,
           "label": "External monitoring",
           "category": "expert"
@@ -581,14 +581,14 @@
         },
         "conventional_commits": {
           "pass": true,
-          "detail": "12/12 conventional (100%)",
+          "detail": "10/10 conventional (100%)",
           "points": 5,
           "label": "Conventional commits",
           "category": "bonus"
         },
         "readme_badges": {
           "pass": true,
-          "detail": "6 badge(s) found",
+          "detail": "7 badge(s) found",
           "points": 5,
           "label": "README with badges",
           "category": "bonus"
