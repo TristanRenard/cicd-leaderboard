@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-27T09:39:16.230Z",
+  "generated_at": "2026-02-27T10:35:57.308Z",
   "total_possible": 140,
   "expert_possible": 75,
   "bonus_possible": 55,
@@ -14,13 +14,13 @@
       "repo": "lootopia-les-3-dev/todo-api-node",
       "prod_url": "https://todo.lootopia.io",
       "staging_url": "https://pp-todo.lootopia.io",
-      "total": 140,
+      "total": 100,
       "maxTotal": 140,
       "expert": 65,
       "maxExpert": 75,
-      "bonus": 55,
+      "bonus": 50,
       "maxBonus": 55,
-      "grandTotal": 260,
+      "grandTotal": 215,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -30,15 +30,15 @@
           "category": "fundamentals"
         },
         "pipeline_green": {
-          "pass": true,
-          "detail": "Last run: success (#241 — CI)",
+          "pass": false,
+          "detail": "Last run: failure (#264 — CI)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
         },
         "lint_pass": {
-          "pass": true,
-          "detail": "Step \"Run actions/checkout@v6\" in \"security\" green ✅",
+          "pass": false,
+          "detail": "No green lint/format job or step found in last CI run",
           "points": 5,
           "label": "Lint step in pipeline",
           "category": "fundamentals"
@@ -51,15 +51,15 @@
           "category": "fundamentals"
         },
         "tests_exist": {
-          "pass": true,
-          "detail": "4 real test file(s), run in CI — Job \"test (node 20)\" green ✅",
+          "pass": false,
+          "detail": "4 real test file(s) but not run in CI",
           "points": 10,
           "label": "Tests exist in pipeline",
           "category": "fundamentals"
         },
         "tests_pass": {
-          "pass": true,
-          "detail": "Job \"test (node 20)\" green ✅",
+          "pass": false,
+          "detail": "Pipeline not green (CI #264)",
           "points": 5,
           "label": "Tests pass",
           "category": "fundamentals"
@@ -79,8 +79,8 @@
           "category": "fundamentals"
         },
         "docker_builds": {
-          "pass": true,
-          "detail": "Job \"docker-build\" green ✅",
+          "pass": false,
+          "detail": "No green Docker build job/step found in last CI run",
           "points": 5,
           "label": "Docker build in CI",
           "category": "fundamentals"
@@ -94,14 +94,14 @@
         },
         "comment_ratio": {
           "pass": true,
-          "detail": "626 comment lines / 1245 total (50%)",
+          "detail": "631 comment lines / 1257 total (50%)",
           "points": 5,
           "label": "Code commented (≥ 5%)",
           "category": "fundamentals"
         },
         "security_scan": {
           "pass": true,
-          "detail": "Job \"security\" green ✅",
+          "detail": "Check run \"security\" (app: GitHub Actions) green ✅",
           "points": 10,
           "label": "Security scan in CI",
           "category": "intermediate"
@@ -114,8 +114,8 @@
           "category": "intermediate"
         },
         "quality_gate": {
-          "pass": true,
-          "detail": "Step \"Upload to Codecov\" in \"test (node 20)\" green ✅",
+          "pass": false,
+          "detail": "No quality gate configured",
           "points": 10,
           "label": "Quality gate (SonarCloud etc.)",
           "category": "intermediate"
@@ -136,7 +136,7 @@
         },
         "auto_deploy": {
           "pass": true,
-          "detail": "Job \"release-please\" green ✅",
+          "detail": "GitHub deployment to \"production\" found (2026-02-27T10:34:13Z)",
           "points": 10,
           "label": "Auto-deploy on push to main",
           "category": "advanced"
@@ -166,7 +166,7 @@
       "expertResults": {
         "ci_notifications": {
           "pass": true,
-          "detail": "Job \"notify\" green ✅",
+          "detail": "Notification action in .github/workflows/ci.yml",
           "points": 5,
           "label": "CI notifications (Discord/Slack)",
           "category": "expert"
@@ -193,15 +193,15 @@
           "category": "expert"
         },
         "smoke_tests": {
-          "pass": true,
-          "detail": "Step \"Smoke test — health\" in \"deploy / deploy\" green ✅",
+          "pass": false,
+          "detail": "No smoke/e2e tests post-deploy found",
           "points": 5,
           "label": "Smoke tests post-deploy",
           "category": "expert"
         },
         "rollback_strategy": {
           "pass": true,
-          "detail": "Step \"Tag current image as previous (rollback target)\" in \"deploy / deploy\" green ✅",
+          "detail": "Rollback mechanism in .github/workflows/ci.yml",
           "points": 10,
           "label": "Rollback strategy",
           "category": "expert"
@@ -215,7 +215,7 @@
         },
         "auto_recovery": {
           "pass": true,
-          "detail": "Step \"Smoke test — health\" in \"deploy / deploy\" green ✅",
+          "detail": "workflow_dispatch with inputs in .github/workflows/ci.yml + Health check via curl/wget in .github/workflows/ci.yml",
           "points": 10,
           "label": "Auto-recovery / Resilience",
           "category": "expert"
@@ -228,15 +228,15 @@
           "category": "expert"
         },
         "contract_testing": {
-          "pass": true,
-          "detail": "API spec (openapi.json) + contract validation in CI",
+          "pass": false,
+          "detail": "API spec found (openapi.json) but no contract validation in CI",
           "points": 5,
           "label": "API contract testing",
           "category": "expert"
         },
         "observability": {
-          "pass": false,
-          "detail": "No observability/telemetry found (OpenTelemetry, Sentry, Datadog, etc.)",
+          "pass": true,
+          "detail": "@sentry/node in package.json",
           "points": 10,
           "label": "Observability / Telemetry",
           "category": "expert"
@@ -280,14 +280,14 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":1284.676164602}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":667.159402053}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
         },
         "perf_tests": {
-          "pass": true,
-          "detail": "Step \"Upload to Codecov\" in \"test (node 20)\" green ✅",
+          "pass": false,
+          "detail": "No performance test job/step found in last CI run",
           "points": 5,
           "label": "Performance tests in CI",
           "category": "bonus"
@@ -333,9 +333,9 @@
       "maxTotal": 140,
       "expert": 50,
       "maxExpert": 75,
-      "bonus": 40,
+      "bonus": 35,
       "maxBonus": 55,
-      "grandTotal": 200,
+      "grandTotal": 195,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -346,7 +346,7 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#56 — CD)",
+          "detail": "Last run: success (#59 — CD)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
@@ -465,7 +465,7 @@
         },
         "pipeline_fast": {
           "pass": false,
-          "detail": "Average: 3.7 min (last 10 runs)",
+          "detail": "Average: 3.0 min (last 10 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
@@ -537,7 +537,7 @@
         },
         "ci_cache": {
           "pass": true,
-          "detail": "Built-in npm cache in .github/workflows/cd.yml",
+          "detail": "Docker layer cache in .github/workflows/cd.yml",
           "points": 5,
           "label": "CI cache optimization",
           "category": "expert"
@@ -581,7 +581,7 @@
         },
         "conventional_commits": {
           "pass": true,
-          "detail": "10/10 conventional (100%)",
+          "detail": "9/9 conventional (100%)",
           "points": 5,
           "label": "Conventional commits",
           "category": "bonus"
@@ -601,8 +601,8 @@
           "category": "bonus"
         },
         "perf_tests": {
-          "pass": true,
-          "detail": "Job \"Performance tests (Artillery)\" green ✅",
+          "pass": false,
+          "detail": "No performance test job/step found in last CI run",
           "points": 5,
           "label": "Performance tests in CI",
           "category": "bonus"
