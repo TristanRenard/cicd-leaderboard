@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-26T23:54:30.701Z",
+  "generated_at": "2026-02-27T08:39:05.050Z",
   "total_possible": 140,
   "expert_possible": 75,
   "bonus_possible": 55,
@@ -280,7 +280,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":39586.843361423}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":71061.193912178}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -331,11 +331,11 @@
       "repo": "LuaPanic/todo-api-node",
       "total": 115,
       "maxTotal": 140,
-      "expert": 15,
+      "expert": 35,
       "maxExpert": 75,
-      "bonus": 35,
+      "bonus": 40,
       "maxBonus": 55,
-      "grandTotal": 165,
+      "grandTotal": 190,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -346,7 +346,7 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#45 — CD)",
+          "detail": "Last run: success (#52 — CD)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
@@ -409,7 +409,7 @@
         },
         "comment_ratio": {
           "pass": true,
-          "detail": "27 comment lines / 456 total (6%)",
+          "detail": "28 comment lines / 476 total (6%)",
           "points": 5,
           "label": "Code commented (≥ 5%)",
           "category": "fundamentals"
@@ -465,7 +465,7 @@
         },
         "pipeline_fast": {
           "pass": true,
-          "detail": "Average: 2.2 min (last 10 runs)",
+          "detail": "Average: 2.7 min (last 10 runs)",
           "points": 5,
           "label": "Pipeline < 3 minutes",
           "category": "advanced"
@@ -480,8 +480,8 @@
       },
       "expertResults": {
         "ci_notifications": {
-          "pass": false,
-          "detail": "No CI notification job/step found",
+          "pass": true,
+          "detail": "Job \"notify\" green ✅",
           "points": 5,
           "label": "CI notifications (Discord/Slack)",
           "category": "expert"
@@ -508,8 +508,8 @@
           "category": "expert"
         },
         "smoke_tests": {
-          "pass": false,
-          "detail": "No smoke/e2e tests post-deploy found",
+          "pass": true,
+          "detail": "Step \"Smoke test — health\" in \"Deploy to production\" green ✅",
           "points": 5,
           "label": "Smoke tests post-deploy",
           "category": "expert"
@@ -529,8 +529,8 @@
           "category": "expert"
         },
         "auto_recovery": {
-          "pass": false,
-          "detail": "No auto-recovery mechanisms found (add workflow_dispatch, health checks, or recovery workflows)",
+          "pass": true,
+          "detail": "Step \"Smoke test — health\" in \"Deploy to production\" green ✅",
           "points": 10,
           "label": "Auto-recovery / Resilience",
           "category": "expert"
@@ -581,7 +581,7 @@
         },
         "conventional_commits": {
           "pass": true,
-          "detail": "11/11 conventional (100%)",
+          "detail": "12/12 conventional (100%)",
           "points": 5,
           "label": "Conventional commits",
           "category": "bonus"
@@ -629,8 +629,8 @@
           "category": "bonus"
         },
         "structured_logging": {
-          "pass": false,
-          "detail": "No structured logging library found (winston, pino, loguru, etc.)",
+          "pass": true,
+          "detail": "pino in package.json",
           "points": 5,
           "label": "Structured logging",
           "category": "bonus"
