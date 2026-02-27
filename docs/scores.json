@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-27T14:00:12.672Z",
+  "generated_at": "2026-02-27T14:50:55.157Z",
   "total_possible": 140,
   "expert_possible": 75,
   "bonus_possible": 55,
@@ -31,14 +31,14 @@
         },
         "pipeline_green": {
           "pass": true,
-          "detail": "Last run: success (#277 — CI)",
+          "detail": "Last run: success (#281 — CI)",
           "points": 5,
           "label": "Pipeline green on main",
           "category": "fundamentals"
         },
         "lint_pass": {
           "pass": true,
-          "detail": "Job \"lint\" green ✅",
+          "detail": "Step \"Run actions/checkout@v6\" in \"docker-build\" green ✅",
           "points": 5,
           "label": "Lint step in pipeline",
           "category": "fundamentals"
@@ -280,14 +280,14 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":3830.818861003}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":2947.917233484}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
         },
         "perf_tests": {
           "pass": true,
-          "detail": "Step \"Upload to Codecov\" in \"test (node 20)\" green ✅",
+          "detail": "Job \"perf\" green ✅",
           "points": 5,
           "label": "Performance tests in CI",
           "category": "bonus"
