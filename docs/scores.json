@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-27T23:47:02.789Z",
+  "generated_at": "2026-03-02T08:41:59.136Z",
   "total_possible": 140,
   "expert_possible": 75,
   "bonus_possible": 55,
@@ -280,7 +280,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":28196.180813218}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":233092.655456506}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
@@ -644,9 +644,9 @@
       },
       "tiebreakers": {
         "reviewScore": 0,
-        "avgPipelineDuration": 78,
+        "avgPipelineDuration": 77,
         "commitCount": 145,
-        "firstGreenDate": "2026-02-24T18:06:24Z"
+        "firstGreenDate": "2026-02-24T19:11:05Z"
       },
       "rank": 2
     }
