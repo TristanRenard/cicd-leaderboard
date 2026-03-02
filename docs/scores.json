@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-02T22:54:07.499Z",
+  "generated_at": "2026-03-02T23:24:23.939Z",
   "total_possible": 140,
   "expert_possible": 75,
   "bonus_possible": 55,
@@ -18,9 +18,9 @@
       "maxTotal": 140,
       "expert": 75,
       "maxExpert": 75,
-      "bonus": 50,
+      "bonus": 35,
       "maxBonus": 55,
-      "grandTotal": 250,
+      "grandTotal": 235,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -66,7 +66,7 @@
         },
         "coverage_70": {
           "pass": true,
-          "detail": "100% via Codecov badge ✅",
+          "detail": "Coverage step green — Step \"Upload to Codecov\" in \"test (node 20)\" green ✅ (add a Codecov/SonarCloud badge for exact %)",
           "points": 10,
           "label": "Coverage ≥ 70%",
           "category": "fundamentals"
@@ -244,22 +244,22 @@
       },
       "bonusResults": {
         "coverage_80": {
-          "pass": true,
-          "detail": "100% via Codecov",
+          "pass": false,
+          "detail": "No trusted coverage badge in README",
           "points": 5,
           "label": "Coverage ≥ 80%",
           "category": "bonus"
         },
         "coverage_90": {
-          "pass": true,
-          "detail": "100% via Codecov",
+          "pass": false,
+          "detail": "No trusted coverage badge in README",
           "points": 5,
           "label": "Coverage ≥ 90%",
           "category": "bonus"
         },
         "coverage_95": {
-          "pass": true,
-          "detail": "100% via Codecov",
+          "pass": false,
+          "detail": "No trusted coverage badge in README",
           "points": 5,
           "label": "Coverage ≥ 95%",
           "category": "bonus"
