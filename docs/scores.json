@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-02T12:55:08.970Z",
+  "generated_at": "2026-03-02T14:00:13.825Z",
   "total_possible": 140,
   "expert_possible": 75,
   "bonus_possible": 55,
@@ -280,7 +280,7 @@
         },
         "health_endpoint": {
           "pass": true,
-          "detail": "/health → {\"status\":\"ok\",\"uptime\":248282.508269997}",
+          "detail": "/health → {\"status\":\"ok\",\"uptime\":252186.887045277}",
           "points": 5,
           "label": "Health endpoint",
           "category": "bonus"
