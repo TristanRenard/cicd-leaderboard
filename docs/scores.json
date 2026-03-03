@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-03T22:27:20.046Z",
+  "generated_at": "2026-03-03T22:54:01.147Z",
   "total_possible": 140,
   "expert_possible": 75,
   "bonus_possible": 55,
@@ -187,7 +187,7 @@
         },
         "release_tagging": {
           "pass": true,
-          "detail": "3 release(s), latest: v1.1.1",
+          "detail": "3 tag(s), latest: v1.1.1",
           "points": 5,
           "label": "Release tagging (GitHub Releases)",
           "category": "expert"
