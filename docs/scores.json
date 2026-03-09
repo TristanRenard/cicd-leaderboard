@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-06T23:51:10.545Z",
+  "generated_at": "2026-03-09T08:42:20.603Z",
   "total_possible": 140,
   "expert_possible": 75,
   "bonus_possible": 55,
@@ -14,13 +14,13 @@
       "repo": "lootopia-les-3-dev/todo-api-node",
       "prod_url": "https://todo.lootopia.io",
       "staging_url": "https://pp-todo.lootopia.io",
-      "total": 125,
+      "total": 115,
       "maxTotal": 140,
       "expert": 75,
       "maxExpert": 75,
       "bonus": 50,
       "maxBonus": 55,
-      "grandTotal": 250,
+      "grandTotal": 240,
       "results": {
         "pipeline_exists": {
           "pass": true,
@@ -142,8 +142,8 @@
           "category": "advanced"
         },
         "multi_env": {
-          "pass": true,
-          "detail": "Staging https://pp-todo.lootopia.io → HTTP 200 ✅ + Prod live (envs: production, staging)",
+          "pass": false,
+          "detail": "Staging https://pp-todo.lootopia.io → HTTP 404",
           "points": 10,
           "label": "Multiple environments",
           "category": "advanced"
@@ -644,9 +644,9 @@
       },
       "tiebreakers": {
         "reviewScore": 0,
-        "avgPipelineDuration": 77,
+        "avgPipelineDuration": 81,
         "commitCount": 145,
-        "firstGreenDate": "2026-02-24T19:11:05Z"
+        "firstGreenDate": "2026-02-24T20:25:55Z"
       },
       "rank": 2
     }
