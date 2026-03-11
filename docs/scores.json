@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-11T08:39:25.638Z",
+  "generated_at": "2026-03-11T09:40:48.597Z",
   "total_possible": 140,
   "expert_possible": 75,
   "bonus_possible": 55,
@@ -529,7 +529,7 @@
         },
         "external_monitoring": {
           "pass": true,
-          "detail": "Verified monitoring URL: https://stats.uptimerobot.com/mnQBsxmhMG → HTTP 200 ✅",
+          "detail": "uptimerobot reference in README (no verifiable URL — add a badge/status page link!)",
           "points": 10,
           "label": "External monitoring",
           "category": "expert"
