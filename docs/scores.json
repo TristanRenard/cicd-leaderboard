@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-20T23:31:02.040Z",
+  "generated_at": "2026-03-23T08:53:49.620Z",
   "total_possible": 140,
   "expert_possible": 75,
   "bonus_possible": 55,
@@ -644,9 +644,9 @@
       },
       "tiebreakers": {
         "reviewScore": 0,
-        "avgPipelineDuration": 84,
+        "avgPipelineDuration": 83,
         "commitCount": 145,
-        "firstGreenDate": "2026-02-24T20:26:33Z"
+        "firstGreenDate": "2026-02-25T09:46:33Z"
       },
       "rank": 2
     }
