@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-17T14:41:25.342Z",
+  "generated_at": "2026-07-17T16:13:16.610Z",
   "total_possible": 140,
   "expert_possible": 75,
   "bonus_possible": 55,
@@ -529,10 +529,10 @@
         },
         "external_monitoring": {
           "pass": false,
-          "detail": "No external monitoring found (add UptimeRobot/BetterStack badge in README)",
           "points": 10,
           "label": "External monitoring",
-          "category": "expert"
+          "category": "expert",
+          "detail": "Error: fetch failed"
         },
         "auto_recovery": {
           "pass": false,
