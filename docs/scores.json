@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T00:25:01.125Z",
+  "generated_at": "2026-09-10T12:41:55.006Z",
   "total_possible": 140,
   "expert_possible": 75,
   "bonus_possible": 55,
@@ -443,7 +443,7 @@
         },
         "deployed": {
           "pass": false,
-          "detail": "https://todo.lootopia.io → HTTP 404",
+          "detail": "https://todo.lootopia.io → HTTP 403",
           "points": 10,
           "label": "App deployed (HTTP 200)",
           "category": "intermediate"
@@ -464,7 +464,7 @@
         },
         "multi_env": {
           "pass": false,
-          "detail": "Staging https://pp-todo.lootopia.io → HTTP 404",
+          "detail": "Staging https://pp-todo.lootopia.io → HTTP 403",
           "points": 10,
           "label": "Multiple environments",
           "category": "advanced"
